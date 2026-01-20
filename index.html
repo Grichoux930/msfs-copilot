@@ -1,523 +1,499 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MSFS CoPilot — Assistant de vol pour MSFS 2024</title>
-  <meta name="description" content="MSFS CoPilot : fréquences ATC, checklists, navigation VFR/IFR, météo et phraséologie, avec intégration SayIntentions.AI (locale).">
-  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="MSFS CoPilot : assistant de vol pour Microsoft Flight Simulator 2024. Checklists, navigation, fréquences, intégration SayIntentions (IA locale), interface claire et rapide." />
 
   <style>
     :root{
-      --bg0:#070A12;
-      --bg1:#0A1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --line: rgba(255,255,255,.12);
-      --text:#EAF0FF;
-      --muted:#9FB0D0;
-      --accent:#4CC9F0; /* cyan */
-      --accent2:#7C5CFF; /* violet */
-      --btn:#1B2647;
-      --btn2:#23325C;
-      --shadow: 0 20px 80px rgba(0,0,0,.55);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1160px;
+      --bg1:#041a26;
+      --bg2:#0b0f14;
+      --card:#0b1220cc;
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.14);
+      --text:#e6eef2;
+      --muted:#b7c6d2;
+      --accent:#5be2ff;
+      --accent2:#2b93ff;
+      --shadow: 0 24px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:22px;
+      --max:1100px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
-        radial-gradient(900px 500px at 75% -15%, rgba(76,201,240,.28), transparent 60%),
-        radial-gradient(800px 500px at 40% 110%, rgba(124,92,255,.20), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
       color:var(--text);
+      background:
+        radial-gradient(900px 520px at 30% 0%, rgba(91,226,255,.14), transparent 60%),
+        radial-gradient(900px 520px at 80% 10%, rgba(43,147,255,.14), transparent 60%),
+        radial-gradient(circle at top, var(--bg1), var(--bg2));
       overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:24px 22px 70px}
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,10,18,.55);
-      border-bottom:1px solid rgba(255,255,255,.08);
+    a{ color:inherit; text-decoration:none; }
+    .container{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 70px;
     }
-    .topbar .inner{max-width:var(--max); margin:0 auto; padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px}
-    .brand{display:flex; align-items:center; gap:12px; min-width:260px}
-    .brand img{
-      width:54px; height:54px; object-fit:contain;
-      filter: drop-shadow(0 10px 22px rgba(0,0,0,.45));
-    }
-    .brand .name{font-weight:800; letter-spacing:.2px; font-size:18px}
-    .brand .tag{font-size:12px; color:var(--muted); margin-top:2px}
-    .brand .stack{display:flex; flex-direction:column; line-height:1.05}
 
-    nav{display:flex; align-items:center; gap:18px}
-    nav a{
-      color:rgba(234,240,255,.72);
-      font-weight:600;
-      font-size:14px;
-      padding:10px 10px;
-      border-radius:12px;
+    /* Top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 16px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
-    nav a:hover{background:rgba(255,255,255,.06); color:rgba(234,240,255,.9)}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+    .brand img{
+      width:72px;   /* LOGO GROS */
+      height:72px;
+      object-fit:contain;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.55));
+    }
+    .brand .titles{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+      min-width:0;
+    }
+    .brand .titles .name{
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:18px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand .titles .tag{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12.5px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .pillrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      background: rgba(0,0,0,.20);
+      font-size:12.5px;
+      color:var(--muted);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 18px rgba(91,226,255,.6);
+      display:inline-block;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      padding:26px 22px;
+      border:1px solid var(--stroke);
+      border-radius:var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:40px;
+      letter-spacing:.2px;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.5;
+      max-width:76ch;
+    }
     .cta{
-      display:flex; align-items:center; gap:10px;
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--stroke2);
+      background: rgba(0,0,0,.25);
       color:var(--text);
-      font-weight:800;
-      font-size:14px;
+      font-weight:650;
+      font-size:13.5px;
       cursor:pointer;
     }
     .btn.primary{
-      border:1px solid rgba(255,255,255,.0);
-      background: linear-gradient(135deg, rgba(76,201,240,.95), rgba(124,92,255,.95));
-      color:#06101B;
-      box-shadow: 0 18px 45px rgba(76,201,240,.18);
-    }
-    .btn.primary:hover{filter:brightness(1.03)}
-    .btn:hover{background: rgba(255,255,255,.09)}
-
-    /* HERO */
-    .hero{padding:56px 0 14px}
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap:26px;
-      align-items:center;
-    }
-    h1{
-      margin:0 0 14px;
-      font-size: clamp(44px, 5vw, 72px);
-      line-height:1.03;
-      letter-spacing:-.6px;
-    }
-    .grad{
-      background: linear-gradient(90deg, var(--accent), rgba(124,92,255,.92));
-      -webkit-background-clip:text; background-clip:text;
-      color:transparent;
-    }
-    .lead{
-      color:rgba(234,240,255,.72);
-      font-size:18px;
-      line-height:1.55;
-      margin:0 0 22px;
-      max-width: 62ch;
-    }
-    .chips{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 22px}
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color:rgba(234,240,255,.78);
-      font-weight:700;
-      font-size:13px;
+      border-color: rgba(91,226,255,.35);
+      background: linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
     }
 
-    .heroActions{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-    .support{
-      margin-top:14px;
-      color:rgba(159,176,208,.9);
-      font-size:14px;
-    }
-    .support strong{color:rgba(234,240,255,.85)}
-
-    /* mock */
-    .mock{
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .mockTop{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.12);
-    }
-    .dots{display:flex; gap:7px}
-    .dot{width:10px; height:10px; border-radius:50%}
-    .dot.r{background:#FF5F57}
-    .dot.y{background:#FEBB2E}
-    .dot.g{background:#28C840}
-    .mockTitle{color:rgba(234,240,255,.72); font-weight:800}
-    .mockBody{
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap:0;
-      min-height: 320px;
-    }
-    .pane{
-      padding:18px 18px 16px;
-      border-right:1px solid rgba(255,255,255,.08);
-    }
-    .pane:last-child{border-right:none}
-    .pane h3{
-      margin:0 0 12px;
-      font-size:16px; letter-spacing:.2px;
-    }
-    .bar{height:10px; border-radius:999px; background: rgba(255,255,255,.08); margin:10px 0}
-    .pillRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color:rgba(234,240,255,.8);
-      font-weight:800;
-      font-size:13px;
-    }
-    .pill.live{border:none; background: rgba(76,201,240,.18); color: rgba(234,240,255,.92)}
-    .mockNote{
-      padding:14px 16px;
-      border-top:1px solid rgba(255,255,255,.08);
-      color:rgba(159,176,208,.92);
-    }
-
-    /* sections */
-    section{margin-top:56px}
-    .sectionTitle{font-size:34px; margin:0 0 8px; letter-spacing:-.2px}
-    .sectionDesc{margin:0 0 18px; color:rgba(234,240,255,.68); font-size:16px; line-height:1.55}
-
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-    .card{
-      padding:18px 18px 16px;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-    }
-    .card h4{margin:0 0 10px; font-size:18px}
-    .card p{margin:0 0 14px; color:rgba(234,240,255,.68); line-height:1.55}
-    .card ul{margin:0; padding-left:18px; color:rgba(234,240,255,.78)}
-    .card li{margin:8px 0}
-
-    .pricing{
-      display:grid; grid-template-columns: 1.1fr .9fr; gap:16px;
-      align-items:start;
-    }
-    .priceBox{
+    /* Section */
+    .section{
+      margin-top:22px;
       padding:22px;
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid var(--stroke);
+      border-radius:var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.10));
       box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
-    .price{
-      font-size:46px; font-weight:900; letter-spacing:-.6px;
-      margin:8px 0 8px;
+    .section h2{
+      margin:0 0 8px;
+      font-size:30px;
     }
-    .small{color:rgba(234,240,255,.65)}
-    .fine{color:rgba(159,176,208,.9); font-size:14px; line-height:1.5}
-    .divider{height:1px; background:rgba(255,255,255,.10); margin:18px 0}
-    .faq{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    details{
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding:14px 14px;
+    .section .desc{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
     }
-    summary{cursor:pointer; font-weight:800}
-    details p{color:rgba(234,240,255,.68); line-height:1.55}
 
-    footer{
-      margin-top:64px;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,.10);
-      color:rgba(159,176,208,.85);
-      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    /* Feature cards */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+      margin-top:12px;
+    }
+    .card{
+      border:1px solid var(--stroke);
+      border-radius:var(--radius2);
+      background: rgba(0,0,0,.22);
+      padding:16px 16px 14px;
+      box-shadow: 0 16px 34px rgba(0,0,0,.35);
+      min-height:190px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:20px;
+    }
+    .card p{
+      margin:0 0 10px;
+      color:var(--muted);
+      line-height:1.55;
       font-size:14px;
     }
+    .bul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .bul li{ margin:4px 0; }
+    .bul li::marker{ color: var(--accent); }
 
-    /* responsive */
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .shot{
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      overflow:hidden;
+      background: rgba(0,0,0,.25);
+      box-shadow: 0 16px 34px rgba(0,0,0,.35);
+    }
+    .shot img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      display:block;
+    }
+    .shot .cap{
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--muted);
+      border-top:1px solid var(--stroke);
+      background: rgba(0,0,0,.20);
+    }
+
+    /* Install */
+    .two{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .box{
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      padding:16px;
+      background: rgba(0,0,0,.20);
+    }
+    .box h3{ margin:0 0 10px; font-size:18px; }
+    ol{ margin:0; padding-left:20px; color:var(--muted); line-height:1.8; }
+    .note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.6;
+    }
+    .hash{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:12.5px;
+      padding:12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color:#cfe6ef;
+      overflow:auto;
+    }
+
+    /* Footer */
+    footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(230,238,242,.55);
+      font-size:12.5px;
+    }
+
+    /* Responsive */
     @media (max-width: 980px){
-      .heroGrid{grid-template-columns:1fr; }
-      .mockBody{grid-template-columns:1fr}
-      .pane{border-right:none; border-bottom:1px solid rgba(255,255,255,.08)}
-      .pane:last-child{border-bottom:none}
-      .cards{grid-template-columns:1fr}
-      .pricing{grid-template-columns:1fr}
-      .faq{grid-template-columns:1fr}
-      nav{display:none}
-      .brand{min-width:auto}
+      .grid3{ grid-template-columns: 1fr; }
+      .gallery{ grid-template-columns: 1fr; }
+      .two{ grid-template-columns: 1fr; }
+      h1{ font-size:34px; }
+      .brand img{ width:64px; height:64px; }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="inner">
-      <a class="brand" href="#top" aria-label="MSFS CoPilot">
-        <img src="assets/logo.png" alt="Logo MSFS CoPilot">
-        <div class="stack">
+  <div class="container">
+
+    <!-- TOP BAR -->
+    <div class="top">
+      <div class="brand">
+        <!-- Ton logo est à la racine => logo.png -->
+        <img src="./logo.png" alt="Logo MSFS CoPilot" />
+        <div class="titles">
           <div class="name">MSFS CoPilot</div>
-          <div class="tag">Assistant de vol — MSFS 2024</div>
+          <div class="tag">Assistant de vol — Checklists, navigation, fréquences — Intégration SayIntentions (IA locale)</div>
         </div>
-      </a>
+      </div>
 
-      <nav aria-label="Navigation">
-        <a href="#fonctions">Fonctions</a>
-        <a href="#tarifs">Tarification</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <div class="cta">
-        <a class="btn" href="#fonctions">Voir les fonctions</a>
-        <a class="btn primary" href="#telecharger">Télécharger</a>
+      <div class="pillrow">
+        <div class="pill"><span class="dot"></span> MSFS 2024</div>
+        <div class="pill">Offline-friendly</div>
+        <div class="pill">Windows</div>
       </div>
     </div>
-  </header>
 
-  <main id="top" class="wrap">
-    <section class="hero">
-      <div class="heroGrid">
-        <div>
-          <h1>
-            <span class="grad">Assistant de vol</span><br>
-            pour MSFS 2024
-          </h1>
-
-          <p class="lead">
-            Fréquences ATC, checklists, navigation VFR/IFR, météo et phraséologie.
-            Intégration <strong>SayIntentions.AI</strong> (locale) pour une utilisation rapide en cockpit.
-          </p>
-
-          <div class="heroActions">
-            <a class="btn primary" href="#telecharger">Télécharger (Windows)</a>
-            <a class="btn" href="#fonctions">Découvrir les fonctions</a>
-          </div>
-
-          <div class="chips" aria-label="Points clés">
-            <span class="chip">Cockpit-ready</span>
-            <span class="chip">Offline-friendly</span>
-            <span class="chip">SayIntentions.AI</span>
-            <span class="chip">VFR & IFR</span>
-          </div>
-
-          <div class="support">
-            Support : <strong>support@msfscopilot.com</strong>
-          </div>
-        </div>
-
-        <div class="mock" aria-label="Aperçu de l’application (mock)">
-          <div class="mockTop">
-            <div class="dots" aria-hidden="true">
-              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-            </div>
-            <div class="mockTitle">Aperçu (mock)</div>
-            <div style="width:28px"></div>
-          </div>
-          <div class="mockBody">
-            <div class="pane">
-              <h3>ATC & Fréquences</h3>
-              <div class="bar"></div>
-              <div class="bar"></div>
-              <div class="bar" style="width:70%"></div>
-
-              <div class="pillRow">
-                <span class="pill live">Live</span>
-                <span class="pill">ATIS</span>
-                <span class="pill">Ground</span>
-                <span class="pill">Tower</span>
-                <span class="pill">Approach</span>
-              </div>
-            </div>
-            <div class="pane">
-              <h3>Navigation & Météo</h3>
-              <div class="bar" style="height:140px;border-radius:14px"></div>
-              <div class="pillRow">
-                <span class="pill">Plan</span>
-                <span class="pill">METAR</span>
-                <span class="pill">TAF</span>
-                <span class="pill">Runways</span>
-              </div>
-            </div>
-          </div>
-          <div class="mockNote">Remplace ce mock par tes captures d’écran plus tard.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="fonctions">
-      <h2 class="sectionTitle">Fonctions</h2>
-      <p class="sectionDesc">
-        Une interface claire, pensée pour réduire les manipulations en vol et améliorer la charge de travail en cockpit.
+    <!-- HERO -->
+    <div class="hero" id="top">
+      <h1>Moins de clics. Plus de vol.</h1>
+      <p class="lead">
+        MSFS CoPilot regroupe tes outils essentiels dans une interface claire, pensée pour réduire les manipulations en cockpit.
+        Conçu pour rester lisible même en charge de travail élevée.
       </p>
+      <div class="cta">
+        <a class="btn primary" href="#captures">Voir les captures</a>
+        <a class="btn" href="#fonctions">Fonctions</a>
+        <a class="btn" href="#installation">Installation</a>
+      </div>
+    </div>
 
-      <div class="cards">
-        <article class="card">
-          <h4>ATC & Fréquences</h4>
-          <p>Accès rapide aux fréquences par aéroport, organisation par service (ATIS, Ground, Tower, Approach, Center) et favoris.</p>
-          <ul>
+    <!-- FEATURES -->
+    <section class="section" id="fonctions">
+      <h2>Fonctions</h2>
+      <p class="desc">Une interface claire, pensée pour réduire les manipulations pendant le vol.</p>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>ATC &amp; fréquences</h3>
+          <p>
+            Accès rapide aux fréquences par aéroport, organisation par service (ATIS, Ground, Tower, Approach, Center) et favoris
+            pour réduire les manipulations en vol.
+          </p>
+          <ul class="bul">
             <li>Recherche par aéroport</li>
             <li>Organisation par service</li>
-            <li>Favoris & récents</li>
+            <li>Favoris et récents</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="card">
-          <h4>Checklists</h4>
-          <p>Checklists structurées par phases de vol, lisibles et utilisables en charge de travail élevée.</p>
-          <ul>
-            <li>Phases de vol (avant départ → approche)</li>
-            <li>Affichage rapide et clair</li>
+        <div class="card">
+          <h3>Checklists</h3>
+          <p>
+            Checklists structurées par phase de vol. Affichage clair, conçu pour rester lisible même en charge de travail élevée.
+          </p>
+          <ul class="bul">
+            <li>Phases de vol (avant départ à l’approche)</li>
+            <li>Affichage rapide et lisible</li>
             <li>Support multi-avions (option)</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="card">
-          <h4>Météo, phraséologie & IA (locale)</h4>
-          <p>Météo (METAR/TAF), aide à la phraséologie et intégration SayIntentions.AI en local selon ta configuration.</p>
-          <ul>
-            <li>Météo : METAR / TAF</li>
-            <li>Phraséologie et aide radio</li>
-            <li>Intégration SayIntentions.AI (locale)</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="telecharger">
-      <h2 class="sectionTitle">Téléchargement</h2>
-      <p class="sectionDesc">Choisis la version qui te convient. Les liens seront remplacés par tes fichiers (GitHub Releases, Cloudflare R2, etc.).</p>
-
-      <div class="pricing">
-        <div class="priceBox">
-          <div class="small">Licence</div>
-          <div class="price">29,99&nbsp;USD</div>
-          <div class="small">par utilisateur • Paiement sécurisé</div>
-
-          <div class="divider"></div>
-
-          <div style="display:flex; gap:12px; flex-wrap:wrap">
-            <a class="btn primary" href="#" aria-label="Télécharger l’installateur">Télécharger l’installateur</a>
-            <a class="btn" href="#" aria-label="Télécharger la version portable">Télécharger le ZIP</a>
-          </div>
-
-          <p class="fine" style="margin-top:14px">
-            Astuce : une signature de code (plus tard) réduit fortement les alertes SmartScreen.
+        <div class="card">
+          <h3>Navigation &amp; offline</h3>
+          <p>
+            Outils de navigation et données accessibles rapidement. Mode offline-friendly selon la configuration et les modules actifs.
           </p>
-        </div>
-
-        <div class="priceBox">
-          <div class="small">Configuration requise</div>
-          <div class="divider"></div>
-          <ul style="margin:0; padding-left:18px; color:rgba(234,240,255,.78); line-height:1.7">
-            <li>Windows 10/11 (64-bit)</li>
-            <li>Microsoft Flight Simulator 2024</li>
-            <li>Connexion Internet : optionnelle selon les fonctions utilisées</li>
+          <ul class="bul">
+            <li>Accès rapide aux infos utiles</li>
+            <li>Mode offline-friendly</li>
+            <li>Évolution continue</li>
           </ul>
-
-          <div class="divider"></div>
-          <div class="small">Vérification (optionnel)</div>
-          <p class="fine" style="margin:10px 0 8px">Tu peux publier un hash SHA-256 pour rassurer les utilisateurs.</p>
-          <div style="padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)">
-            <div class="small">SHA-256 (exe)</div>
-            <div style="font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin-top:6px; color:rgba(76,201,240,.95)">
-              À ajouter ici
-            </div>
-          </div>
         </div>
-      </div>
-
-      <div class="priceBox" style="margin-top:16px">
-        <h3 style="margin:0 0 10px">Installation (Windows)</h3>
-        <ol style="margin:0; padding-left:18px; color:rgba(234,240,255,.78); line-height:1.7">
-          <li>Télécharge l’installateur.</li>
-          <li>Si Windows SmartScreen apparaît : <strong>Informations complémentaires</strong> → <strong>Exécuter quand même</strong>.</li>
-          <li>Lance MSFS CoPilot et configure tes préférences.</li>
-        </ol>
       </div>
     </section>
 
-    <section id="tarifs">
-      <h2 class="sectionTitle">Tarification</h2>
-      <p class="sectionDesc">
-        Positionnement simple, à la manière des outils cockpit : une licence par utilisateur, mise à jour selon ton modèle (à définir).
+    <!-- SAYINTENTIONS -->
+    <section class="section" id="sayintentions">
+      <h2>SayIntentions (IA locale)</h2>
+      <p class="desc">
+        Intégration dédiée pour tes besoins ATIS/fréquences et workflow cockpit — sans détour. (Météo/phraseologie : on n’en parle pas ici si tu ne veux pas.)
       </p>
 
-      <div class="cards">
-        <article class="card">
-          <h4>Licence Standard</h4>
-          <p>Accès à l’app et aux fonctions principales (ATC, checklists, navigation).</p>
-          <ul>
-            <li>29,99 USD</li>
-            <li>Mises à jour : à définir</li>
-            <li>Support par e-mail</li>
+      <div class="grid3">
+        <div class="card">
+          <h3>ATIS / infos utiles</h3>
+          <p>Affichage clair et actions rapides pour copier, rafraîchir et garder le focus sur le vol.</p>
+          <ul class="bul">
+            <li>Lecture rapide</li>
+            <li>Actions en un clic</li>
+            <li>Interface lisible</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="card">
-          <h4>Option Pro (plus tard)</h4>
-          <p>Modules avancés (ex.: profils avion, intégrations, workflows IFR).</p>
-          <ul>
-            <li>Prix : à définir</li>
-            <li>Fonctions avancées</li>
-            <li>Accès prioritaire aux nouveautés</li>
+        <div class="card">
+          <h3>Fréquences &amp; services</h3>
+          <p>Liste des services (ATIS, Ground, Tower, etc.) avec favoris et récents.</p>
+          <ul class="bul">
+            <li>Favoris</li>
+            <li>Récents</li>
+            <li>Organisation par service</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="card">
-          <h4>Entreprise / École</h4>
-          <p>Licences multi-postes et déploiement simplifié.</p>
-          <ul>
-            <li>Prix sur demande</li>
-            <li>Support dédié</li>
-            <li>Pack installation</li>
+        <div class="card">
+          <h3>Offline-friendly</h3>
+          <p>Si une source n’est pas disponible, l’app garde une expérience cohérente selon ta configuration.</p>
+          <ul class="bul">
+            <li>Fallback propre</li>
+            <li>Modules activables</li>
+            <li>Expérience stable</li>
           </ul>
-        </article>
+        </div>
       </div>
     </section>
 
-    <section id="faq">
-      <h2 class="sectionTitle">FAQ</h2>
-      <p class="sectionDesc">Réponses rapides aux questions les plus fréquentes.</p>
+    <!-- SCREENSHOTS -->
+    <section class="section" id="captures">
+      <h2>Captures d’écran</h2>
+      <p class="desc">Tes dernières captures (fichiers à la racine du dépôt). Clique pour ouvrir l’image en grand.</p>
 
-      <div class="faq">
-        <details>
-          <summary>Est-ce que je peux vendre au Canada et aux États-Unis ?</summary>
-          <p>Oui. Ton site peut vendre en USD et accepter des paiements internationaux. Les taxes/TVQ/TPS dépendent de ton modèle et de tes obligations.</p>
-        </details>
+      <div class="gallery">
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture 190312" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:03:12</div>
+        </a>
 
-        <details>
-          <summary>Comment gérer le paiement (Stripe) ?</summary>
-          <p>Stripe est une bonne option pour démarrer. Tu peux intégrer un lien de paiement ou un checkout complet. Les frais varient selon le pays et le type de carte.</p>
-        </details>
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture 190350" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:03:50</div>
+        </a>
 
-        <details>
-          <summary>SayIntentions.AI : c’est intégré comment ?</summary>
-          <p>L’intégration peut être locale (selon tes modules) : lancement/liaison depuis l’app, ou ouverture directe vers le service. On l’écrit clairement sur le site sans promettre plus que ce qui est livré.</p>
-        </details>
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture 190412" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:04:12</div>
+        </a>
 
-        <details>
-          <summary>Pourquoi Windows affiche SmartScreen ?</summary>
-          <p>C’est courant pour une nouvelle app non signée. Une signature de code (certificat) réduit fortement ces alertes.</p>
-        </details>
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture 190502" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:05:02</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture 190523" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:05:23</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture 190618" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:06:18</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture 190628" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:06:28</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture 190654" />
+          <div class="cap">Capture d’écran — 2026-01-19 19:06:54</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="section" id="installation">
+      <h2>Installation (Windows)</h2>
+      <p class="desc">Étapes simples, sans jargon.</p>
+
+      <div class="two">
+        <div class="box">
+          <h3>Étapes</h3>
+          <ol>
+            <li>Télécharge l’installateur.</li>
+            <li>Si Windows SmartScreen apparaît : <strong>Informations complémentaires</strong> → <strong>Exécuter quand même</strong>.</li>
+            <li>Lance MSFS CoPilot et configure tes préférences.</li>
+          </ol>
+          <div class="note">
+            Astuce : une signature de code (plus tard) réduit fortement les alertes SmartScreen.
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Vérification (optionnel)</h3>
+          <div class="note">
+            Tu peux publier un hash SHA-256 pour rassurer les utilisateurs.
+          </div>
+          <div class="hash">SHA-256 (exe)\nÀ ajouter ici</div>
+        </div>
       </div>
     </section>
 
     <footer>
-      <div>© <span id="y"></span> MSFS CoPilot • Tous droits réservés</div>
-      <div>Support : support@msfscopilot.com</div>
+      © MSFS CoPilot — Site hébergé sur GitHub Pages.
     </footer>
-  </main>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  </div>
 </body>
 </html>
