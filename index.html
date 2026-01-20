@@ -2,498 +2,227 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MSFS CoPilot — Assistant de vol pour MSFS 2024</title>
-  <meta name="description" content="MSFS CoPilot : assistant de vol pour Microsoft Flight Simulator 2024. Checklists, navigation, fréquences, intégration SayIntentions (IA locale), interface claire et rapide." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSFS CoPilot — Assistant cockpit MSFS 2024</title>
+  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024. ATC & fréquences, checklists, navigation, intégration SayIntentions (IA locale)." />
 
   <style>
     :root{
-      --bg1:#041a26;
-      --bg2:#0b0f14;
-      --card:#0b1220cc;
+      --bg0:#070b12;
+      --bg1:#071a26;
+      --card:rgba(10,18,32,.72);
       --stroke:rgba(255,255,255,.10);
-      --stroke2:rgba(255,255,255,.14);
-      --text:#e6eef2;
-      --muted:#b7c6d2;
+      --text:#e8f0f4;
+      --muted:#b6c7d3;
       --accent:#5be2ff;
       --accent2:#2b93ff;
-      --shadow: 0 24px 60px rgba(0,0,0,.55);
-      --radius:18px;
-      --radius2:22px;
+      --shadow: 0 20px 50px rgba(0,0,0,.55);
+      --r:18px;
       --max:1100px;
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 520px at 30% 0%, rgba(91,226,255,.14), transparent 60%),
-        radial-gradient(900px 520px at 80% 10%, rgba(43,147,255,.14), transparent 60%),
-        radial-gradient(circle at top, var(--bg1), var(--bg2));
+        radial-gradient(900px 540px at 30% 0%, rgba(91,226,255,.14), transparent 60%),
+        radial-gradient(900px 540px at 80% 10%, rgba(43,147,255,.12), transparent 60%),
+        radial-gradient(circle at top, var(--bg1), var(--bg0));
       overflow-x:hidden;
     }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
 
-    a{ color:inherit; text-decoration:none; }
-    .container{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:28px 18px 70px;
-    }
-
-    /* Top bar */
+    /* Top */
     .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:12px 14px;
       border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius:var(--radius2);
-      box-shadow: var(--shadow);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
       backdrop-filter: blur(10px);
+      position:sticky; top:12px; z-index:20;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
-    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .brand img{
-      width:72px;   /* LOGO GROS */
-      height:72px;
-      object-fit:contain;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.55));
+      width:54px; height:54px; object-fit:contain;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
     }
-    .brand .titles{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-      min-width:0;
+    .brand .t{display:flex; flex-direction:column; min-width:0;}
+    .brand .name{font-weight:800; letter-spacing:.2px; line-height:1.1}
+    .brand .sub{color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
+    .nav a:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
+      background:rgba(0,0,0,.22); font-weight:700; font-size:13px;
     }
-    .brand .titles .name{
-      font-weight:800;
-      letter-spacing:.3px;
-      font-size:18px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand .titles .tag{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:12.5px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .pillrow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border:1px solid var(--stroke);
-      border-radius:999px;
-      background: rgba(0,0,0,.20);
-      font-size:12.5px;
-      color:var(--muted);
-    }
-    .dot{
-      width:8px;height:8px;border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 0 18px rgba(91,226,255,.6);
-      display:inline-block;
+    .btn.primary{
+      border-color:rgba(91,226,255,.35);
+      background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
     }
 
     /* Hero */
     .hero{
-      margin-top:18px;
-      padding:26px 22px;
-      border:1px solid var(--stroke);
-      border-radius:var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    h1{
-      margin:0 0 10px;
-      font-size:40px;
-      letter-spacing:.2px;
-    }
-    .lead{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.5;
-      max-width:76ch;
-    }
-    .cta{
       margin-top:16px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px solid var(--stroke2);
-      background: rgba(0,0,0,.25);
-      color:var(--text);
-      font-weight:650;
-      font-size:13.5px;
-      cursor:pointer;
-    }
-    .btn.primary{
-      border-color: rgba(91,226,255,.35);
-      background: linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
-    }
-
-    /* Section */
-    .section{
-      margin-top:22px;
-      padding:22px;
-      border:1px solid var(--stroke);
-      border-radius:var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.10));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .section h2{
-      margin:0 0 8px;
-      font-size:30px;
-    }
-    .section .desc{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.6;
-    }
-
-    /* Feature cards */
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:16px;
-      margin-top:12px;
-    }
-    .card{
-      border:1px solid var(--stroke);
-      border-radius:var(--radius2);
-      background: rgba(0,0,0,.22);
-      padding:16px 16px 14px;
-      box-shadow: 0 16px 34px rgba(0,0,0,.35);
-      min-height:190px;
-    }
-    .card h3{
-      margin:0 0 10px;
-      font-size:20px;
-    }
-    .card p{
-      margin:0 0 10px;
-      color:var(--muted);
-      line-height:1.55;
-      font-size:14px;
-    }
-    .bul{
-      margin:10px 0 0;
-      padding-left:18px;
-      color:var(--muted);
-      line-height:1.7;
-    }
-    .bul li{ margin:4px 0; }
-    .bul li::marker{ color: var(--accent); }
-
-    /* Gallery */
-    .gallery{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:14px;
-      margin-top:14px;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      padding:20px;
+    }
+    h1{margin:0 0 10px; font-size:44px; letter-spacing:.2px; line-height:1.05}
+    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:60ch;}
+    .tags{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+    .tag{
+      font-size:12.5px; color:var(--muted);
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
+      padding:7px 10px; border-radius:999px;
+    }
+    .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+
+    /* Screens */
+    .screens{
+      padding:14px;
+      display:grid;
+      gap:12px;
     }
     .shot{
       border:1px solid var(--stroke);
       border-radius:18px;
       overflow:hidden;
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 16px 34px rgba(0,0,0,.35);
+      background:rgba(0,0,0,.22);
+      box-shadow: 0 14px 34px rgba(0,0,0,.38);
     }
-    .shot img{
-      width:100%;
-      height:260px;
-      object-fit:cover;
-      display:block;
-    }
-    .shot .cap{
-      padding:10px 12px;
-      font-size:13px;
+    .shot img{display:block; width:100%; height:260px; object-fit:cover;}
+    .cap{
+      padding:9px 11px;
       color:var(--muted);
+      font-size:12.8px;
       border-top:1px solid var(--stroke);
-      background: rgba(0,0,0,.20);
+      background:rgba(0,0,0,.18);
     }
 
-    /* Install */
-    .two{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:14px;
-      margin-top:14px;
-    }
-    .box{
+    /* Section */
+    .section{margin-top:16px;}
+    .section h2{margin:0 0 10px; font-size:26px;}
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+    .card{
       border:1px solid var(--stroke);
       border-radius:18px;
-      padding:16px;
-      background: rgba(0,0,0,.20);
+      background:rgba(0,0,0,.20);
+      padding:14px;
     }
-    .box h3{ margin:0 0 10px; font-size:18px; }
-    ol{ margin:0; padding-left:20px; color:var(--muted); line-height:1.8; }
-    .note{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:13.5px;
-      line-height:1.6;
-    }
-    .hash{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size:12.5px;
-      padding:12px;
-      border-radius:14px;
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.25);
-      color:#cfe6ef;
-      overflow:auto;
-    }
+    .card h3{margin:0 0 8px; font-size:17px}
+    .card p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.55}
 
-    /* Footer */
-    footer{
-      margin-top:18px;
-      text-align:center;
-      color:rgba(230,238,242,.55);
-      font-size:12.5px;
-    }
+    footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
 
-    /* Responsive */
     @media (max-width: 980px){
-      .grid3{ grid-template-columns: 1fr; }
-      .gallery{ grid-template-columns: 1fr; }
-      .two{ grid-template-columns: 1fr; }
-      h1{ font-size:34px; }
-      .brand img{ width:64px; height:64px; }
+      .hero{grid-template-columns:1fr;}
+      .grid3{grid-template-columns:1fr;}
+      h1{font-size:36px;}
+      .shot img{height:220px;}
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="wrap">
 
-    <!-- TOP BAR -->
     <div class="top">
       <div class="brand">
-        <!-- Ton logo est à la racine => logo.png -->
-        <img src="./logo.png" alt="Logo MSFS CoPilot" />
-        <div class="titles">
+        <img src="logo.png" alt="Logo MSFS CoPilot" />
+        <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <div class="tag">Assistant de vol — Checklists, navigation, fréquences — Intégration SayIntentions (IA locale)</div>
+          <div class="sub">Assistant cockpit — MSFS 2024 • SayIntentions (IA locale)</div>
         </div>
       </div>
 
-      <div class="pillrow">
-        <div class="pill"><span class="dot"></span> MSFS 2024</div>
-        <div class="pill">Offline-friendly</div>
-        <div class="pill">Windows</div>
-      </div>
-    </div>
-
-    <!-- HERO -->
-    <div class="hero" id="top">
-      <h1>Moins de clics. Plus de vol.</h1>
-      <p class="lead">
-        MSFS CoPilot regroupe tes outils essentiels dans une interface claire, pensée pour réduire les manipulations en cockpit.
-        Conçu pour rester lisible même en charge de travail élevée.
-      </p>
-      <div class="cta">
-        <a class="btn primary" href="#captures">Voir les captures</a>
-        <a class="btn" href="#fonctions">Fonctions</a>
-        <a class="btn" href="#installation">Installation</a>
+      <div class="nav">
+        <a href="#captures">Captures</a>
+        <a href="#fonctions">Fonctions</a>
+        <a class="btn" href="#download">Voir</a>
+        <a class="btn primary" href="#download">Télécharger</a>
       </div>
     </div>
 
-    <!-- FEATURES -->
-    <section class="section" id="fonctions">
-      <h2>Fonctions</h2>
-      <p class="desc">Une interface claire, pensée pour réduire les manipulations pendant le vol.</p>
+    <div class="hero">
+      <div class="panel">
+        <h1>Assistant cockpit<br/>pour MSFS 2024</h1>
+        <p class="lead">
+          Une interface simple et rapide pour tes tâches cockpit : fréquences ATC, checklists,
+          navigation, et intégration SayIntentions (IA locale) — pensé pour réduire les clics en vol.
+        </p>
 
-      <div class="grid3">
-        <div class="card">
-          <h3>ATC &amp; fréquences</h3>
-          <p>
-            Accès rapide aux fréquences par aéroport, organisation par service (ATIS, Ground, Tower, Approach, Center) et favoris
-            pour réduire les manipulations en vol.
-          </p>
-          <ul class="bul">
-            <li>Recherche par aéroport</li>
-            <li>Organisation par service</li>
-            <li>Favoris et récents</li>
-          </ul>
+        <div class="tags">
+          <span class="tag">Cockpit-ready</span>
+          <span class="tag">Offline-friendly</span>
+          <span class="tag">SayIntentions (local)</span>
+          <span class="tag">VFR & IFR</span>
         </div>
 
-        <div class="card">
-          <h3>Checklists</h3>
-          <p>
-            Checklists structurées par phase de vol. Affichage clair, conçu pour rester lisible même en charge de travail élevée.
-          </p>
-          <ul class="bul">
-            <li>Phases de vol (avant départ à l’approche)</li>
-            <li>Affichage rapide et lisible</li>
-            <li>Support multi-avions (option)</li>
-          </ul>
+        <div class="cta" id="download">
+          <a class="btn primary" href="#">Télécharger (Windows)</a>
+          <a class="btn" href="#captures">Voir les captures</a>
         </div>
 
-        <div class="card">
-          <h3>Navigation &amp; offline</h3>
-          <p>
-            Outils de navigation et données accessibles rapidement. Mode offline-friendly selon la configuration et les modules actifs.
-          </p>
-          <ul class="bul">
-            <li>Accès rapide aux infos utiles</li>
-            <li>Mode offline-friendly</li>
-            <li>Évolution continue</li>
-          </ul>
-        </div>
+        <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
+          Support : support@msfscopilot.com
+        </p>
       </div>
-    </section>
 
-    <!-- SAYINTENTIONS -->
-    <section class="section" id="sayintentions">
-      <h2>SayIntentions (IA locale)</h2>
-      <p class="desc">
-        Intégration dédiée pour tes besoins ATIS/fréquences et workflow cockpit — sans détour. (Météo/phraseologie : on n’en parle pas ici si tu ne veux pas.)
-      </p>
-
-      <div class="grid3">
-        <div class="card">
-          <h3>ATIS / infos utiles</h3>
-          <p>Affichage clair et actions rapides pour copier, rafraîchir et garder le focus sur le vol.</p>
-          <ul class="bul">
-            <li>Lecture rapide</li>
-            <li>Actions en un clic</li>
-            <li>Interface lisible</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Fréquences &amp; services</h3>
-          <p>Liste des services (ATIS, Ground, Tower, etc.) avec favoris et récents.</p>
-          <ul class="bul">
-            <li>Favoris</li>
-            <li>Récents</li>
-            <li>Organisation par service</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Offline-friendly</h3>
-          <p>Si une source n’est pas disponible, l’app garde une expérience cohérente selon ta configuration.</p>
-          <ul class="bul">
-            <li>Fallback propre</li>
-            <li>Modules activables</li>
-            <li>Expérience stable</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- SCREENSHOTS -->
-    <section class="section" id="captures">
-      <h2>Captures d’écran</h2>
-      <p class="desc">Tes dernières captures (fichiers à la racine du dépôt). Clique pour ouvrir l’image en grand.</p>
-
-      <div class="gallery">
+      <div class="panel screens" id="captures">
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture 190312" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:03:12</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture 190312">
+          <div class="cap">Capture — 2026-01-19 19:03:12</div>
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture 190350" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:03:50</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture 190350">
+          <div class="cap">Capture — 2026-01-19 19:03:50</div>
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture 190412" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:04:12</div>
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture 190502" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:05:02</div>
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture 190523" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:05:23</div>
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture 190618" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:06:18</div>
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture 190628" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:06:28</div>
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture 190654" />
-          <div class="cap">Capture d’écran — 2026-01-19 19:06:54</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture 190412">
+          <div class="cap">Capture — 2026-01-19 19:04:12</div>
         </a>
       </div>
-    </section>
+    </div>
 
-    <!-- INSTALL -->
-    <section class="section" id="installation">
-      <h2>Installation (Windows)</h2>
-      <p class="desc">Étapes simples, sans jargon.</p>
-
-      <div class="two">
-        <div class="box">
-          <h3>Étapes</h3>
-          <ol>
-            <li>Télécharge l’installateur.</li>
-            <li>Si Windows SmartScreen apparaît : <strong>Informations complémentaires</strong> → <strong>Exécuter quand même</strong>.</li>
-            <li>Lance MSFS CoPilot et configure tes préférences.</li>
-          </ol>
-          <div class="note">
-            Astuce : une signature de code (plus tard) réduit fortement les alertes SmartScreen.
-          </div>
+    <div class="section" id="fonctions">
+      <h2>Fonctions</h2>
+      <div class="grid3">
+        <div class="card">
+          <h3>ATC & fréquences</h3>
+          <p>Accès rapide aux services (ATIS, Ground, Tower, Approach, Center), favoris et récents.</p>
         </div>
-
-        <div class="box">
-          <h3>Vérification (optionnel)</h3>
-          <div class="note">
-            Tu peux publier un hash SHA-256 pour rassurer les utilisateurs.
-          </div>
-          <div class="hash">SHA-256 (exe)\nÀ ajouter ici</div>
+        <div class="card">
+          <h3>Checklists</h3>
+          <p>Checklists par phase de vol, affichage lisible, conçu pour rester clair en cockpit.</p>
+        </div>
+        <div class="card">
+          <h3>SayIntentions (IA locale)</h3>
+          <p>Intégration dédiée à ton workflow cockpit, sans détour ni écran inutile.</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <footer>
-      © MSFS CoPilot — Site hébergé sur GitHub Pages.
-    </footer>
-
+    <footer>© MSFS CoPilot — GitHub Pages</footer>
   </div>
 </body>
 </html>
