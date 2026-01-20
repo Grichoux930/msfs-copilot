@@ -18,7 +18,7 @@
       --accent2:#2b93ff;
       --shadow: 0 20px 50px rgba(0,0,0,.55);
       --r:18px;
-      --max:1100px;
+      --max:1200px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -55,7 +55,7 @@
     .brand .name{font-weight:800; letter-spacing:.2px; line-height:1.1}
     .brand .sub{color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
-    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
     .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
     .nav a:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
     .btn{
@@ -68,13 +68,13 @@
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
     }
 
-    /* Hero */
+    /* Hero layout */
     .hero{
       margin-top:16px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.2fr;
       gap:16px;
-      align-items:stretch;
+      align-items:start;
     }
     .panel{
       border:1px solid var(--stroke);
@@ -94,12 +94,13 @@
       padding:7px 10px; border-radius:999px;
     }
     .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+    .note{margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;}
 
     /* Screens */
     .screens{
       padding:14px;
       display:grid;
-      gap:12px;
+      gap:14px;
     }
     .shot{
       border:1px solid var(--stroke);
@@ -107,19 +108,24 @@
       overflow:hidden;
       background:rgba(0,0,0,.22);
       box-shadow: 0 14px 34px rgba(0,0,0,.38);
+      display:block;
     }
-    .shot img{display:block; width:100%; height:260px; object-fit:cover;}
-    .cap{
-      padding:9px 11px;
-      color:var(--muted);
-      font-size:12.8px;
-      border-top:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
+    /* PLUS GROS */
+    .shot img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:520px; /* limite pour pas que ça devienne immense */
+      object-fit:contain; /* garde tout le screenshot visible */
+      background:rgba(0,0,0,.25);
     }
+    /* ENLEVER LA BARRE/DATE */
+    .cap{display:none;}
 
-    /* Section */
+    /* Sections */
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
+
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
     .card{
       border:1px solid var(--stroke);
@@ -130,13 +136,56 @@
     .card h3{margin:0 0 8px; font-size:17px}
     .card p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.55}
 
+    /* Pricing */
+    .pricing{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .priceBox{
+      border:1px solid rgba(91,226,255,.28);
+      background:linear-gradient(180deg, rgba(91,226,255,.10), rgba(0,0,0,.18));
+      border-radius:18px;
+      padding:16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+    }
+    .badge{
+      display:inline-flex;
+      border:1px solid rgba(91,226,255,.35);
+      background:rgba(91,226,255,.10);
+      color:var(--text);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .price{
+      margin-top:10px;
+      font-size:38px;
+      font-weight:900;
+      letter-spacing:.3px;
+      line-height:1;
+    }
+    .price small{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+      margin-left:6px;
+    }
+    .plist{margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:13.6px; line-height:1.6;}
+    .plist li{margin:6px 0;}
+    .fine{margin-top:10px; color:rgba(232,240,244,.5); font-size:12.3px;}
+
     footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
 
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
       .grid3{grid-template-columns:1fr;}
+      .pricing{grid-template-columns:1fr;}
       h1{font-size:36px;}
-      .shot img{height:220px;}
+      .shot img{max-height:none;}
     }
   </style>
 </head>
@@ -149,13 +198,15 @@
         <img src="logo.png" alt="Logo MSFS CoPilot" />
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <div class="sub">Assistant cockpit — MSFS 2024 • SayIntentions (IA locale)</div>
+          <!-- ICI : on enlève SayIntentions IA locale -->
+          <div class="sub">Assistant cockpit — MSFS 2024</div>
         </div>
       </div>
 
       <div class="nav">
         <a href="#captures">Captures</a>
         <a href="#fonctions">Fonctions</a>
+        <a href="#tarifs">Tarifs</a>
         <a class="btn" href="#download">Voir</a>
         <a class="btn primary" href="#download">Télécharger</a>
       </div>
@@ -181,25 +232,49 @@
           <a class="btn" href="#captures">Voir les captures</a>
         </div>
 
-        <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
-          Support : support@msfscopilot.com
-        </p>
+        <p class="note">Support : support@msfscopilot.com</p>
       </div>
 
       <div class="panel screens" id="captures">
+        <!-- IMPORTANT : noms EXACTS à la racine -->
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
           <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture 190312">
-          <div class="cap">Capture — 2026-01-19 19:03:12</div>
+          <div class="cap">Capture</div>
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
           <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture 190350">
-          <div class="cap">Capture — 2026-01-19 19:03:50</div>
+          <div class="cap">Capture</div>
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
           <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture 190412">
-          <div class="cap">Capture — 2026-01-19 19:04:12</div>
+          <div class="cap">Capture</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture 190502">
+          <div class="cap">Capture</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture 190523">
+          <div class="cap">Capture</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture 190618">
+          <div class="cap">Capture</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture 190628">
+          <div class="cap">Capture</div>
+        </a>
+
+        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture 190654">
+          <div class="cap">Capture</div>
         </a>
       </div>
     </div>
@@ -216,8 +291,41 @@
           <p>Checklists par phase de vol, affichage lisible, conçu pour rester clair en cockpit.</p>
         </div>
         <div class="card">
-          <h3>SayIntentions (IA locale)</h3>
-          <p>Intégration dédiée à ton workflow cockpit, sans détour ni écran inutile.</p>
+          <h3>Navigation & outils</h3>
+          <p>Outils cockpit pratiques et organisation claire, pensée pour voler sans perdre de temps.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="tarifs">
+      <h2>Tarifs</h2>
+      <div class="pricing">
+        <div class="priceBox">
+          <span class="badge">Prix de lancement</span>
+          <div class="price">19.99 $<small>achat unique</small></div>
+          <ul class="plist">
+            <li>Accès complet à l’application (Windows)</li>
+            <li>Mises à jour durant la période de lancement</li>
+            <li>Support par courriel</li>
+          </ul>
+          <div class="fine">
+            * Tu pourras ajuster le prix plus tard. (Ex : 29.99 $ après la période de lancement)
+          </div>
+          <div class="cta" style="margin-top:12px;">
+            <a class="btn primary" href="#">Acheter / Télécharger</a>
+            <a class="btn" href="#captures">Voir les captures</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pourquoi un prix de lancement ?</h3>
+          <p>
+            Tu démarres avec une offre simple : achat unique à 19.99 $ pour récompenser les premiers utilisateurs,
+            valider la demande et financer les prochaines améliorations.
+          </p>
+          <p style="margin-top:10px;">
+            Quand tu seras prêt, on peut ajouter un vrai bouton de paiement (Stripe / autre) ou un lien vers une page d’achat.
+          </p>
         </div>
       </div>
     </div>
