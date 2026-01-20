@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MSFS CoPilot — Assistant cockpit MSFS 2024</title>
-  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024. ATC & fréquences, checklists, navigation, intégration SayIntentions (IA locale)." />
+  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024. ATC & fréquences, checklists, navigation, intégration SayIntentions." />
 
   <style>
     :root{
@@ -14,11 +14,9 @@
       --stroke:rgba(255,255,255,.10);
       --text:#e8f0f4;
       --muted:#b6c7d3;
-      --accent:#5be2ff;
-      --accent2:#2b93ff;
       --shadow: 0 20px 50px rgba(0,0,0,.55);
       --r:18px;
-      --max:1200px;
+      --max:1100px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -27,8 +25,8 @@
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 540px at 30% 0%, rgba(91,226,255,.14), transparent 60%),
-        radial-gradient(900px 540px at 80% 10%, rgba(43,147,255,.12), transparent 60%),
+        radial-gradient(900px 540px at 30% 0%, rgba(91,226,255,.12), transparent 60%),
+        radial-gradient(900px 540px at 80% 10%, rgba(43,147,255,.10), transparent 60%),
         radial-gradient(circle at top, var(--bg1), var(--bg0));
       overflow-x:hidden;
     }
@@ -48,7 +46,7 @@
     }
     .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .brand img{
-      width:54px; height:54px; object-fit:contain;
+      width:44px; height:44px; object-fit:contain;
       filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
     }
     .brand .t{display:flex; flex-direction:column; min-width:0;}
@@ -68,11 +66,11 @@
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
     }
 
-    /* Hero layout */
+    /* Layout */
     .hero{
       margin-top:16px;
       display:grid;
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: 1fr 1.25fr;
       gap:16px;
       align-items:start;
     }
@@ -84,7 +82,8 @@
       backdrop-filter: blur(10px);
       padding:20px;
     }
-    h1{margin:0 0 10px; font-size:44px; letter-spacing:.2px; line-height:1.05}
+
+    h1{margin:0 0 10px; font-size:42px; letter-spacing:.2px; line-height:1.05}
     .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:60ch;}
     .tags{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
     .tag{
@@ -94,7 +93,6 @@
       padding:7px 10px; border-radius:999px;
     }
     .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
-    .note{margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;}
 
     /* Screens */
     .screens{
@@ -110,23 +108,18 @@
       box-shadow: 0 14px 34px rgba(0,0,0,.38);
       display:block;
     }
-    /* PLUS GROS */
     .shot img{
       display:block;
       width:100%;
-      height:auto;
-      max-height:520px; /* limite pour pas que ça devienne immense */
-      object-fit:contain; /* garde tout le screenshot visible */
-      background:rgba(0,0,0,.25);
+      height:360px;          /* PLUS GROS */
+      object-fit:cover;
     }
-    /* ENLEVER LA BARRE/DATE */
-    .cap{display:none;}
 
-    /* Sections */
+    /* Section */
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
-
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+    .grid2{display:grid; grid-template-columns:1fr; gap:12px;} /* Tarifs: 1 seule carte */
     .card{
       border:1px solid var(--stroke);
       border-radius:18px;
@@ -137,55 +130,31 @@
     .card p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.55}
 
     /* Pricing */
-    .pricing{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    .priceBox{
-      border:1px solid rgba(91,226,255,.28);
-      background:linear-gradient(180deg, rgba(91,226,255,.10), rgba(0,0,0,.18));
-      border-radius:18px;
-      padding:16px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.45);
-    }
-    .badge{
+    .price{padding:18px;}
+    .pill{
       display:inline-flex;
-      border:1px solid rgba(91,226,255,.35);
-      background:rgba(91,226,255,.10);
-      color:var(--text);
+      padding:7px 10px;
       border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .price{
-      margin-top:10px;
-      font-size:38px;
-      font-weight:900;
-      letter-spacing:.3px;
-      line-height:1;
-    }
-    .price small{
-      font-size:14px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
       color:var(--muted);
+      font-size:12.5px;
       font-weight:700;
-      margin-left:6px;
     }
-    .plist{margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:13.6px; line-height:1.6;}
-    .plist li{margin:6px 0;}
-    .fine{margin-top:10px; color:rgba(232,240,244,.5); font-size:12.3px;}
+    .priceRow{margin-top:12px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+    .priceValue{font-size:46px; font-weight:900; letter-spacing:.2px;}
+    .priceNote{color:var(--muted); font-weight:700;}
+    .usd{color:rgba(232,240,244,.65); font-size:12.5px; margin-top:2px;}
+    .bullets{margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.7;}
 
     footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
 
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
       .grid3{grid-template-columns:1fr;}
-      .pricing{grid-template-columns:1fr;}
-      h1{font-size:36px;}
-      .shot img{max-height:none;}
+      h1{font-size:34px;}
+      .shot img{height:320px;}
+      .brand img{width:42px;height:42px;}
     }
   </style>
 </head>
@@ -195,10 +164,11 @@
 
     <div class="top">
       <div class="brand">
-        <img src="logo.png" alt="Logo MSFS CoPilot" />
+        <!-- IMPORTANT: ton fichier est à la racine et s'appelle exactement "logo.png" -->
+        <img src="./logo.png" alt="Logo MSFS CoPilot" />
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <!-- ICI : on enlève SayIntentions IA locale -->
+          <!-- Retiré: SayIntentions (IA locale) du titre en haut -->
           <div class="sub">Assistant cockpit — MSFS 2024</div>
         </div>
       </div>
@@ -217,13 +187,13 @@
         <h1>Assistant cockpit<br/>pour MSFS 2024</h1>
         <p class="lead">
           Une interface simple et rapide pour tes tâches cockpit : fréquences ATC, checklists,
-          navigation, et intégration SayIntentions (IA locale) — pensé pour réduire les clics en vol.
+          navigation, et intégration SayIntentions — pensé pour réduire les clics en vol.
         </p>
 
         <div class="tags">
           <span class="tag">Cockpit-ready</span>
           <span class="tag">Offline-friendly</span>
-          <span class="tag">SayIntentions (local)</span>
+          <span class="tag">SayIntentions</span>
           <span class="tag">VFR & IFR</span>
         </div>
 
@@ -232,49 +202,43 @@
           <a class="btn" href="#captures">Voir les captures</a>
         </div>
 
-        <p class="note">Support : support@msfscopilot.com</p>
+        <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
+          Support : support@msfscopilot.com
+        </p>
       </div>
 
       <div class="panel screens" id="captures">
-        <!-- IMPORTANT : noms EXACTS à la racine -->
+        <!-- IMPORTANT: tes captures sont à la racine avec ces noms exacts -->
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture 190312">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture écran 1">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture 190350">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture écran 2">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture 190412">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture écran 3">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture 190502">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture écran 4">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture 190523">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture écran 5">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture 190618">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture écran 6">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture 190628">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture écran 7">
         </a>
 
         <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture 190654">
-          <div class="cap">Capture</div>
+          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture écran 8">
         </a>
       </div>
     </div>
@@ -291,41 +255,34 @@
           <p>Checklists par phase de vol, affichage lisible, conçu pour rester clair en cockpit.</p>
         </div>
         <div class="card">
-          <h3>Navigation & outils</h3>
-          <p>Outils cockpit pratiques et organisation claire, pensée pour voler sans perdre de temps.</p>
+          <h3>SayIntentions</h3>
+          <p>Intégration dédiée à ton workflow cockpit, sans détour ni écran inutile.</p>
         </div>
       </div>
     </div>
 
     <div class="section" id="tarifs">
       <h2>Tarifs</h2>
-      <div class="pricing">
-        <div class="priceBox">
-          <span class="badge">Prix de lancement</span>
-          <div class="price">19.99 $<small>achat unique</small></div>
-          <ul class="plist">
+      <div class="grid2">
+        <div class="card price">
+          <div class="pill">Prix de lancement</div>
+
+          <div class="priceRow">
+            <div class="priceValue">19.99&nbsp;$</div>
+            <div class="priceNote">achat unique</div>
+          </div>
+          <div class="usd">19.99 USD</div>
+
+          <ul class="bullets">
             <li>Accès complet à l’application (Windows)</li>
-            <li>Mises à jour durant la période de lancement</li>
+            <li>Mises à jour incluses</li>
             <li>Support par courriel</li>
           </ul>
-          <div class="fine">
-            * Tu pourras ajuster le prix plus tard. (Ex : 29.99 $ après la période de lancement)
-          </div>
-          <div class="cta" style="margin-top:12px;">
-            <a class="btn primary" href="#">Acheter / Télécharger</a>
+
+          <div class="cta" style="margin-top:14px;">
+            <a class="btn primary" href="#download">Acheter / Télécharger</a>
             <a class="btn" href="#captures">Voir les captures</a>
           </div>
-        </div>
-
-        <div class="card">
-          <h3>Pourquoi un prix de lancement ?</h3>
-          <p>
-            Tu démarres avec une offre simple : achat unique à 19.99 $ pour récompenser les premiers utilisateurs,
-            valider la demande et financer les prochaines améliorations.
-          </p>
-          <p style="margin-top:10px;">
-            Quand tu seras prêt, on peut ajouter un vrai bouton de paiement (Stripe / autre) ou un lien vers une page d’achat.
-          </p>
         </div>
       </div>
     </div>
