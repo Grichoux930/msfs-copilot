@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MSFS CoPilot — Assistant cockpit MSFS 2024</title>
-  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024. ATC & fréquences, checklists, navigation, intégration SayIntentions." />
+  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024 connecté via SimConnect. ATC & fréquences, réglage COM, nav log, phraséologie, checklists, historique SayIntentions." />
 
   <style>
     :root{
@@ -70,9 +70,9 @@
     .hero{
       margin-top:16px;
       display:grid;
-      grid-template-columns: 1fr 1.25fr;
+      grid-template-columns: 1.1fr .9fr;
       gap:16px;
-      align-items:start;
+      align-items:stretch;
     }
     .panel{
       border:1px solid var(--stroke);
@@ -94,32 +94,27 @@
     }
     .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
 
-    /* Screens */
-    .screens{
-      padding:14px;
+    /* Right panel (preview) */
+    .kpi{
       display:grid;
-      gap:14px;
+      gap:12px;
     }
-    .shot{
+    .kpi .mini{
       border:1px solid var(--stroke);
       border-radius:18px;
-      overflow:hidden;
-      background:rgba(0,0,0,.22);
-      box-shadow: 0 14px 34px rgba(0,0,0,.38);
-      display:block;
+      background:rgba(0,0,0,.20);
+      padding:14px;
     }
-    .shot img{
-      display:block;
-      width:100%;
-      height:360px;          /* PLUS GROS */
-      object-fit:cover;
-    }
+    .mini .label{color:var(--muted); font-size:12.5px; font-weight:800; letter-spacing:.2px}
+    .mini .value{margin-top:6px; font-size:18px; font-weight:900}
+    .mini .desc{margin-top:6px; color:var(--muted); font-size:13.2px; line-height:1.55}
 
     /* Section */
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
-    .grid2{display:grid; grid-template-columns:1fr; gap:12px;} /* Tarifs: 1 seule carte */
+    .grid2{display:grid; grid-template-columns:1fr; gap:12px;}
+
     .card{
       border:1px solid var(--stroke);
       border-radius:18px;
@@ -153,7 +148,6 @@
       .hero{grid-template-columns:1fr;}
       .grid3{grid-template-columns:1fr;}
       h1{font-size:34px;}
-      .shot img{height:320px;}
       .brand img{width:42px;height:42px;}
     }
   </style>
@@ -164,18 +158,16 @@
 
     <div class="top">
       <div class="brand">
-        <!-- IMPORTANT: ton fichier est à la racine et s'appelle exactement "logo.png" -->
         <img src="./logo.png" alt="Logo MSFS CoPilot" />
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <!-- Retiré: SayIntentions (IA locale) du titre en haut -->
           <div class="sub">Assistant cockpit — MSFS 2024</div>
         </div>
       </div>
 
       <div class="nav">
-        <a href="#captures">Captures</a>
         <a href="#fonctions">Fonctions</a>
+        <a href="./screenshots.html">Captures</a>
         <a href="#tarifs">Tarifs</a>
         <a class="btn" href="#download">Voir</a>
         <a class="btn primary" href="#download">Télécharger</a>
@@ -186,20 +178,22 @@
       <div class="panel">
         <h1>Assistant cockpit<br/>pour MSFS 2024</h1>
         <p class="lead">
-          Une interface simple et rapide pour tes tâches cockpit : fréquences ATC, checklists,
-          navigation, et intégration SayIntentions — pensé pour réduire les clics en vol.
+          Connecté à Microsoft Flight Simulator 2024 via SimConnect, MSFS CoPilot centralise
+          fréquences ATC, réglage COM, checklists, nav log, phraséologie et historique SayIntentions
+          pour réduire la charge de travail et rester concentré sur le pilotage.
         </p>
 
         <div class="tags">
-          <span class="tag">Cockpit-ready</span>
-          <span class="tag">Offline-friendly</span>
+          <span class="tag">SimConnect</span>
+          <span class="tag">Nav Log</span>
+          <span class="tag">Phraséologie ATC</span>
           <span class="tag">SayIntentions</span>
           <span class="tag">VFR & IFR</span>
         </div>
 
         <div class="cta" id="download">
           <a class="btn primary" href="#">Télécharger (Windows)</a>
-          <a class="btn" href="#captures">Voir les captures</a>
+          <a class="btn" href="./screenshots.html">Voir les captures</a>
         </div>
 
         <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
@@ -207,58 +201,70 @@
         </p>
       </div>
 
-      <div class="panel screens" id="captures">
-        <!-- IMPORTANT: tes captures sont à la racine avec ces noms exacts -->
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture écran 1">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture écran 2">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture écran 3">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture écran 4">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture écran 5">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture écran 6">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture écran 7">
-        </a>
-
-        <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
-          <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture écran 8">
-        </a>
+      <div class="panel">
+        <div class="kpi">
+          <div class="mini">
+            <div class="label">Synchronisé au sim</div>
+            <div class="value">SimConnect</div>
+            <div class="desc">Données en temps réel (avion, contexte) + base fiable pour actions cockpit.</div>
+          </div>
+          <div class="mini">
+            <div class="label">ATC simplifié</div>
+            <div class="value">Fréquences + historique</div>
+            <div class="desc">Accès rapide aux services + historique SayIntentions pour ne rien perdre.</div>
+          </div>
+          <div class="mini">
+            <div class="label">Cockpit-ready</div>
+            <div class="value">Moins de clics</div>
+            <div class="desc">Interface claire, pensée pour l’usage en vol sur écran secondaire.</div>
+          </div>
+          <div class="mini">
+            <div class="label">Achat unique</div>
+            <div class="value">19.99 USD</div>
+            <div class="desc">Prix de lancement. Pas d’abonnement. Mises à jour incluses.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="section" id="fonctions">
       <h2>Fonctions</h2>
+
       <div class="grid3">
         <div class="card">
+          <h3>Connexion SimConnect</h3>
+          <p>Synchronisation en temps réel avec MSFS 2024 : avion actif, contexte et interaction cockpit via l’API officielle SimConnect.</p>
+        </div>
+
+        <div class="card">
           <h3>ATC & fréquences</h3>
-          <p>Accès rapide aux services (ATIS, Ground, Tower, Approach, Center), favoris et récents.</p>
+          <p>Accès rapide aux fréquences (ATIS, Ground, Tower, Approach, Center) avec favoris, récents et workflow cockpit.</p>
         </div>
+
         <div class="card">
-          <h3>Checklists</h3>
-          <p>Checklists par phase de vol, affichage lisible, conçu pour rester clair en cockpit.</p>
+          <h3>Réglage des fréquences dans le sim</h3>
+          <p>Application directe des fréquences COM dans la simulation via SimConnect, sans quitter MSFS.</p>
         </div>
+
         <div class="card">
-          <h3>SayIntentions</h3>
-          <p>Intégration dédiée à ton workflow cockpit, sans détour ni écran inutile.</p>
+          <h3>Nav Log intégré</h3>
+          <p>Nav log VFR/IFR clair et structuré, conçu comme un fil conducteur du vol du départ à l’arrivée.</p>
+        </div>
+
+        <div class="card">
+          <h3>Phraséologie ATC</h3>
+          <p>Aide à la communication radio selon la phase de vol, idéale pour pratiquer une phraséologie réaliste sans automatisation.</p>
+        </div>
+
+        <div class="card">
+          <h3>SayIntentions — Historique</h3>
+          <p>Historique centralisé des échanges SayIntentions pour relire clairances, instructions et fréquences reçues.</p>
         </div>
       </div>
+
+      <p style="margin:12px 0 0;color:rgba(232,240,244,.45);font-size:12.5px;line-height:1.6;">
+        * MSFS CoPilot assiste le pilote : il ne “pilote” pas l’avion et ne remplace pas les procédures ni la prise de décision.
+      </p>
     </div>
 
     <div class="section" id="tarifs">
@@ -281,7 +287,7 @@
 
           <div class="cta" style="margin-top:14px;">
             <a class="btn primary" href="#download">Acheter / Télécharger</a>
-            <a class="btn" href="#captures">Voir les captures</a>
+            <a class="btn" href="./screenshots.html">Voir les captures</a>
           </div>
         </div>
       </div>
