@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MSFS CoPilot — NavCrew</title>
-  <meta name="description" content="MSFS CoPilot (par NavCrew) : assistant cockpit pour MSFS 2024 connecté SimConnect. Nav log, météo, phraséologie, ATC, fréquences/COM, checklists intelligentes et historique SayIntentions." />
+  <meta name="description" content="MSFS CoPilot (par NavCrew) : assistant cockpit pour Microsoft Flight Simulator (MSFS 2020 & MSFS 2024) via SimConnect. Nav log, météo, phraséologie, ATC, fréquences/COM, checklists intelligentes et historique SayIntentions." />
 
   <style>
     :root{
@@ -130,8 +130,18 @@
     }
 
     h1{margin:0 0 10px; font-size:42px; letter-spacing:.2px; line-height:1.05}
-    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:62ch;}
+    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:64ch;}
     .lead b{color:rgba(232,240,244,.92)}
+    .compat{
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      color:rgba(232,240,244,.70);
+      font-size:12.8px;
+      line-height:1.45;
+    }
     .tags{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
     .tag{
       font-size:12.5px; color:var(--muted);
@@ -218,7 +228,7 @@
 
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <div class="sub">par NavCrew — Assistant cockpit MSFS 2024</div>
+          <div class="sub">par NavCrew — Assistant cockpit pour Microsoft Flight Simulator</div>
         </div>
       </div>
 
@@ -235,16 +245,21 @@
 
     <div class="hero">
       <div class="panel">
-        <h1>Ton copilote<br/>pour MSFS 2024</h1>
+        <h1>Ton copilote<br/>pour Microsoft Flight Simulator</h1>
 
-        <!-- ✅ TEXTE MARKETING PRO (HERO) -->
+        <!-- ✅ MARKETING PRO (HERO) -->
         <p class="lead">
-          <b>MSFS CoPilot</b> est un assistant de cockpit intelligent connecté en temps réel à Microsoft Flight Simulator 2024 via <b>SimConnect</b>.
-          Il rassemble l’essentiel pour voler proprement : <b>nav log</b>, <b>météo</b>, <b>phraséologie</b>, <b>ATC</b>, <b>fréquences</b>, <b>réglage COM</b> et <b>checklists</b>.
-          Résultat : moins de charge mentale, moins d’oubli, plus de fluidité en vol — surtout quand ça s’intensifie en approche.
+          <b>MSFS CoPilot</b> est un assistant de cockpit intelligent, connecté en temps réel au simulateur via <b>SimConnect</b>.
+          Il regroupe ce qui compte vraiment en vol : <b>nav log</b>, <b>météo</b>, <b>phraséologie</b>, <b>ATC</b>, <b>fréquences</b>, <b>réglage COM</b> et <b>checklists</b>.
           <br/><br/>
-          Avec l’<b>historique SayIntentions</b>, tu gardes le fil des clairances et instructions sans stress, même en charge élevée.
+          L’objectif est simple : <b>réduire la charge de travail</b>, éviter les oublis, et garder un cockpit fluide — surtout quand ça s’enchaîne en approche.
+          Avec l’<b>historique SayIntentions</b>, tu retrouves clairances, instructions et fréquences en un coup d’œil, sans perdre le fil.
         </p>
+
+        <div class="compat">
+          <b>Compatibilité :</b> Microsoft Flight Simulator (<b>MSFS 2020</b> & <b>MSFS 2024</b>) via SimConnect.
+          <span style="opacity:.85;">Certaines fonctions peuvent évoluer selon la version du simulateur.</span>
+        </div>
 
         <div class="tags">
           <span class="tag">SimConnect (temps réel)</span>
@@ -270,7 +285,6 @@
 
       <div class="panel">
         <div class="kpi">
-          <!-- ✅ KPI REÉCRITS (PLUS PRO + VENDRE LES BÉNÉFICES) -->
           <div class="mini">
             <div class="label">Connexion</div>
             <div class="value">SimConnect (temps réel)</div>
