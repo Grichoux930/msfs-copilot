@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSFS CoPilot — Captures</title>
+  <meta name="description" content="Galerie de captures MSFS CoPilot." />
+
+  <style>
+    :root{
+      --bg0:#070b12;
+      --bg1:#071a26;
+      --stroke:rgba(255,255,255,.10);
+      --text:#e8f0f4;
+      --muted:#b6c7d3;
+      --shadow: 0 20px 50px rgba(0,0,0,.55);
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 540px at 30% 0%, rgba(91,226,255,.12), transparent 60%),
+        radial-gradient(900px 540px at 80% 10%, rgba(43,147,255,.10), transparent 60%),
+        radial-gradient(circle at top, var(--bg1), var(--bg0));
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
+
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:12px 14px;
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      position:sticky; top:12px; z-index:20;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+    .brand img{width:44px;height:44px;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));}
+    .brand .t{display:flex; flex-direction:column; min-width:0;}
+    .brand .name{font-weight:800; letter-spacing:.2px; line-height:1.1}
+    .brand .sub{color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+    .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
+    .nav a:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
+      background:rgba(0,0,0,.22); font-weight:700; font-size:13px;
+    }
+    .btn.primary{
+      border-color:rgba(91,226,255,.35);
+      background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
+    }
+
+    h1{margin:16px 0 6px; font-size:34px; letter-spacing:.2px;}
+    .lead{margin:0; color:var(--muted); font-size:14.5px; line-height:1.6;}
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+    }
+
+    .shot{
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(0,0,0,.22);
+      box-shadow: 0 14px 34px rgba(0,0,0,.38);
+      display:block;
+    }
+    .shot img{
+      display:block;
+      width:100%;
+      height:420px; /* plus gros en galerie */
+      object-fit:cover;
+    }
+
+    footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr;}
+      .shot img{height:320px;}
+      h1{font-size:28px;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="top">
+      <div class="brand">
+        <img src="./logo.png" alt="Logo MSFS CoPilot" />
+        <div class="t">
+          <div class="name">MSFS CoPilot</div>
+          <div class="sub">Captures d’écran</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="./index.html#fonctions">Fonctions</a>
+        <a href="./index.html#tarifs">Tarifs</a>
+        <a class="btn" href="./index.html">Retour</a>
+        <a class="btn primary" href="./index.html#download">Télécharger</a>
+      </div>
+    </div>
+
+    <h1>Captures</h1>
+    <p class="lead">Clique sur une image pour l’ouvrir en grand (nouvel onglet).</p>
+
+    <div class="grid">
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture écran 1">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture écran 2">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture écran 3">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture écran 4">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture écran 5">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture écran 6">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture écran 7">
+      </a>
+
+      <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture écran 8">
+      </a>
+    </div>
+
+    <footer>© MSFS CoPilot — GitHub Pages</footer>
+  </div>
+</body>
+</html>
