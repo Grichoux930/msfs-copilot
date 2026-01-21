@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <circle cx="256" cy="256" r="236" fill="#0B1C2D"/>
+  <circle cx="256" cy="256" r="236" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="6"/>
+  <g fill="#FFFFFF">
+    <polygon points="174,220 46,168 58,196 182,238"/>
+    <polygon points="338,220 466,168 454,196 330,238"/>
+    <polygon points="188,258 88,222 100,248 192,282"/>
+    <polygon points="324,258 424,222 412,248 320,282"/>
+    <polygon points="192,212 238,234 256,272 274,234 320,212 304,230 272,248 256,272 240,248 208,230"/>
+    <circle cx="256" cy="142" r="18"/>
+  </g>
+  <text x="256" y="372" text-anchor="middle"
+        font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial"
+        font-size="84" font-weight="800" fill="#FFFFFF">NavCrew</text>
+</svg>
