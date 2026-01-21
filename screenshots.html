@@ -42,10 +42,36 @@
     }
 
     .brand{display:flex; align-items:center; gap:12px; min-width:0;}
-    .logos{display:flex; align-items:center; gap:10px;}
-    .logos .sep{width:1px;height:34px;background:rgba(255,255,255,.12);border-radius:99px;}
-    .logoNC{width:120px;height:34px;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.45));opacity:.98;}
-    .logoApp{width:40px;height:40px;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));}
+
+    /* ✅ Même capsule logos que la page 1 */
+    .logos{
+      display:flex; align-items:center; gap:10px;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.16);
+      border-radius:999px;
+    }
+    .logos .sep{
+      width:1px;height:28px;background:rgba(255,255,255,.10);
+      border-radius:99px;
+    }
+
+    /* ✅ Badge rond NavCrew */
+    .logoNC{
+      width:44px;height:44px;
+      object-fit:contain;
+      border-radius:50%;
+      filter:
+        drop-shadow(0 10px 16px rgba(0,0,0,.55))
+        drop-shadow(0 0 18px rgba(91,226,255,.12));
+      opacity:.99;
+    }
+
+    .logoApp{
+      width:38px;height:38px;
+      object-fit:contain;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
+    }
 
     .brand .t{display:flex; flex-direction:column; min-width:0;}
     .brand .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
@@ -91,8 +117,15 @@
       .grid{grid-template-columns:1fr;}
       .shot img{height:320px;}
       h1{font-size:28px;}
-      .logoNC{width:110px;height:32px;}
-      .logoApp{width:38px;height:38px;}
+      .logos{padding:6px 8px; gap:9px;}
+      .logoNC{width:42px;height:42px;}
+      .logoApp{width:36px;height:36px;}
+    }
+
+    @media (max-width: 520px){
+      .top{padding:10px 10px;}
+      .brand .sub{display:none;}
+      .nav a{font-size:12.5px}
     }
   </style>
 </head>
@@ -103,7 +136,8 @@
     <div class="top">
       <div class="brand">
         <div class="logos" aria-label="NavCrew et MSFS CoPilot">
-          <img class="logoNC" src="./navcrew-logo-dark.png" alt="NavCrew" />
+          <!-- ✅ Nouveau logo NavCrew -->
+          <img class="logoNC" src="./navcrew-badge-round-name.svg" alt="NavCrew" />
           <span class="sep" aria-hidden="true"></span>
           <img class="logoApp" src="./logo.png" alt="Logo MSFS CoPilot" />
         </div>
