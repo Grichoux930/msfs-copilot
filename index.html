@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MSFS CoPilot — Assistant cockpit MSFS 2024</title>
-  <meta name="description" content="MSFS CoPilot : assistant cockpit pour MSFS 2024 connecté via SimConnect. ATC & fréquences, réglage COM, nav log, phraséologie, checklists, historique SayIntentions." />
+  <title>MSFS CoPilot — NavCrew</title>
+  <meta name="description" content="MSFS CoPilot (par NavCrew) : assistant cockpit pour MSFS 2024. Fréquences ATC, réglage COM, checklists, nav log, phraséologie et historique SayIntentions." />
 
   <style>
     :root{
@@ -44,26 +44,62 @@
       backdrop-filter: blur(10px);
       position:sticky; top:12px; z-index:20;
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
-    .brand img{
-      width:44px; height:44px; object-fit:contain;
+
+    /* Co-brand */
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width:0;
+    }
+    .logos{
+      display:flex; align-items:center; gap:10px;
+    }
+    .logos .sep{
+      width:1px; height:34px; background:rgba(255,255,255,.12);
+      border-radius:99px;
+    }
+    .logoNC{
+      width:120px; height:34px; object-fit:contain;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.45));
+      opacity:.98;
+    }
+    .logoApp{
+      width:40px; height:40px; object-fit:contain;
       filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
     }
+
     .brand .t{display:flex; flex-direction:column; min-width:0;}
-    .brand .name{font-weight:800; letter-spacing:.2px; line-height:1.1}
+    .brand .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
     .brand .sub{color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
     .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
     .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
     .nav a:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
-      background:rgba(0,0,0,.22); font-weight:700; font-size:13px;
+      background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
+      user-select:none;
     }
     .btn.primary{
       border-color:rgba(91,226,255,.35);
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
+    }
+    .btn.disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      pointer-events:none;
+      filter:saturate(.85);
+    }
+    .badgeSoon{
+      margin-left:8px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.2px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.22);
+      color:rgba(232,240,244,.78);
     }
 
     /* Layout */
@@ -84,7 +120,7 @@
     }
 
     h1{margin:0 0 10px; font-size:42px; letter-spacing:.2px; line-height:1.05}
-    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:60ch;}
+    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:62ch;}
     .tags{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
     .tag{
       font-size:12.5px; color:var(--muted);
@@ -94,18 +130,15 @@
     }
     .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
 
-    /* Right panel (preview) */
-    .kpi{
-      display:grid;
-      gap:12px;
-    }
+    /* Right panel */
+    .kpi{display:grid; gap:12px;}
     .kpi .mini{
       border:1px solid var(--stroke);
       border-radius:18px;
       background:rgba(0,0,0,.20);
       padding:14px;
     }
-    .mini .label{color:var(--muted); font-size:12.5px; font-weight:800; letter-spacing:.2px}
+    .mini .label{color:var(--muted); font-size:12.5px; font-weight:900; letter-spacing:.2px}
     .mini .value{margin-top:6px; font-size:18px; font-weight:900}
     .mini .desc{margin-top:6px; color:var(--muted); font-size:13.2px; line-height:1.55}
 
@@ -134,11 +167,11 @@
       background:rgba(0,0,0,.18);
       color:var(--muted);
       font-size:12.5px;
-      font-weight:700;
+      font-weight:900;
     }
     .priceRow{margin-top:12px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
     .priceValue{font-size:46px; font-weight:900; letter-spacing:.2px;}
-    .priceNote{color:var(--muted); font-weight:700;}
+    .priceNote{color:var(--muted); font-weight:800;}
     .usd{color:rgba(232,240,244,.65); font-size:12.5px; margin-top:2px;}
     .bullets{margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.7;}
 
@@ -148,7 +181,8 @@
       .hero{grid-template-columns:1fr;}
       .grid3{grid-template-columns:1fr;}
       h1{font-size:34px;}
-      .brand img{width:42px;height:42px;}
+      .logoNC{width:110px;height:32px;}
+      .logoApp{width:38px;height:38px;}
     }
   </style>
 </head>
@@ -158,10 +192,15 @@
 
     <div class="top">
       <div class="brand">
-        <img src="./logo.png" alt="Logo MSFS CoPilot" />
+        <div class="logos" aria-label="NavCrew et MSFS CoPilot">
+          <img class="logoNC" src="./navcrew-logo-dark.png" alt="NavCrew" />
+          <span class="sep" aria-hidden="true"></span>
+          <img class="logoApp" src="./logo.png" alt="Logo MSFS CoPilot" />
+        </div>
+
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <div class="sub">Assistant cockpit — MSFS 2024</div>
+          <div class="sub">par NavCrew — Assistant cockpit MSFS 2024</div>
         </div>
       </div>
 
@@ -170,58 +209,66 @@
         <a href="./screenshots.html">Captures</a>
         <a href="#tarifs">Tarifs</a>
         <a class="btn" href="#download">Voir</a>
-        <a class="btn primary" href="#download">Télécharger</a>
+        <a class="btn primary disabled" href="#" aria-disabled="true" title="Bientôt disponible">
+          Télécharger <span class="badgeSoon">Bientôt</span>
+        </a>
       </div>
     </div>
 
     <div class="hero">
       <div class="panel">
-        <h1>Assistant cockpit<br/>pour MSFS 2024</h1>
+        <h1>Ton copilote<br/>pour MSFS 2024</h1>
+
         <p class="lead">
-          Connecté à Microsoft Flight Simulator 2024 via SimConnect, MSFS CoPilot centralise
-          fréquences ATC, réglage COM, checklists, nav log, phraséologie et historique SayIntentions
-          pour réduire la charge de travail et rester concentré sur le pilotage.
+          MSFS CoPilot regroupe les outils cockpit que tu utilises vraiment : fréquences ATC,
+          réglage rapide des COM, checklists, nav log et phraséologie.
+          Avec l’historique SayIntentions, tu gardes le fil des clairances et instructions sans stress.
         </p>
 
         <div class="tags">
-          <span class="tag">SimConnect</span>
+          <span class="tag">Fréquences + COM</span>
           <span class="tag">Nav Log</span>
-          <span class="tag">Phraséologie ATC</span>
+          <span class="tag">Phraséologie</span>
           <span class="tag">SayIntentions</span>
-          <span class="tag">VFR & IFR</span>
+          <span class="tag">Windows</span>
         </div>
 
         <div class="cta" id="download">
-          <a class="btn primary" href="#">Télécharger (Windows)</a>
+          <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+            Télécharger (Windows) <span class="badgeSoon">À venir</span>
+          </span>
           <a class="btn" href="./screenshots.html">Voir les captures</a>
         </div>
 
         <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
-          Support : support@msfscopilot.com
+          NavCrew — support@msfscopilot.com
         </p>
       </div>
 
       <div class="panel">
         <div class="kpi">
           <div class="mini">
-            <div class="label">Synchronisé au sim</div>
+            <div class="label">Connexion</div>
             <div class="value">SimConnect</div>
-            <div class="desc">Données en temps réel (avion, contexte) + base fiable pour actions cockpit.</div>
+            <div class="desc">Synchronisé avec MSFS 2024 pour garder l’app alignée sur ton vol.</div>
           </div>
+
           <div class="mini">
-            <div class="label">ATC simplifié</div>
+            <div class="label">ATC</div>
             <div class="value">Fréquences + historique</div>
-            <div class="desc">Accès rapide aux services + historique SayIntentions pour ne rien perdre.</div>
+            <div class="desc">Accès rapide aux services et historique SayIntentions pour retrouver une info instantanément.</div>
           </div>
+
           <div class="mini">
             <div class="label">Cockpit-ready</div>
             <div class="value">Moins de clics</div>
-            <div class="desc">Interface claire, pensée pour l’usage en vol sur écran secondaire.</div>
+            <div class="desc">Pensé pour l’usage en vol sur écran secondaire : clair, direct, efficace.</div>
           </div>
+
           <div class="mini">
-            <div class="label">Achat unique</div>
+            <div class="label">Prix de lancement</div>
             <div class="value">19.99 USD</div>
-            <div class="desc">Prix de lancement. Pas d’abonnement. Mises à jour incluses.</div>
+            <div class="desc">Achat unique. Mises à jour incluses.</div>
           </div>
         </div>
       </div>
@@ -232,39 +279,53 @@
 
       <div class="grid3">
         <div class="card">
-          <h3>Connexion SimConnect</h3>
-          <p>Synchronisation en temps réel avec MSFS 2024 : avion actif, contexte et interaction cockpit via l’API officielle SimConnect.</p>
+          <h3>Fréquences ATC instantanées</h3>
+          <p>
+            Trouve vite les bonnes fréquences (ATIS, Ground, Tower, Approach, Center) avec favoris et récents.
+            Tu passes moins de temps à chercher, plus de temps à voler.
+          </p>
         </div>
 
         <div class="card">
-          <h3>ATC & fréquences</h3>
-          <p>Accès rapide aux fréquences (ATIS, Ground, Tower, Approach, Center) avec favoris, récents et workflow cockpit.</p>
+          <h3>Réglage COM rapide</h3>
+          <p>
+            Sélectionne une fréquence et règle-la rapidement dans ton setup.
+            Idéal quand ça bouge en approche ou en transition de secteurs.
+          </p>
         </div>
 
         <div class="card">
-          <h3>Réglage des fréquences dans le sim</h3>
-          <p>Application directe des fréquences COM dans la simulation via SimConnect, sans quitter MSFS.</p>
+          <h3>Historique SayIntentions</h3>
+          <p>
+            Relis tes échanges ATC en un coup d’œil : clairances, instructions et fréquences.
+            Parfait pour ne pas perdre le fil en charge élevée.
+          </p>
         </div>
 
         <div class="card">
           <h3>Nav Log intégré</h3>
-          <p>Nav log VFR/IFR clair et structuré, conçu comme un fil conducteur du vol du départ à l’arrivée.</p>
+          <p>
+            Un nav log lisible et pratique, conçu pour t’aider à garder la route et les repères
+            sans te noyer dans l’information.
+          </p>
         </div>
 
         <div class="card">
-          <h3>Phraséologie ATC</h3>
-          <p>Aide à la communication radio selon la phase de vol, idéale pour pratiquer une phraséologie réaliste sans automatisation.</p>
+          <h3>Phraséologie</h3>
+          <p>
+            Des phrases prêtes à l’emploi selon la phase de vol pour parler plus propre à la radio,
+            apprendre et pratiquer sans hésiter.
+          </p>
         </div>
 
         <div class="card">
-          <h3>SayIntentions — Historique</h3>
-          <p>Historique centralisé des échanges SayIntentions pour relire clairances, instructions et fréquences reçues.</p>
+          <h3>Checklists</h3>
+          <p>
+            Checklists par phase de vol, affichage clair et rapide.
+            Pensé pour la vraie vie en cockpit : simple, lisible, efficace.
+          </p>
         </div>
       </div>
-
-      <p style="margin:12px 0 0;color:rgba(232,240,244,.45);font-size:12.5px;line-height:1.6;">
-        * MSFS CoPilot assiste le pilote : il ne “pilote” pas l’avion et ne remplace pas les procédures ni la prise de décision.
-      </p>
     </div>
 
     <div class="section" id="tarifs">
@@ -282,18 +343,20 @@
           <ul class="bullets">
             <li>Accès complet à l’application (Windows)</li>
             <li>Mises à jour incluses</li>
-            <li>Support par courriel</li>
+            <li>Support par courriel (NavCrew)</li>
           </ul>
 
           <div class="cta" style="margin-top:14px;">
-            <a class="btn primary" href="#download">Acheter / Télécharger</a>
+            <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+              Acheter / Télécharger <span class="badgeSoon">Bientôt</span>
+            </span>
             <a class="btn" href="./screenshots.html">Voir les captures</a>
           </div>
         </div>
       </div>
     </div>
 
-    <footer>© MSFS CoPilot — GitHub Pages</footer>
+    <footer>© NavCrew — MSFS CoPilot — GitHub Pages</footer>
   </div>
 </body>
 </html>
