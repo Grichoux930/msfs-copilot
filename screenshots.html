@@ -43,7 +43,7 @@
 
     .brand{display:flex; align-items:center; gap:12px; min-width:0;}
 
-    /* ✅ Même capsule logos que la page 1 */
+    /* Capsule logos */
     .logos{
       display:flex; align-items:center; gap:10px;
       padding:6px 10px;
@@ -56,7 +56,7 @@
       border-radius:99px;
     }
 
-    /* ✅ Badge rond NavCrew */
+    /* Badge rond NavCrew */
     .logoNC{
       width:44px;height:44px;
       object-fit:contain;
@@ -84,6 +84,36 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
       background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
+    }
+
+    /* Language toggle (même vibe que page 1) */
+    .lang{
+      display:flex; align-items:center; gap:8px;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:999px;
+    }
+    .lang button{
+      appearance:none;
+      border:1px solid transparent;
+      background:transparent;
+      color:rgba(232,240,244,.70);
+      font-weight:900;
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+    .lang button:hover{
+      color:var(--text);
+      border-color:var(--stroke);
+      background:rgba(0,0,0,.18);
+    }
+    .lang button.active{
+      color:var(--text);
+      border-color:rgba(91,226,255,.35);
+      background:linear-gradient(180deg, rgba(91,226,255,.14), rgba(0,0,0,.18));
     }
 
     h1{margin:16px 0 6px; font-size:34px; letter-spacing:.2px;}
@@ -136,63 +166,148 @@
     <div class="top">
       <div class="brand">
         <div class="logos" aria-label="NavCrew et MSFS CoPilot">
-          <!-- ✅ Nouveau logo NavCrew -->
           <img class="logoNC" src="./navcrew-badge-round-name.svg" alt="NavCrew" />
           <span class="sep" aria-hidden="true"></span>
           <img class="logoApp" src="./logo.png" alt="Logo MSFS CoPilot" />
         </div>
 
         <div class="t">
-          <div class="name">Captures</div>
-          <div class="sub">MSFS CoPilot — par NavCrew</div>
+          <div class="name" data-i18n="page_title">Captures</div>
+          <div class="sub" data-i18n="page_sub">MSFS CoPilot — par NavCrew</div>
         </div>
       </div>
 
       <div class="nav">
-        <a href="./index.html#fonctions">Fonctions</a>
-        <a href="./index.html#tarifs">Tarifs</a>
-        <a class="btn" href="./index.html">Retour</a>
+        <a href="./index.html#fonctions" data-i18n="nav_features">Fonctions</a>
+        <a href="./index.html#tarifs" data-i18n="nav_pricing">Tarifs</a>
+        <a class="btn" href="./index.html" data-i18n="nav_back">Retour</a>
+
+        <!-- Toggle langue -->
+        <div class="lang" aria-label="Language">
+          <button type="button" id="btn-fr" class="active">FR</button>
+          <button type="button" id="btn-en">EN</button>
+        </div>
       </div>
     </div>
 
-    <h1>Captures</h1>
-    <p class="lead">Clique sur une image pour l’ouvrir en grand (nouvel onglet).</p>
+    <h1 data-i18n="h1">Captures</h1>
+    <p class="lead" data-i18n="lead">Clique sur une image pour l’ouvrir en grand (nouvel onglet).</p>
 
     <div class="grid">
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Capture écran 1">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190312.png" alt="Screenshot 1">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Capture écran 2">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190350.png" alt="Screenshot 2">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Capture écran 3">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190412.png" alt="Screenshot 3">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Capture écran 4">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190502.png" alt="Screenshot 4">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Capture écran 5">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190523.png" alt="Screenshot 5">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Capture écran 6">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190618.png" alt="Screenshot 6">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Capture écran 7">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190628.png" alt="Screenshot 7">
       </a>
 
       <a class="shot" href="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" target="_blank" rel="noreferrer">
-        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Capture écran 8">
+        <img src="./Capture%20d%E2%80%99%C3%A9cran%202026-01-19%20190654.png" alt="Screenshot 8">
       </a>
     </div>
 
-    <footer>© NavCrew — MSFS CoPilot — GitHub Pages</footer>
+    <footer data-i18n="footer">© NavCrew — MSFS CoPilot — GitHub Pages</footer>
   </div>
+
+  <script>
+    (function(){
+      const translations = {
+        fr: {
+          _title: "MSFS CoPilot — Captures (NavCrew)",
+          _desc: "Galerie de captures MSFS CoPilot (NavCrew).",
+
+          page_title: "Captures",
+          page_sub: "MSFS CoPilot — par NavCrew",
+
+          nav_features: "Fonctions",
+          nav_pricing: "Tarifs",
+          nav_back: "Retour",
+
+          h1: "Captures",
+          lead: "Clique sur une image pour l’ouvrir en grand (nouvel onglet).",
+
+          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+        },
+        en: {
+          _title: "MSFS CoPilot — Screenshots (NavCrew)",
+          _desc: "MSFS CoPilot screenshots gallery (NavCrew).",
+
+          page_title: "Screenshots",
+          page_sub: "MSFS CoPilot — by NavCrew",
+
+          nav_features: "Features",
+          nav_pricing: "Pricing",
+          nav_back: "Back",
+
+          h1: "Screenshots",
+          lead: "Click an image to open it in full size (new tab).",
+
+          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+        }
+      };
+
+      function applyLanguage(lang){
+        const dict = translations[lang] || translations.fr;
+
+        document.documentElement.setAttribute("lang", lang);
+
+        document.title = dict._title;
+        const meta = document.querySelector('meta[name="description"]');
+        if(meta) meta.setAttribute("content", dict._desc);
+
+        document.querySelectorAll("[data-i18n]").forEach(el=>{
+          const key = el.getAttribute("data-i18n");
+          if(dict[key] !== undefined) el.textContent = dict[key];
+        });
+
+        const fr = document.getElementById("btn-fr");
+        const en = document.getElementById("btn-en");
+        if(fr && en){
+          fr.classList.toggle("active", lang === "fr");
+          en.classList.toggle("active", lang === "en");
+        }
+
+        try{ localStorage.setItem("msfs_lang", lang); }catch(e){}
+      }
+
+      function initLanguage(){
+        let lang = "fr";
+        try{
+          lang = localStorage.getItem("msfs_lang") || "fr";
+        }catch(e){}
+        if(!translations[lang]) lang = "fr";
+        applyLanguage(lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", ()=>{
+        initLanguage();
+        const fr = document.getElementById("btn-fr");
+        const en = document.getElementById("btn-en");
+        if(fr) fr.addEventListener("click", ()=>applyLanguage("fr"));
+        if(en) en.addEventListener("click", ()=>applyLanguage("en"));
+      });
+    })();
+  </script>
 </body>
 </html>
