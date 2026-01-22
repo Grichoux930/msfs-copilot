@@ -281,7 +281,8 @@
 
     <div class="hero">
       <div class="panel">
-        <h1 data-i18n="hero_title">Ton copilote<br/>pour Microsoft Flight Simulator</h1>
+        <!-- ✅ FIX: hero_title uses HTML -->
+        <h1 data-i18n-html="hero_title">Ton copilote<br/>pour Microsoft Flight Simulator</h1>
 
         <p class="lead" data-i18n-html="hero_lead">
           <b>MSFS CoPilot</b> est un assistant de cockpit intelligent, connecté en temps réel au simulateur via <b>SimConnect</b>.
@@ -520,7 +521,7 @@
         },
 
         en: {
-          _title: "MSFS CoPilot — NavCrew",
+          _title: "MSFS CoPilot — NavCrew | Cockpit Assistant",
           _desc: "MSFS CoPilot (by NavCrew): a cockpit assistant for Microsoft Flight Simulator (MSFS 2020 & MSFS 2024) via SimConnect. Nav log, weather, phraseology, ATC, frequencies/COM, smart checklists, and SayIntentions history.",
           header_sub: "by NavCrew — Cockpit assistant for Microsoft Flight Simulator",
 
@@ -604,27 +605,22 @@
       function applyLanguage(lang){
         const dict = translations[lang] || translations.fr;
 
-        // html lang
         document.documentElement.setAttribute("lang", lang);
 
-        // title + meta description
         document.title = dict._title;
         const meta = document.querySelector('meta[name="description"]');
         if(meta) meta.setAttribute("content", dict._desc);
 
-        // text nodes
         document.querySelectorAll("[data-i18n]").forEach(el=>{
           const key = el.getAttribute("data-i18n");
           if(dict[key] !== undefined) el.textContent = dict[key];
         });
 
-        // html nodes (allow <br/> etc.)
         document.querySelectorAll("[data-i18n-html]").forEach(el=>{
           const key = el.getAttribute("data-i18n-html");
           if(dict[key] !== undefined) el.innerHTML = dict[key];
         });
 
-        // active button
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
         if(fr && en){
@@ -632,7 +628,6 @@
           en.classList.toggle("active", lang === "en");
         }
 
-        // persist
         try{ localStorage.setItem("msfs_lang", lang); }catch(e){}
       }
 
@@ -641,7 +636,6 @@
         try{
           lang = localStorage.getItem("msfs_lang") || "fr";
         }catch(e){}
-        // fallback if invalid
         if(!translations[lang]) lang = "fr";
         applyLanguage(lang);
       }
