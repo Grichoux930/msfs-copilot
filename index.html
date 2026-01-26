@@ -78,7 +78,16 @@
 
     .brand .t{display:flex; flex-direction:column; min-width:0;}
     .brand .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
-    .brand .sub{color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+    /* ✅ FIX: remove ellipsis (...) and allow wrapping */
+    .brand .sub{
+      color:var(--muted);
+      font-size:12.5px;
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      line-height:1.25;
+    }
 
     .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
     .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
@@ -281,7 +290,6 @@
 
     <div class="hero">
       <div class="panel">
-        <!-- ✅ FIX: hero_title uses HTML -->
         <h1 data-i18n-html="hero_title">Ton copilote<br/>pour Microsoft Flight Simulator</h1>
 
         <p class="lead" data-i18n-html="hero_lead">
@@ -676,3 +684,4 @@
   </script>
 </body>
 </html>
+
