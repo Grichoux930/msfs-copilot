@@ -306,10 +306,10 @@
         <a href="#tarifs" data-i18n="nav_pricing">Tarifs</a>
         <a class="btn" href="#download" data-i18n="nav_view">Voir</a>
 
-        <!-- ✅ BUY: bouton paiement (ouvre Stripe) -->
-        <a class="btn primary" id="buyLinkTop" href="#" target="_blank" rel="noopener">
-          <span data-i18n="nav_buy">Acheter</span>
-        </a>
+        <!-- ✅ SHOW SOON (no public purchase yet) -->
+        <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+          <span data-i18n="buy_soon">Bientôt</span>
+        </span>
 
         <!-- Download (still coming soon) -->
         <a class="btn disabled" href="#" aria-disabled="true" title="Bientôt disponible">
@@ -357,10 +357,10 @@
             <span data-i18n="cta_download">Télécharger (Windows)</span> <span class="badgeSoon" data-i18n="cta_coming">À venir</span>
           </span>
 
-          <!-- ✅ BUY: bouton paiement (ouvre Stripe) -->
-          <a class="btn primary" id="buyLinkHero" href="#" target="_blank" rel="noopener">
-            <span data-i18n="cta_buy">Acheter maintenant</span>
-          </a>
+          <!-- ✅ SHOW SOON (no public purchase yet) -->
+          <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+            <span data-i18n="buy_soon">Bientôt</span>
+          </span>
 
           <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
         </div>
@@ -475,10 +475,10 @@
           </ul>
 
           <div class="cta" style="margin-top:14px;">
-            <!-- ✅ BUY (Stripe) -->
-            <a class="btn primary" id="buyLinkPricing" href="#" target="_blank" rel="noopener">
-              <span data-i18n="buy_btn">Acheter / Télécharger</span>
-            </a>
+            <!-- ✅ SHOW SOON (no public purchase yet) -->
+            <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+              <span data-i18n="buy_soon">Bientôt</span>
+            </span>
 
             <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
           </div>
@@ -495,9 +495,6 @@
 
   <script>
     (function(){
-      // ✅ Stripe payment link (TEST for now). Replace by LIVE link later.
-      const STRIPE_BUY_URL = "https://buy.stripe.com/test_cNi9ASeQM4lj1tLeXk9Ve00";
-
       const translations = {
         fr: {
           _title: "MSFS CoPilot — NavCrew",
@@ -508,9 +505,10 @@
           nav_screens: "Captures",
           nav_pricing: "Tarifs",
           nav_view: "Voir",
-          nav_buy: "Acheter",
           nav_download: "Télécharger",
           soon_badge: "Bientôt",
+
+          buy_soon: "Bientôt",
 
           hero_title: "Ton copilote<br/>pour Microsoft Flight Simulator",
           hero_lead: "<b>MSFS CoPilot</b> est un assistant de cockpit intelligent, connecté en temps réel au simulateur via <b>SimConnect</b>. Il regroupe ce qui compte vraiment en vol : <b>nav log</b>, <b>météo</b>, <b>phraséologie</b>, <b>ATC</b>, <b>fréquences</b>, <b>réglage COM</b> et <b>checklists</b>.<br/><br/>L’objectif est simple : <b>réduire la charge de travail</b>, éviter les oublis, et garder un cockpit fluide — surtout quand ça s’enchaîne en approche. Avec l’<b>historique SayIntentions</b>, tu retrouves clairances, instructions et fréquences en un coup d’œil, sans perdre le fil.",
@@ -527,7 +525,6 @@
 
           cta_download: "Télécharger (Windows)",
           cta_coming: "À venir",
-          cta_buy: "Acheter maintenant",
           cta_screens: "Voir les captures",
 
           support_label: "Support",
@@ -578,7 +575,6 @@
           p1: "Accès complet à l’application (Windows)",
           p2: "Mises à jour incluses",
           p3: "Support par courriel (NavCrew)",
-          buy_btn: "Acheter / Télécharger",
           buy_note: "Le paiement s’effectue via Stripe. Vous recevrez un reçu par courriel.",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
@@ -593,9 +589,10 @@
           nav_screens: "Screenshots",
           nav_pricing: "Pricing",
           nav_view: "View",
-          nav_buy: "Buy",
           nav_download: "Download",
           soon_badge: "Soon",
+
+          buy_soon: "Soon",
 
           hero_title: "Your co-pilot<br/>for Microsoft Flight Simulator",
           hero_lead: "<b>MSFS CoPilot</b> is a smart cockpit assistant, connected to the sim in real time via <b>SimConnect</b>. It brings together what matters most in flight: <b>nav log</b>, <b>weather</b>, <b>phraseology</b>, <b>ATC</b>, <b>frequencies</b>, <b>COM tuning</b>, and <b>checklists</b>.<br/><br/>The goal is simple: <b>reduce workload</b>, prevent missed steps, and keep the cockpit flow smooth — especially when things get busy on approach. With <b>SayIntentions history</b>, you can instantly review clearances, instructions, and frequencies without losing the thread.",
@@ -612,7 +609,6 @@
 
           cta_download: "Download (Windows)",
           cta_coming: "Coming soon",
-          cta_buy: "Buy now",
           cta_screens: "View screenshots",
 
           support_label: "Support",
@@ -663,7 +659,6 @@
           p1: "Full access to the app (Windows)",
           p2: "Updates included",
           p3: "Email support (NavCrew)",
-          buy_btn: "Buy / Download",
           buy_note: "Payment is processed by Stripe. You will receive an email receipt.",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
@@ -727,18 +722,9 @@
         el.appendChild(a);
       }
 
-      function wireBuyLinks(){
-        const ids = ["buyLinkTop", "buyLinkHero", "buyLinkPricing"];
-        ids.forEach(id=>{
-          const el = document.getElementById(id);
-          if(el) el.href = STRIPE_BUY_URL;
-        });
-      }
-
       document.addEventListener("DOMContentLoaded", ()=>{
         initLanguage();
         renderSupportEmail();
-        wireBuyLinks();
 
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
