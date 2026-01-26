@@ -98,11 +98,14 @@
       padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
       background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
       user-select:none;
+      cursor:pointer;
     }
     .btn.primary{
       border-color:rgba(91,226,255,.35);
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
+      color:var(--text);
     }
+    .btn.primary:hover{opacity:.93}
     .btn.disabled{
       opacity:.55;
       cursor:not-allowed;
@@ -302,7 +305,14 @@
         <a href="./screenshots.html" data-i18n="nav_screens">Captures</a>
         <a href="#tarifs" data-i18n="nav_pricing">Tarifs</a>
         <a class="btn" href="#download" data-i18n="nav_view">Voir</a>
-        <a class="btn primary disabled" href="#" aria-disabled="true" title="Bientôt disponible">
+
+        <!-- ✅ BUY: bouton paiement (ouvre Stripe) -->
+        <a class="btn primary" id="buyLinkTop" href="#" target="_blank" rel="noopener">
+          <span data-i18n="nav_buy">Acheter</span>
+        </a>
+
+        <!-- Download (still coming soon) -->
+        <a class="btn disabled" href="#" aria-disabled="true" title="Bientôt disponible">
           <span data-i18n="nav_download">Télécharger</span> <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
         </a>
 
@@ -342,9 +352,16 @@
         </div>
 
         <div class="cta" id="download">
-          <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
+          <!-- Download coming soon -->
+          <span class="btn disabled" aria-disabled="true" title="Bientôt disponible">
             <span data-i18n="cta_download">Télécharger (Windows)</span> <span class="badgeSoon" data-i18n="cta_coming">À venir</span>
           </span>
+
+          <!-- ✅ BUY: bouton paiement (ouvre Stripe) -->
+          <a class="btn primary" id="buyLinkHero" href="#" target="_blank" rel="noopener">
+            <span data-i18n="cta_buy">Acheter maintenant</span>
+          </a>
+
           <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
         </div>
 
@@ -458,11 +475,17 @@
           </ul>
 
           <div class="cta" style="margin-top:14px;">
-            <span class="btn primary disabled" aria-disabled="true" title="Bientôt disponible">
-              <span data-i18n="buy_btn">Acheter / Télécharger</span> <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
-            </span>
+            <!-- ✅ BUY (Stripe) -->
+            <a class="btn primary" id="buyLinkPricing" href="#" target="_blank" rel="noopener">
+              <span data-i18n="buy_btn">Acheter / Télécharger</span>
+            </a>
+
             <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
           </div>
+
+          <p style="margin-top:10px;color:rgba(232,240,244,.48);font-size:12.3px;line-height:1.5;">
+            <span data-i18n="buy_note">Le paiement s’effectue via Stripe. Vous recevrez un reçu par courriel.</span>
+          </p>
         </div>
       </div>
     </div>
@@ -472,6 +495,9 @@
 
   <script>
     (function(){
+      // ✅ Stripe payment link (TEST for now). Replace by LIVE link later.
+      const STRIPE_BUY_URL = "https://buy.stripe.com/test_cNi9ASeQM4lj1tLeXk9Ve00";
+
       const translations = {
         fr: {
           _title: "MSFS CoPilot — NavCrew",
@@ -482,6 +508,7 @@
           nav_screens: "Captures",
           nav_pricing: "Tarifs",
           nav_view: "Voir",
+          nav_buy: "Acheter",
           nav_download: "Télécharger",
           soon_badge: "Bientôt",
 
@@ -500,6 +527,7 @@
 
           cta_download: "Télécharger (Windows)",
           cta_coming: "À venir",
+          cta_buy: "Acheter maintenant",
           cta_screens: "Voir les captures",
 
           support_label: "Support",
@@ -551,6 +579,7 @@
           p2: "Mises à jour incluses",
           p3: "Support par courriel (NavCrew)",
           buy_btn: "Acheter / Télécharger",
+          buy_note: "Le paiement s’effectue via Stripe. Vous recevrez un reçu par courriel.",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
         },
@@ -564,6 +593,7 @@
           nav_screens: "Screenshots",
           nav_pricing: "Pricing",
           nav_view: "View",
+          nav_buy: "Buy",
           nav_download: "Download",
           soon_badge: "Soon",
 
@@ -582,6 +612,7 @@
 
           cta_download: "Download (Windows)",
           cta_coming: "Coming soon",
+          cta_buy: "Buy now",
           cta_screens: "View screenshots",
 
           support_label: "Support",
@@ -633,6 +664,7 @@
           p2: "Updates included",
           p3: "Email support (NavCrew)",
           buy_btn: "Buy / Download",
+          buy_note: "Payment is processed by Stripe. You will receive an email receipt.",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
         }
@@ -695,9 +727,18 @@
         el.appendChild(a);
       }
 
+      function wireBuyLinks(){
+        const ids = ["buyLinkTop", "buyLinkHero", "buyLinkPricing"];
+        ids.forEach(id=>{
+          const el = document.getElementById(id);
+          if(el) el.href = STRIPE_BUY_URL;
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", ()=>{
         initLanguage();
         renderSupportEmail();
+        wireBuyLinks();
 
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
