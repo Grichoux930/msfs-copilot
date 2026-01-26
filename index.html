@@ -314,8 +314,9 @@
           <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
         </div>
 
+        <!-- ✅ Support email (obfusqué + cliquable) -->
         <p style="margin-top:12px;color:rgba(232,240,244,.45);font-size:12.5px;">
-          NavCrew — <span data-i18n="support_email">support@msfscopilot.com</span>
+          <span data-i18n="support_label">Support</span> — <span id="supportEmail"></span>
         </p>
       </div>
 
@@ -467,7 +468,8 @@
           cta_download: "Télécharger (Windows)",
           cta_coming: "À venir",
           cta_screens: "Voir les captures",
-          support_email: "support@msfscopilot.com",
+
+          support_label: "Support",
 
           kpi1_label: "Connexion",
           kpi1_value: "SimConnect (temps réel)",
@@ -548,7 +550,8 @@
           cta_download: "Download (Windows)",
           cta_coming: "Coming soon",
           cta_screens: "View screenshots",
-          support_email: "support@msfscopilot.com",
+
+          support_label: "Support",
 
           kpi1_label: "Connection",
           kpi1_value: "SimConnect (real-time)",
@@ -640,8 +643,30 @@
         applyLanguage(lang);
       }
 
+      // Email obfuscation (anti-spam) + mailto
+      function renderSupportEmail(){
+        const user = "support";
+        const host = "navcrew.app";
+        const email = `${user}@${host}`;
+
+        const el = document.getElementById("supportEmail");
+        if(!el) return;
+
+        const a = document.createElement("a");
+        a.href = `mailto:${email}?subject=${encodeURIComponent("MSFS CoPilot — Support")}`;
+        a.textContent = email;
+        a.style.color = "rgba(232,240,244,.65)";
+        a.style.textDecoration = "underline";
+        a.style.textUnderlineOffset = "3px";
+
+        el.innerHTML = "";
+        el.appendChild(a);
+      }
+
       document.addEventListener("DOMContentLoaded", ()=>{
         initLanguage();
+        renderSupportEmail();
+
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
         if(fr) fr.addEventListener("click", ()=>applyLanguage("fr"));
