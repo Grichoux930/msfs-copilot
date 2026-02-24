@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MSFS CoPilot — NavCrew</title>
-  <meta name="description" content="MSFS CoPilot par NavCrew : assistant cockpit pour Microsoft Flight Simulator (MSFS 2020 & MSFS 2024) via SimConnect. Nav log, météo, phraséologie, ATC, fréquences/COM, checklists et historique SayIntentions." />
+  <meta name="description" content="MSFS CoPilot par NavCrew : assistant cockpit pour MSFS 2020 & MSFS 2024 via SimConnect. ATC, fréquences avec réglage cockpit, nav log, météo, phraséologie, checklists, SayIntentions, SimBrief." />
 
   <!-- SEO / Social sharing -->
   <meta property="og:title" content="MSFS CoPilot — NavCrew" />
@@ -42,6 +42,7 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
 
+    /* Top */
     .top{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
       padding:12px 14px;
@@ -53,6 +54,7 @@
       position:sticky; top:12px; z-index:20;
     }
 
+    /* Co-brand */
     .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .logos{
       display:flex; align-items:center; gap:10px;
@@ -61,13 +63,23 @@
       background:rgba(0,0,0,.16);
       border-radius:999px;
     }
-    .logos .sep{width:1px; height:28px; background:rgba(255,255,255,.10); border-radius:99px;}
+    .logos .sep{
+      width:1px; height:28px; background:rgba(255,255,255,.10);
+      border-radius:99px;
+    }
     .logoNC{
-      width:44px; height:44px; object-fit:contain; border-radius:50%;
-      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(91,226,255,.12));
+      width:44px; height:44px;
+      object-fit:contain;
+      border-radius:50%;
+      filter:
+        drop-shadow(0 10px 16px rgba(0,0,0,.55))
+        drop-shadow(0 0 18px rgba(91,226,255,.12));
       opacity:.99;
     }
-    .logoApp{width:38px; height:38px; object-fit:contain; filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));}
+    .logoApp{
+      width:38px; height:38px; object-fit:contain;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
+    }
     .brand .t{display:flex; flex-direction:column; min-width:0;}
     .brand .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
     .brand .sub{color:var(--muted); font-size:12.5px; line-height:1.25}
@@ -80,7 +92,8 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
       background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
-      user-select:none; cursor:pointer;
+      user-select:none;
+      cursor:pointer;
     }
     .badgeSoon{
       margin-left:8px;
@@ -94,6 +107,7 @@
       color:rgba(232,240,244,.78);
     }
 
+    /* Language toggle */
     .lang{
       display:flex; align-items:center; gap:8px;
       padding:6px 8px;
@@ -102,17 +116,28 @@
       border-radius:999px;
     }
     .lang button{
-      appearance:none; border:1px solid transparent; background:transparent;
-      color:rgba(232,240,244,.70); font-weight:900; font-size:12px;
-      padding:6px 9px; border-radius:999px; cursor:pointer;
+      appearance:none;
+      border:1px solid transparent;
+      background:transparent;
+      color:rgba(232,240,244,.70);
+      font-weight:900;
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      cursor:pointer;
     }
-    .lang button:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+    .lang button:hover{
+      color:var(--text);
+      border-color:var(--stroke);
+      background:rgba(0,0,0,.18);
+    }
     .lang button.active{
       color:var(--text);
       border-color:rgba(91,226,255,.35);
       background:linear-gradient(180deg, rgba(91,226,255,.14), rgba(0,0,0,.18));
     }
 
+    /* Layout */
     .hero{
       margin-top:16px;
       display:grid;
@@ -143,32 +168,9 @@
       line-height:1.45;
     }
 
-    /* Tags - no boxes */
-    .tags{
-      margin-top:14px;
-      display:flex;
-      gap:8px 14px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .tag{
-      font-size:12.8px;
-      color:rgba(232,240,244,.70);
-      font-weight:900;
-      letter-spacing:.12px;
-      border:none;
-      background:transparent;
-      padding:0;
-    }
-    .tag:not(:first-child)::before{
-      content:"•";
-      display:inline-block;
-      margin-right:10px;
-      color:rgba(232,240,244,.35);
-    }
-
     .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
 
+    /* Right panel */
     .kpi{display:grid; gap:12px;}
     .kpi .mini{
       border:1px solid var(--stroke);
@@ -180,6 +182,7 @@
     .mini .value{margin-top:6px; font-size:18px; font-weight:900}
     .mini .desc{margin-top:6px; color:var(--muted); font-size:13.2px; line-height:1.55}
 
+    /* Section */
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
@@ -194,6 +197,7 @@
     .card h3{margin:0 0 8px; font-size:17px}
     .card p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.55}
 
+    /* License */
     .price{padding:18px;}
     .pill{
       display:inline-flex;
@@ -221,18 +225,36 @@
       .logoNC{width:42px;height:42px;}
       .logoApp{width:36px;height:36px;}
     }
+
     @media (max-width: 520px){
       .top{padding:10px 10px;}
       .brand .sub{display:none;}
       .nav a{font-size:12.5px}
     }
+
     @media (max-width: 760px){
-      .top{flex-direction:column; align-items:stretch; gap:10px; padding:12px 12px;}
+      .top{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:12px 12px;
+      }
       .brand{width:100%;}
-      .nav{width:100%; justify-content:space-between; gap:8px;}
+      .nav{
+        width:100%;
+        justify-content:space-between;
+        gap:8px;
+      }
       .nav a{padding:7px 9px;}
-      .btn{padding:8px 10px; border-radius:999px;}
-      .badgeSoon{margin-left:6px; padding:3px 7px; font-size:10.5px;}
+      .btn{
+        padding:8px 10px;
+        border-radius:999px;
+      }
+      .badgeSoon{
+        margin-left:6px;
+        padding:3px 7px;
+        font-size:10.5px;
+      }
     }
   </style>
 </head>
@@ -257,17 +279,14 @@
       <div class="nav">
         <a href="#fonctions" data-i18n="nav_features">Fonctions</a>
         <a href="./screenshots.html" data-i18n="nav_screens">Captures</a>
-        <a href="#tarifs" data-i18n="nav_pricing">Tarifs</a>
-
-        <!-- ✅ On enlève "Voir" -->
-
-        <!-- ✅ On enlève le bouton "Bientôt" en haut -->
+        <a href="#licence" data-i18n="nav_pricing">Licence</a>
 
         <!-- Download -> HOLD page -->
         <a class="btn" href="./download.html" data-i18n-title="download_title">
           <span data-i18n="nav_download">Télécharger</span> <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
         </a>
 
+        <!-- Language toggle -->
         <div class="lang" aria-label="Language">
           <button type="button" id="btn-fr" class="active">FR</button>
           <button type="button" id="btn-en">EN</button>
@@ -277,15 +296,15 @@
 
     <div class="hero">
       <div class="panel">
-        <h1 data-i18n-html="hero_title">Un copilote clair,<br/>pensé pour le cockpit</h1>
+        <h1 data-i18n-html="hero_title">Un copilote cockpit,<br/>rapide et lisible</h1>
 
         <p class="lead" data-i18n-html="hero_lead">
-          <b>MSFS CoPilot</b> centralise l’essentiel de votre vol sur un écran secondaire, avec une connexion <b>SimConnect en temps réel</b>.
-          Fréquences et services ATC, nav log, météo opérationnelle, phraséologie et checklists : tout est conçu pour
-          <b>réduire la charge de travail</b> et garder un flux cockpit fluide, notamment en approche.
+          <b>MSFS CoPilot</b> centralise les informations utiles en vol, avec une connexion <b>SimConnect en temps réel</b>.
+          ATC, fréquences, nav log, météo, phraséologie et checklists : l’interface est pensée pour aller droit au point,
+          sans surcharge.
           <br/><br/>
-          L’<b>historique SayIntentions</b> conserve les clairances et instructions afin de retrouver une information immédiatement,
-          sans interrompre la séquence de pilotage.
+          L’<b>historique SayIntentions</b> garde vos clairances, instructions et fréquences à portée de main, pour rester dans le rythme,
+          surtout quand ça s’accélère en approche.
         </p>
 
         <div class="compat" data-i18n-html="compat">
@@ -293,21 +312,10 @@
           <span style="opacity:.85;">Certaines fonctions peuvent varier selon la version du simulateur.</span>
         </div>
 
-        <div class="tags">
-          <span class="tag" data-i18n="tag_simconnect">SimConnect (temps réel)</span>
-          <span class="tag" data-i18n="tag_weather">Météo opérationnelle</span>
-          <span class="tag" data-i18n="tag_freq">ATC & fréquences</span>
-          <span class="tag" data-i18n="tag_navlog">Nav Log</span>
-          <span class="tag" data-i18n="tag_phrase">Phraséologie</span>
-          <span class="tag" data-i18n="tag_si">SayIntentions</span>
-          <span class="tag" data-i18n="tag_windows">Windows</span>
-        </div>
-
         <div class="cta" id="download">
           <a class="btn" href="./download.html" data-i18n-title="download_title">
             <span data-i18n="cta_download">Télécharger (Windows)</span> <span class="badgeSoon" data-i18n="cta_coming">À venir</span>
           </a>
-
           <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
         </div>
 
@@ -321,29 +329,29 @@
           <div class="mini">
             <div class="label" data-i18n="kpi1_label">Connexion</div>
             <div class="value" data-i18n="kpi1_value">SimConnect (temps réel)</div>
-            <div class="desc" data-i18n="kpi1_desc">Synchronisation continue avec l’avion, la phase de vol et les paramètres cockpit.</div>
+            <div class="desc" data-i18n="kpi1_desc">Synchronisation continue avec l’avion, la phase de vol et les paramètres clés.</div>
           </div>
 
           <div class="mini">
             <div class="label" data-i18n="kpi2_label">Météo</div>
-            <div class="value" data-i18n="kpi2_value">Lisible & utile</div>
-            <div class="desc" data-i18n="kpi2_desc">Synthèse orientée décision : départ, route et arrivée, sans surcharge.</div>
+            <div class="value" data-i18n="kpi2_value">Clair & actionnable</div>
+            <div class="desc" data-i18n="kpi2_desc">Résumé utile pour la décision : lecture rapide, éléments importants mis en évidence.</div>
           </div>
 
           <div class="mini">
             <div class="label" data-i18n="kpi3_label">ATC</div>
-            <div class="value" data-i18n="kpi3_value">Fréquences + historique</div>
-            <div class="desc" data-i18n="kpi3_desc">Accès rapide aux services et récupération instantanée des instructions SayIntentions.</div>
+            <div class="value" data-i18n="kpi3_value">Fréquences + 1 clic cockpit</div>
+            <div class="desc" data-i18n="kpi3_desc">Fréquences au bon moment, réglage dans le cockpit en un clic, et historique SayIntentions intégré.</div>
           </div>
 
           <div class="mini">
-            <div class="label" data-i18n="kpi4_label">Ergonomie</div>
-            <div class="value" data-i18n="kpi4_value">Second écran</div>
-            <div class="desc" data-i18n="kpi4_desc">Interface compacte et directe, pensée pour limiter les clics.</div>
+            <div class="label" data-i18n="kpi4_label">Interface</div>
+            <div class="value" data-i18n="kpi4_value">Cockpit-ready</div>
+            <div class="desc" data-i18n="kpi4_desc">Informations prioritaires, actions simples, moins de clics quand ça compte.</div>
           </div>
 
           <div class="mini">
-            <div class="label" data-i18n="kpi5_label">Prix de lancement</div>
+            <div class="label" data-i18n="kpi5_label">Licence</div>
             <div class="value" data-i18n="kpi5_value">19.99 USD</div>
             <div class="desc" data-i18n="kpi5_desc">Achat unique. Mises à jour incluses.</div>
           </div>
@@ -356,57 +364,57 @@
 
       <div class="grid3">
         <div class="card">
-          <h3 data-i18n="f1_title">Fréquences ATC au bon moment</h3>
-          <p data-i18n="f1_desc">ATIS, Sol, Tour, Approche, Centre : accès rapide, favoris et récents pour rester concentré sur le pilotage.</p>
+          <h3 data-i18n="f1_title">ATC & fréquences instantanées</h3>
+          <p data-i18n="f1_desc">ATIS, Sol, Tour, Approche, Centre : accès rapide, favoris et récents. Réglage des fréquences dans le cockpit en un clic.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f2_title">Réglage COM rapide</h3>
-          <p data-i18n="f2_desc">Sélectionnez une fréquence et appliquez-la rapidement au cockpit : idéal en approche, transitions et clairances successives.</p>
+          <h3 data-i18n="f2_title">Historique SayIntentions</h3>
+          <p data-i18n="f2_desc">Clairances, instructions et fréquences retrouvées immédiatement, sans perdre le fil du vol.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f3_title">Historique SayIntentions</h3>
-          <p data-i18n="f3_desc">Retrouvez clairances, instructions et fréquences en un coup d’œil — sans perdre le fil.</p>
+          <h3 data-i18n="f3_title">Nav Log intégré</h3>
+          <p data-i18n="f3_desc">Un nav log lisible et structuré, du départ à l’arrivée, pensé pour un usage cockpit.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f4_title">Nav Log structuré</h3>
-          <p data-i18n="f4_desc">Un fil conducteur du départ à l’arrivée, avec une présentation lisible et orientée cockpit.</p>
+          <h3 data-i18n="f4_title">Météo cockpit</h3>
+          <p data-i18n="f4_desc">Informations météo utiles et synthétiques : ce qui impacte réellement la conduite du vol, sans bruit.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f5_title">Météo opérationnelle</h3>
-          <p data-i18n="f5_desc">Points clés mis en évidence, lecture rapide, et contexte direct sur départ/route/arrivée.</p>
+          <h3 data-i18n="f5_title">Phraséologie par phase</h3>
+          <p data-i18n="f5_desc">Formulations prêtes selon la phase de vol pour pratiquer et garder une radio propre et fluide.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f6_title">Phraséologie par phase</h3>
-          <p data-i18n="f6_desc">Formulations prêtes à l’emploi selon la phase de vol, pour s’entraîner et gagner en fluidité radio.</p>
+          <h3 data-i18n="f6_title">Checklists</h3>
+          <p data-i18n="f6_desc">Checklists claires par phase de vol, conçues pour assister le pilote et éviter les oublis.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f7_title">Checklists cockpit</h3>
-          <p data-i18n="f7_desc">Checklists claires par phase de vol, conçues pour assister le pilote sans sur-automatiser.</p>
+          <h3 data-i18n="f7_title">Plan de vol (SimBrief)</h3>
+          <p data-i18n="f7_desc">Importation SimBrief : récupération du plan de vol et intégration au nav log pour un suivi simple en cockpit.</p>
         </div>
 
         <div class="card">
           <h3 data-i18n="f8_title">Stabilité & immersion</h3>
-          <p data-i18n="f8_desc">Une interface épurée et robuste, pensée pour un usage long et sans friction.</p>
+          <p data-i18n="f8_desc">Comportement fiable en vol : interface réactive, cohérente, et conçue pour des sessions longues.</p>
         </div>
 
         <div class="card">
-          <h3 data-i18n="f9_title">Vie privée, sans compromis</h3>
-          <p data-i18n="f9_desc">Aucun tracking, aucune publicité, aucune télémétrie cachée. Fonctionne sans connexion obligatoire.</p>
+          <h3 data-i18n="f9_title">Sans publicité</h3>
+          <p data-i18n="f9_desc">Aucune publicité, aucune distraction : l’app reste un outil cockpit, point.</p>
         </div>
       </div>
     </div>
 
-    <div class="section" id="tarifs">
-      <h2 data-i18n="pricing_title">Tarifs</h2>
+    <div class="section" id="licence">
+      <h2 data-i18n="pricing_title">Licence</h2>
       <div class="grid2">
         <div class="card price">
-          <div class="pill" data-i18n="pricing_pill">Prix de lancement</div>
+          <div class="pill" data-i18n="pricing_pill">Licence</div>
 
           <div class="priceRow">
             <div class="priceValue">19.99&nbsp;$</div>
@@ -435,28 +443,20 @@
       const translations = {
         fr: {
           _title: "MSFS CoPilot — NavCrew",
-          _desc: "MSFS CoPilot par NavCrew : assistant cockpit pour Microsoft Flight Simulator (MSFS 2020 & MSFS 2024) via SimConnect. Nav log, météo, phraséologie, ATC, fréquences/COM, checklists et historique SayIntentions.",
+          _desc: "MSFS CoPilot par NavCrew : assistant cockpit pour MSFS 2020 & MSFS 2024 via SimConnect. ATC, fréquences avec réglage cockpit, nav log, météo, phraséologie, checklists, SayIntentions, SimBrief.",
           header_sub: "par NavCrew — Assistant cockpit pour Microsoft Flight Simulator",
 
           nav_features: "Fonctions",
           nav_screens: "Captures",
-          nav_pricing: "Tarifs",
+          nav_pricing: "Licence",
           nav_download: "Télécharger",
           soon_badge: "Bientôt",
           download_title: "Téléchargement (Hold)",
 
-          hero_title: "Un copilote clair,<br/>pensé pour le cockpit",
-          hero_lead: "<b>MSFS CoPilot</b> centralise l’essentiel de votre vol sur un écran secondaire, avec une connexion <b>SimConnect en temps réel</b>. Fréquences et services ATC, nav log, météo opérationnelle, phraséologie et checklists : tout est conçu pour <b>réduire la charge de travail</b> et garder un flux cockpit fluide, notamment en approche.<br/><br/>L’<b>historique SayIntentions</b> conserve les clairances et instructions afin de retrouver une information immédiatement, sans interrompre la séquence de pilotage.",
+          hero_title: "Un copilote cockpit,<br/>rapide et lisible",
+          hero_lead: "<b>MSFS CoPilot</b> centralise les informations utiles en vol, avec une connexion <b>SimConnect en temps réel</b>. ATC, fréquences, nav log, météo, phraséologie et checklists : l’interface est pensée pour aller droit au point, sans surcharge.<br/><br/>L’<b>historique SayIntentions</b> garde vos clairances, instructions et fréquences à portée de main, pour rester dans le rythme, surtout quand ça s’accélère en approche.",
 
           compat: "<b>Compatibilité :</b> Microsoft Flight Simulator (<b>MSFS 2020</b> & <b>MSFS 2024</b>) via SimConnect. <span style='opacity:.85;'>Certaines fonctions peuvent varier selon la version du simulateur.</span>",
-
-          tag_simconnect: "SimConnect (temps réel)",
-          tag_weather: "Météo opérationnelle",
-          tag_freq: "ATC & fréquences",
-          tag_navlog: "Nav Log",
-          tag_phrase: "Phraséologie",
-          tag_si: "SayIntentions",
-          tag_windows: "Windows",
 
           cta_download: "Télécharger (Windows)",
           cta_coming: "À venir",
@@ -466,46 +466,46 @@
 
           kpi1_label: "Connexion",
           kpi1_value: "SimConnect (temps réel)",
-          kpi1_desc: "Synchronisation continue avec l’avion, la phase de vol et les paramètres cockpit.",
+          kpi1_desc: "Synchronisation continue avec l’avion, la phase de vol et les paramètres clés.",
 
           kpi2_label: "Météo",
-          kpi2_value: "Lisible & utile",
-          kpi2_desc: "Synthèse orientée décision : départ, route et arrivée, sans surcharge.",
+          kpi2_value: "Clair & actionnable",
+          kpi2_desc: "Résumé utile pour la décision : lecture rapide, éléments importants mis en évidence.",
 
           kpi3_label: "ATC",
-          kpi3_value: "Fréquences + historique",
-          kpi3_desc: "Accès rapide aux services et récupération instantanée des instructions SayIntentions.",
+          kpi3_value: "Fréquences + 1 clic cockpit",
+          kpi3_desc: "Fréquences au bon moment, réglage dans le cockpit en un clic, et historique SayIntentions intégré.",
 
-          kpi4_label: "Ergonomie",
-          kpi4_value: "Second écran",
-          kpi4_desc: "Interface compacte et directe, pensée pour limiter les clics.",
+          kpi4_label: "Interface",
+          kpi4_value: "Cockpit-ready",
+          kpi4_desc: "Informations prioritaires, actions simples, moins de clics quand ça compte.",
 
-          kpi5_label: "Prix de lancement",
+          kpi5_label: "Licence",
           kpi5_value: "19.99 USD",
           kpi5_desc: "Achat unique. Mises à jour incluses.",
 
           features_title: "Fonctions",
-          f1_title: "Fréquences ATC au bon moment",
-          f1_desc: "ATIS, Sol, Tour, Approche, Centre : accès rapide, favoris et récents pour rester concentré sur le pilotage.",
-          f2_title: "Réglage COM rapide",
-          f2_desc: "Sélectionnez une fréquence et appliquez-la rapidement au cockpit : idéal en approche, transitions et clairances successives.",
-          f3_title: "Historique SayIntentions",
-          f3_desc: "Retrouvez clairances, instructions et fréquences en un coup d’œil — sans perdre le fil.",
-          f4_title: "Nav Log structuré",
-          f4_desc: "Un fil conducteur du départ à l’arrivée, avec une présentation lisible et orientée cockpit.",
-          f5_title: "Météo opérationnelle",
-          f5_desc: "Points clés mis en évidence, lecture rapide, et contexte direct sur départ/route/arrivée.",
-          f6_title: "Phraséologie par phase",
-          f6_desc: "Formulations prêtes à l’emploi selon la phase de vol, pour s’entraîner et gagner en fluidité radio.",
-          f7_title: "Checklists cockpit",
-          f7_desc: "Checklists claires par phase de vol, conçues pour assister le pilote sans sur-automatiser.",
+          f1_title: "ATC & fréquences instantanées",
+          f1_desc: "ATIS, Sol, Tour, Approche, Centre : accès rapide, favoris et récents. Réglage des fréquences dans le cockpit en un clic.",
+          f2_title: "Historique SayIntentions",
+          f2_desc: "Clairances, instructions et fréquences retrouvées immédiatement, sans perdre le fil du vol.",
+          f3_title: "Nav Log intégré",
+          f3_desc: "Un nav log lisible et structuré, du départ à l’arrivée, pensé pour un usage cockpit.",
+          f4_title: "Météo cockpit",
+          f4_desc: "Informations météo utiles et synthétiques : ce qui impacte réellement la conduite du vol, sans bruit.",
+          f5_title: "Phraséologie par phase",
+          f5_desc: "Formulations prêtes selon la phase de vol pour pratiquer et garder une radio propre et fluide.",
+          f6_title: "Checklists",
+          f6_desc: "Checklists claires par phase de vol, conçues pour assister le pilote et éviter les oublis.",
+          f7_title: "Plan de vol (SimBrief)",
+          f7_desc: "Importation SimBrief : récupération du plan de vol et intégration au nav log pour un suivi simple en cockpit.",
           f8_title: "Stabilité & immersion",
-          f8_desc: "Une interface épurée et robuste, pensée pour un usage long et sans friction.",
-          f9_title: "Vie privée, sans compromis",
-          f9_desc: "Aucun tracking, aucune publicité, aucune télémétrie cachée. Fonctionne sans connexion obligatoire.",
+          f8_desc: "Comportement fiable en vol : interface réactive, cohérente, et conçue pour des sessions longues.",
+          f9_title: "Sans publicité",
+          f9_desc: "Aucune publicité, aucune distraction : l’app reste un outil cockpit, point.",
 
-          pricing_title: "Tarifs",
-          pricing_pill: "Prix de lancement",
+          pricing_title: "Licence",
+          pricing_pill: "Licence",
           pricing_note: "achat unique",
           p1: "Accès complet à l’application (Windows)",
           p2: "Mises à jour incluses",
@@ -517,28 +517,20 @@
 
         en: {
           _title: "MSFS CoPilot — NavCrew | Cockpit Assistant",
-          _desc: "MSFS CoPilot by NavCrew: a cockpit assistant for Microsoft Flight Simulator (MSFS 2020 & MSFS 2024) via SimConnect. Nav log, operational weather, phraseology, ATC, COM/frequencies, checklists, and SayIntentions history.",
+          _desc: "MSFS CoPilot by NavCrew: cockpit assistant for MSFS 2020 & MSFS 2024 via SimConnect. ATC, one-click frequency tuning, nav log, weather, phraseology, checklists, SayIntentions, SimBrief.",
           header_sub: "by NavCrew — Cockpit assistant for Microsoft Flight Simulator",
 
           nav_features: "Features",
           nav_screens: "Screenshots",
-          nav_pricing: "Pricing",
+          nav_pricing: "License",
           nav_download: "Download",
           soon_badge: "Soon",
           download_title: "Download (Hold)",
 
-          hero_title: "A clean co-pilot,<br/>built for the cockpit",
-          hero_lead: "<b>MSFS CoPilot</b> brings key flight tools onto a second screen with a <b>real-time SimConnect connection</b>. ATC services and frequencies, a structured nav log, operational weather, phraseology, and checklists — everything is designed to <b>reduce workload</b> and keep cockpit flow smooth, especially on approach.<br/><br/><b>SayIntentions history</b> keeps clearances and instructions accessible so you can retrieve critical info instantly without breaking your flying sequence.",
+          hero_title: "A cockpit co-pilot,<br/>fast and readable",
+          hero_lead: "<b>MSFS CoPilot</b> consolidates the flight information you actually need, powered by a <b>real-time SimConnect connection</b>. ATC, frequencies, nav log, weather, phraseology and checklists — the interface stays focused and uncluttered.<br/><br/><b>SayIntentions history</b> keeps clearances, instructions and frequencies within reach, so you can stay in flow when workload spikes on approach.",
 
           compat: "<b>Compatibility:</b> Microsoft Flight Simulator (<b>MSFS 2020</b> & <b>MSFS 2024</b>) via SimConnect. <span style='opacity:.85;'>Some features may vary depending on the sim version.</span>",
-
-          tag_simconnect: "SimConnect (real-time)",
-          tag_weather: "Operational weather",
-          tag_freq: "ATC & frequencies",
-          tag_navlog: "Nav Log",
-          tag_phrase: "Phraseology",
-          tag_si: "SayIntentions",
-          tag_windows: "Windows",
 
           cta_download: "Download (Windows)",
           cta_coming: "Coming soon",
@@ -548,46 +540,46 @@
 
           kpi1_label: "Connection",
           kpi1_value: "SimConnect (real-time)",
-          kpi1_desc: "Continuous sync with the aircraft, flight phase, and key cockpit parameters.",
+          kpi1_desc: "Continuous sync with the aircraft, flight phase, and key parameters.",
 
           kpi2_label: "Weather",
-          kpi2_value: "Readable & actionable",
-          kpi2_desc: "Decision-focused summary for departure, enroute, and arrival — without clutter.",
+          kpi2_value: "Clear & actionable",
+          kpi2_desc: "Decision-focused summary with critical items highlighted — fast to read, no noise.",
 
           kpi3_label: "ATC",
-          kpi3_value: "Frequencies + history",
-          kpi3_desc: "Quick service access plus instant retrieval of SayIntentions instructions.",
+          kpi3_value: "Frequencies + 1-click cockpit",
+          kpi3_desc: "The right frequencies at the right time, with one-click in-cockpit tuning and SayIntentions history.",
 
-          kpi4_label: "Ergonomics",
-          kpi4_value: "Second-screen ready",
-          kpi4_desc: "Compact UI designed to minimize clicks and distractions.",
+          kpi4_label: "Interface",
+          kpi4_value: "Cockpit-ready",
+          kpi4_desc: "Priorities first, simple actions, fewer clicks when it matters.",
 
-          kpi5_label: "Launch price",
+          kpi5_label: "License",
           kpi5_value: "19.99 USD",
           kpi5_desc: "One-time purchase. Updates included.",
 
           features_title: "Features",
-          f1_title: "ATC frequencies when you need them",
-          f1_desc: "ATIS, Ground, Tower, Approach, Center — with favorites and recents to keep your focus on flying.",
-          f2_title: "Fast COM tuning",
-          f2_desc: "Pick a frequency and apply it quickly in-cockpit — ideal for approach, sector changes, and back-to-back clearances.",
-          f3_title: "SayIntentions history",
-          f3_desc: "Review clearances, instructions, and frequencies at a glance — without losing the thread.",
-          f4_title: "Structured Nav Log",
-          f4_desc: "A clear thread from departure to arrival with a cockpit-first layout.",
-          f5_title: "Operational weather",
-          f5_desc: "Key items highlighted, fast to read, and contextual to departure/enroute/arrival.",
-          f6_title: "Phase-based phraseology",
-          f6_desc: "Ready-to-use wording by flight phase to train and improve radio flow.",
-          f7_title: "Cockpit checklists",
-          f7_desc: "Clean phase-based checklists designed to assist the pilot without over-automation.",
+          f1_title: "Instant ATC & frequencies",
+          f1_desc: "ATIS, Ground, Tower, Approach, Center — with favorites and recents. One-click in-cockpit tuning.",
+          f2_title: "SayIntentions history",
+          f2_desc: "Retrieve clearances, instructions and frequencies instantly without losing the thread.",
+          f3_title: "Integrated Nav Log",
+          f3_desc: "A clean, structured nav log from departure to arrival — built for cockpit use.",
+          f4_title: "Cockpit weather",
+          f4_desc: "Useful weather, summarized: what actually impacts the flight, without clutter.",
+          f5_title: "Phase-based phraseology",
+          f5_desc: "Ready-to-use wording by flight phase to train and keep radio flow clean and confident.",
+          f6_title: "Checklists",
+          f6_desc: "Clear phase-based checklists designed to assist the pilot and prevent missed steps.",
+          f7_title: "Flight plan (SimBrief)",
+          f7_desc: "SimBrief import: bring your flight plan in and integrate it into the nav log for simple cockpit tracking.",
           f8_title: "Stability & immersion",
-          f8_desc: "A clean, robust interface built for long sessions with minimal friction.",
-          f9_title: "Privacy, no compromises",
-          f9_desc: "No tracking, no ads, no hidden telemetry. Works without mandatory internet.",
+          f8_desc: "Reliable in-flight behavior: responsive UI, consistent logic, built for long sessions.",
+          f9_title: "No ads",
+          f9_desc: "No ads, no distractions — the app stays a cockpit tool, period.",
 
-          pricing_title: "Pricing",
-          pricing_pill: "Launch price",
+          pricing_title: "License",
+          pricing_pill: "License",
           pricing_note: "one-time purchase",
           p1: "Full access to the app (Windows)",
           p2: "Updates included",
@@ -602,8 +594,8 @@
         const dict = translations[lang] || translations.fr;
 
         document.documentElement.setAttribute("lang", lang);
-
         document.title = dict._title;
+
         const meta = document.querySelector('meta[name="description"]');
         if(meta) meta.setAttribute("content", dict._desc);
 
