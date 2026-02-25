@@ -28,6 +28,25 @@
         radial-gradient(circle at top, var(--bg1), var(--bg0));
       overflow-x:hidden;
     }
+
+    /* ✅ NavCrew watermark derrière la page (logo reste aussi en haut) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;            /* derrière tout */
+      pointer-events:none;
+
+      background-image: url("./navcrew-badge-round-name.svg");
+      background-repeat: no-repeat;
+      background-position: 50% 42%;
+      background-size: min(78vmin, 860px);
+
+      opacity: .055;         /* discret */
+      filter: blur(.2px);
+      transform: translateZ(0);
+    }
+
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
 
@@ -251,8 +270,8 @@
         <a href="./screenshots.html" data-i18n="nav_screens">Captures</a>
         <a href="#licence" data-i18n="nav_license">Licence</a>
 
-        <a class="btn" href="./download.html" data-i18n="nav_download" title="Download (Hold)">
-          Télécharger <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
+        <a class="btn" href="./download.html" title="Téléchargement (Hold)">
+          <span data-i18n="nav_download">Télécharger</span> <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
         </a>
 
         <div class="lang" aria-label="Language">
