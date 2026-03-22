@@ -67,12 +67,54 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
       background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
+      user-select:none;
       cursor:pointer;
     }
     .btn.primary{
       border-color:rgba(91,226,255,.35);
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
       color:var(--text);
+    }
+    .btn.primary:hover{opacity:.93}
+
+    .pill{
+      display:inline-flex;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:12.5px;
+      font-weight:900;
+    }
+
+    .lang{
+      display:flex; align-items:center; gap:8px;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:999px;
+    }
+    .lang button{
+      appearance:none;
+      border:1px solid transparent;
+      background:transparent;
+      color:rgba(232,240,244,.70);
+      font-weight:900;
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+    .lang button:hover{
+      color:var(--text);
+      border-color:var(--stroke);
+      background:rgba(0,0,0,.18);
+    }
+    .lang button.active{
+      color:var(--text);
+      border-color:rgba(91,226,255,.35);
+      background:linear-gradient(180deg, rgba(91,226,255,.14), rgba(0,0,0,.18));
     }
 
     .panel{
@@ -85,7 +127,52 @@
       padding:20px;
     }
 
+    h1{margin:0 0 10px; font-size:34px; letter-spacing:.2px; line-height:1.08}
+    .lead{margin:0; color:var(--muted); font-size:15px; line-height:1.7; max-width:75ch;}
+
+    .box{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:14px;
+    }
     .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;}
+    .hint{color:rgba(232,240,244,.60); font-size:12.5px; line-height:1.5; margin-top:10px;}
+    .status{
+      display:flex; align-items:center; gap:10px;
+      margin-top:10px;
+      color:rgba(232,240,244,.88);
+      font-weight:900;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background:rgba(91,226,255,.95);
+      box-shadow: 0 0 18px rgba(91,226,255,.18);
+    }
+    code{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      padding:2px 6px;
+      border-radius:8px;
+      color:rgba(232,240,244,.85);
+    }
+
+    .steps{
+      margin:14px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
+
+    @media (max-width: 760px){
+      .top{flex-direction:column; align-items:stretch; gap:10px;}
+      .brand{width:100%;}
+      .nav{width:100%; justify-content:space-between;}
+      .btn{padding:8px 10px; border-radius:999px;}
+    }
   </style>
 </head>
 
@@ -93,50 +180,144 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <div class="logos">
-          <img class="logoNC" src="./navcrew-badge-round-name.svg" />
-          <span class="sep"></span>
-          <img class="logoApp" src="./logo.png" />
+        <div class="logos" aria-label="NavCrew et MSFS CoPilot">
+          <img class="logoNC" src="./navcrew-badge-round-name.svg" alt="NavCrew" />
+          <span class="sep" aria-hidden="true"></span>
+          <img class="logoApp" src="./logo.png" alt="Logo MSFS CoPilot" />
         </div>
         <div class="t">
           <div class="name">MSFS CoPilot</div>
-          <div class="sub">par NavCrew — Assistant cockpit</div>
+          <div class="sub" data-i18n="header_sub">par NavCrew — Assistant cockpit pour Microsoft Flight Simulator</div>
         </div>
       </div>
 
       <div class="nav">
-        <a class="btn" href="./index.html">Accueil</a>
-        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank">
-          🔓 Acheter NavCrew Pro
-        </a>
+        <a class="btn" href="./index.html" data-i18n="nav_home">Accueil</a>
+        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="nav_buy">Acheter</a>
+
+        <div class="lang" aria-label="Language">
+          <button type="button" id="btn-fr" class="active">FR</button>
+          <button type="button" id="btn-en">EN</button>
+        </div>
       </div>
     </div>
 
     <div class="panel">
-      <h1>Accès NavCrew Pro</h1>
+      <div class="pill" data-i18n="pill">Accès</div>
+      <h1 data-i18n="title">Obtenir MSFS CoPilot</h1>
 
-      <p>
-        Accédez à MSFS CoPilot via un paiement sécurisé Stripe.
+      <div class="status"><span class="dot"></span><span data-i18n="status">Paiement sécurisé avec Stripe</span></div>
+
+      <p class="lead" data-i18n="lead">
+        Achetez NavCrew MSFS CoPilot via Stripe. Après le paiement, votre licence est créée automatiquement et vous pourrez activer l’application avec votre clé.
       </p>
 
-      <div class="row">
-        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank">
-          🚀 Télécharger NavCrew Pro
-        </a>
+      <div class="box">
+        <div class="row">
+          <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="btn_buy">
+            Acheter NavCrew Pro
+          </a>
+          <a class="btn" href="./screenshots.html" data-i18n="btn_screens">Voir les captures</a>
+        </div>
 
-        <a class="btn" href="./screenshots.html">
-          Voir les captures
-        </a>
+        <div class="hint" data-i18n-html="hint">
+          Paiement sécurisé via Stripe.<br/>
+          La licence est générée après achat et sert à activer l’application.
+        </div>
+
+        <ol class="steps">
+          <li data-i18n="step1">Cliquez sur le bouton d’achat sécurisé.</li>
+          <li data-i18n="step2">Complétez votre paiement Stripe.</li>
+          <li data-i18n="step3">Recevez votre licence et activez MSFS CoPilot.</li>
+        </ol>
       </div>
 
-      <p style="margin-top:15px; opacity:.7;">
-        Paiement sécurisé • Licence instantanée • Accès complet
+      <p class="hint" data-i18n="note">
+        Important : l’application fonctionne avec un système de licence. Conservez votre clé d’activation après l’achat.
       </p>
     </div>
 
-    <footer style="margin-top:20px; text-align:center; opacity:.6;">
-      © NavCrew — MSFS CoPilot
-    </footer>
+    <footer data-i18n="footer">© NavCrew — MSFS CoPilot — GitHub Pages</footer>
   </div>
+
+  <script>
+    (function(){
+      const translations = {
+        fr: {
+          header_sub: "par NavCrew — Assistant cockpit pour Microsoft Flight Simulator",
+          nav_home: "Accueil",
+          nav_buy: "Acheter",
+          pill: "Accès",
+          title: "Obtenir MSFS CoPilot",
+          status: "Paiement sécurisé avec Stripe",
+          lead: "Achetez NavCrew MSFS CoPilot via Stripe. Après le paiement, votre licence est créée automatiquement et vous pourrez activer l’application avec votre clé.",
+          btn_buy: "Acheter NavCrew Pro",
+          btn_screens: "Voir les captures",
+          hint: "Paiement sécurisé via Stripe.<br/>La licence est générée après achat et sert à activer l’application.",
+          step1: "Cliquez sur le bouton d’achat sécurisé.",
+          step2: "Complétez votre paiement Stripe.",
+          step3: "Recevez votre licence et activez MSFS CoPilot.",
+          note: "Important : l’application fonctionne avec un système de licence. Conservez votre clé d’activation après l’achat.",
+          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+        },
+        en: {
+          header_sub: "by NavCrew — Cockpit assistant for Microsoft Flight Simulator",
+          nav_home: "Home",
+          nav_buy: "Buy",
+          pill: "Access",
+          title: "Get MSFS CoPilot",
+          status: "Secure payment with Stripe",
+          lead: "Buy NavCrew MSFS CoPilot through Stripe. After payment, your license is created automatically and you can activate the app with your key.",
+          btn_buy: "Buy NavCrew Pro",
+          btn_screens: "View screenshots",
+          hint: "Secure payment via Stripe.<br/>Your license is generated after purchase and is used to activate the application.",
+          step1: "Click the secure purchase button.",
+          step2: "Complete your Stripe payment.",
+          step3: "Receive your license and activate MSFS CoPilot.",
+          note: "Important: the application uses a license system. Keep your activation key after purchase.",
+          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+        }
+      };
+
+      function applyLanguage(lang){
+        const dict = translations[lang] || translations.fr;
+        document.documentElement.setAttribute("lang", lang);
+
+        document.querySelectorAll("[data-i18n]").forEach(el=>{
+          const key = el.getAttribute("data-i18n");
+          if(dict[key] !== undefined) el.textContent = dict[key];
+        });
+
+        document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+          const key = el.getAttribute("data-i18n-html");
+          if(dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+
+        const fr = document.getElementById("btn-fr");
+        const en = document.getElementById("btn-en");
+        if(fr && en){
+          fr.classList.toggle("active", lang === "fr");
+          en.classList.toggle("active", lang === "en");
+        }
+
+        try{ localStorage.setItem("msfs_lang", lang); }catch(e){}
+      }
+
+      function initLanguage(){
+        let lang = "fr";
+        try{ lang = localStorage.getItem("msfs_lang") || "fr"; }catch(e){}
+        if(!translations[lang]) lang = "fr";
+        applyLanguage(lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", ()=>{
+        initLanguage();
+        const fr = document.getElementById("btn-fr");
+        const en = document.getElementById("btn-en");
+        if(fr) fr.addEventListener("click", ()=>applyLanguage("fr"));
+        if(en) en.addEventListener("click", ()=>applyLanguage("en"));
+      });
+    })();
+  </script>
 </body>
 </html>
