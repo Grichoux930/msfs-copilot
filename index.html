@@ -63,7 +63,7 @@
       content:"";
       position:fixed;
       inset:0;
-      z-index:-1;            /* derrière tout */
+      z-index:-1;
       pointer-events:none;
 
       background-image: url("./navcrew-badge-round-name.svg");
@@ -71,7 +71,7 @@
       background-position: 50% 42%;
       background-size: min(78vmin, 860px);
 
-      opacity: .055;         /* discret */
+      opacity: .055;
       filter: blur(.2px);
       transform: translateZ(0);
     }
@@ -79,7 +79,6 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
 
-    /* Top */
     .top{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
       padding:12px 14px;
@@ -91,7 +90,6 @@
       position:sticky; top:12px; z-index:20;
     }
 
-    /* Co-brand */
     .brand{display:flex; align-items:center; gap:12px; min-width:0;}
     .logos{
       display:flex; align-items:center; gap:10px;
@@ -135,7 +133,6 @@
       color:rgba(232,240,244,.78);
     }
 
-    /* Language toggle */
     .lang{
       display:flex; align-items:center; gap:8px;
       padding:6px 8px;
@@ -161,7 +158,6 @@
       background:linear-gradient(180deg, rgba(91,226,255,.14), rgba(0,0,0,.18));
     }
 
-    /* Layout */
     .hero{
       margin-top:16px;
       display:grid;
@@ -199,7 +195,6 @@
       line-height:1.55;
     }
 
-    /* Right panel KPIs */
     .kpi{display:grid; gap:12px;}
     .kpi .mini{
       border:1px solid var(--stroke);
@@ -211,7 +206,6 @@
     .mini .value{margin-top:6px; font-size:18px; font-weight:900}
     .mini .desc{margin-top:6px; color:var(--muted); font-size:13.2px; line-height:1.55}
 
-    /* Section */
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
     .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
@@ -233,7 +227,6 @@
       line-height:1.7;
     }
 
-    /* Licence */
     .price{padding:18px;}
     .pill{
       display:inline-flex;
@@ -299,8 +292,8 @@
         <a href="./screenshots.html" data-i18n="nav_screens">Captures</a>
         <a href="#licence" data-i18n="nav_license">Licence</a>
 
-        <a class="btn" href="./download.html" title="Téléchargement (Hold)">
-          <span data-i18n="nav_download">Télécharger</span> <span class="badgeSoon" data-i18n="soon_badge">Bientôt</span>
+        <a class="btn" href="./download.html">
+          <span data-i18n="nav_download">Télécharger</span>
         </a>
 
         <div class="lang" aria-label="Language">
@@ -324,8 +317,8 @@
         </div>
 
         <div class="cta" id="download">
-          <a class="btn" href="./download.html" title="Téléchargement (Hold)">
-            <span data-i18n="cta_download">Télécharger (Windows)</span> <span class="badgeSoon" data-i18n="cta_coming">À venir</span>
+          <a class="btn" href="./download.html">
+            <span data-i18n="cta_download">Télécharger (Windows)</span>
           </a>
           <a class="btn" href="./screenshots.html" data-i18n="cta_screens">Voir les captures</a>
         </div>
