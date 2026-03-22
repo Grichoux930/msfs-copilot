@@ -14,11 +14,13 @@
       --stroke:rgba(255,255,255,.10);
       --text:#e8f0f4;
       --muted:#b6c7d3;
-      --shadow: 0 20px 50px rgba(0,0,0,.55);
+      --shadow:0 20px 50px rgba(0,0,0,.55);
       --max:900px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -29,53 +31,123 @@
         radial-gradient(circle at top, var(--bg1), var(--bg0));
       overflow-x:hidden;
     }
+
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 16px 70px;
+    }
 
     .top{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
       padding:12px 14px;
       border:1px solid var(--stroke);
       border-radius:22px;
       background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
-      position:sticky; top:12px; z-index:20;
+      backdrop-filter:blur(10px);
+      position:sticky;
+      top:12px;
+      z-index:20;
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
     .logos{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding:6px 10px;
       border:1px solid rgba(255,255,255,.08);
       background:rgba(0,0,0,.16);
       border-radius:999px;
     }
-    .logos .sep{width:1px;height:28px;background:rgba(255,255,255,.10);border-radius:99px;}
+
+    .logos .sep{
+      width:1px;
+      height:28px;
+      background:rgba(255,255,255,.10);
+      border-radius:99px;
+    }
+
     .logoNC{
-      width:44px;height:44px;object-fit:contain;border-radius:50%;
-      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(91,226,255,.12));
+      width:44px;
+      height:44px;
+      object-fit:contain;
+      border-radius:50%;
+      filter:drop-shadow(0 10px 16px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(91,226,255,.12));
       opacity:.99;
     }
-    .logoApp{width:38px;height:38px;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));}
-    .t{display:flex; flex-direction:column; min-width:0;}
-    .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
-    .sub{color:var(--muted); font-size:12.5px; line-height:1.25; white-space:normal}
 
-    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+    .logoApp{
+      width:38px;
+      height:38px;
+      object-fit:contain;
+      filter:drop-shadow(0 10px 16px rgba(0,0,0,.55));
+    }
+
+    .t{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+
+    .name{
+      font-weight:900;
+      letter-spacing:.2px;
+      line-height:1.08;
+    }
+
+    .sub{
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.25;
+      white-space:normal;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
-      background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 14px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.22);
+      font-weight:800;
+      font-size:13px;
       user-select:none;
       cursor:pointer;
+      transition:opacity .15s ease, transform .15s ease, border-color .15s ease;
     }
+
+    .btn:hover{
+      opacity:.96;
+      transform:translateY(-1px);
+    }
+
     .btn.primary{
       border-color:rgba(91,226,255,.35);
       background:linear-gradient(180deg, rgba(91,226,255,.18), rgba(0,0,0,.25));
       color:var(--text);
     }
-    .btn.primary:hover{opacity:.93}
 
     .pill{
       display:inline-flex;
@@ -89,12 +161,15 @@
     }
 
     .lang{
-      display:flex; align-items:center; gap:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
       padding:6px 8px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(0,0,0,.18);
       border-radius:999px;
     }
+
     .lang button{
       appearance:none;
       border:1px solid transparent;
@@ -106,11 +181,13 @@
       border-radius:999px;
       cursor:pointer;
     }
+
     .lang button:hover{
       color:var(--text);
       border-color:var(--stroke);
       background:rgba(0,0,0,.18);
     }
+
     .lang button.active{
       color:var(--text);
       border-color:rgba(91,226,255,.35);
@@ -123,55 +200,103 @@
       border-radius:22px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
       box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
-      padding:20px;
+      backdrop-filter:blur(10px);
+      padding:26px;
     }
 
-    h1{margin:0 0 10px; font-size:34px; letter-spacing:.2px; line-height:1.08}
-    .lead{margin:0; color:var(--muted); font-size:15px; line-height:1.7; max-width:75ch;}
+    h1{
+      margin:0 0 10px;
+      font-size:34px;
+      letter-spacing:.2px;
+      line-height:1.08;
+    }
+
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      max-width:75ch;
+    }
 
     .box{
-      margin-top:14px;
+      margin-top:16px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(0,0,0,.18);
       border-radius:18px;
-      padding:14px;
+      padding:16px;
     }
-    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;}
-    .hint{color:rgba(232,240,244,.60); font-size:12.5px; line-height:1.5; margin-top:10px;}
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+
+    .hint{
+      color:rgba(232,240,244,.60);
+      font-size:12.5px;
+      line-height:1.6;
+      margin-top:12px;
+    }
+
     .status{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       margin-top:10px;
       color:rgba(232,240,244,.88);
       font-weight:900;
     }
+
     .dot{
-      width:10px; height:10px; border-radius:999px;
+      width:10px;
+      height:10px;
+      border-radius:999px;
       background:rgba(91,226,255,.95);
-      box-shadow: 0 0 18px rgba(91,226,255,.18);
-    }
-    code{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      padding:2px 6px;
-      border-radius:8px;
-      color:rgba(232,240,244,.85);
+      box-shadow:0 0 18px rgba(91,226,255,.18);
     }
 
-    .steps{
-      margin:14px 0 0;
-      padding-left:18px;
-      color:var(--muted);
-      line-height:1.7;
+    .features{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:14px;
+      color:rgba(232,240,244,.68);
+      font-size:13px;
+      font-weight:700;
     }
 
-    footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
+    footer{
+      margin-top:22px;
+      text-align:center;
+      color:rgba(232,240,244,.55);
+      font-size:12.5px;
+    }
 
     @media (max-width: 760px){
-      .top{flex-direction:column; align-items:stretch; gap:10px;}
-      .brand{width:100%;}
-      .nav{width:100%; justify-content:space-between;}
-      .btn{padding:8px 10px; border-radius:999px;}
+      .top{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+      }
+
+      .brand{width:100%}
+      .nav{
+        width:100%;
+        justify-content:space-between;
+      }
+
+      .btn{
+        padding:8px 10px;
+        border-radius:999px;
+      }
+
+      h1{
+        font-size:28px;
+      }
     }
   </style>
 </head>
@@ -193,7 +318,7 @@
 
       <div class="nav">
         <a class="btn" href="./index.html" data-i18n="nav_home">Accueil</a>
-        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="nav_buy">Acheter</a>
+        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="nav_buy">Acheter NavCrew Pro</a>
 
         <div class="lang" aria-label="Language">
           <button type="button" id="btn-fr" class="active">FR</button>
@@ -204,12 +329,16 @@
 
     <div class="panel">
       <div class="pill" data-i18n="pill">Accès</div>
-      <h1 data-i18n="title">Obtenir MSFS CoPilot</h1>
 
-      <div class="status"><span class="dot"></span><span data-i18n="status">Paiement sécurisé avec Stripe</span></div>
+      <h1 data-i18n="title">Accès NavCrew Pro</h1>
+
+      <div class="status">
+        <span class="dot"></span>
+        <span data-i18n="status">Paiement sécurisé avec Stripe</span>
+      </div>
 
       <p class="lead" data-i18n="lead">
-        Achetez NavCrew MSFS CoPilot via Stripe. Après le paiement, votre licence est créée automatiquement et vous pourrez activer l’application avec votre clé.
+        Accédez à MSFS CoPilot via un paiement sécurisé Stripe. Après votre achat, votre licence est créée automatiquement pour activer l’application.
       </p>
 
       <div class="box">
@@ -217,105 +346,118 @@
           <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="btn_buy">
             Acheter NavCrew Pro
           </a>
-          <a class="btn" href="./screenshots.html" data-i18n="btn_screens">Voir les captures</a>
+
+          <a class="btn" href="./screenshots.html" data-i18n="btn_screens">
+            Voir les captures
+          </a>
+        </div>
+
+        <div class="features">
+          <span data-i18n="feature1">Paiement sécurisé</span>
+          <span>•</span>
+          <span data-i18n="feature2">Licence instantanée</span>
+          <span>•</span>
+          <span data-i18n="feature3">Accès complet</span>
         </div>
 
         <div class="hint" data-i18n-html="hint">
-          Paiement sécurisé via Stripe.<br/>
-          La licence est générée après achat et sert à activer l’application.
+          Après le paiement, conservez votre email et votre clé de licence.<br/>
+          Ils seront utilisés pour activer MSFS CoPilot dans l’application.
         </div>
-
-        <ol class="steps">
-          <li data-i18n="step1">Cliquez sur le bouton d’achat sécurisé.</li>
-          <li data-i18n="step2">Complétez votre paiement Stripe.</li>
-          <li data-i18n="step3">Recevez votre licence et activez MSFS CoPilot.</li>
-        </ol>
       </div>
 
       <p class="hint" data-i18n="note">
-        Important : l’application fonctionne avec un système de licence. Conservez votre clé d’activation après l’achat.
+        Important : l’application utilise un système de licence NavCrew Pro pour débloquer les fonctions complètes.
       </p>
     </div>
 
-    <footer data-i18n="footer">© NavCrew — MSFS CoPilot — GitHub Pages</footer>
+    <footer data-i18n="footer">© NavCrew — MSFS CoPilot</footer>
   </div>
 
   <script>
-    (function(){
+    (function () {
       const translations = {
         fr: {
           header_sub: "par NavCrew — Assistant cockpit pour Microsoft Flight Simulator",
           nav_home: "Accueil",
-          nav_buy: "Acheter",
+          nav_buy: "Acheter NavCrew Pro",
           pill: "Accès",
-          title: "Obtenir MSFS CoPilot",
+          title: "Accès NavCrew Pro",
           status: "Paiement sécurisé avec Stripe",
-          lead: "Achetez NavCrew MSFS CoPilot via Stripe. Après le paiement, votre licence est créée automatiquement et vous pourrez activer l’application avec votre clé.",
-          btn_buy: "Acheter NavCrew Pro",
+          lead: "Accédez à MSFS CoPilot via un paiement sécurisé Stripe. Après votre achat, votre licence est créée automatiquement pour activer l’application.",
+          btn_buy: "🚀 Télécharger NavCrew Pro",
           btn_screens: "Voir les captures",
-          hint: "Paiement sécurisé via Stripe.<br/>La licence est générée après achat et sert à activer l’application.",
-          step1: "Cliquez sur le bouton d’achat sécurisé.",
-          step2: "Complétez votre paiement Stripe.",
-          step3: "Recevez votre licence et activez MSFS CoPilot.",
-          note: "Important : l’application fonctionne avec un système de licence. Conservez votre clé d’activation après l’achat.",
-          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+          feature1: "Paiement sécurisé",
+          feature2: "Licence instantanée",
+          feature3: "Accès complet",
+          hint: "Après le paiement, conservez votre email et votre clé de licence.<br/>Ils seront utilisés pour activer MSFS CoPilot dans l’application.",
+          note: "Important : l’application utilise un système de licence NavCrew Pro pour débloquer les fonctions complètes.",
+          footer: "© NavCrew — MSFS CoPilot"
         },
         en: {
           header_sub: "by NavCrew — Cockpit assistant for Microsoft Flight Simulator",
           nav_home: "Home",
-          nav_buy: "Buy",
+          nav_buy: "Buy NavCrew Pro",
           pill: "Access",
-          title: "Get MSFS CoPilot",
+          title: "NavCrew Pro Access",
           status: "Secure payment with Stripe",
-          lead: "Buy NavCrew MSFS CoPilot through Stripe. After payment, your license is created automatically and you can activate the app with your key.",
-          btn_buy: "Buy NavCrew Pro",
+          lead: "Access MSFS CoPilot through secure Stripe checkout. After your purchase, your license is created automatically to activate the application.",
+          btn_buy: "🚀 Download NavCrew Pro",
           btn_screens: "View screenshots",
-          hint: "Secure payment via Stripe.<br/>Your license is generated after purchase and is used to activate the application.",
-          step1: "Click the secure purchase button.",
-          step2: "Complete your Stripe payment.",
-          step3: "Receive your license and activate MSFS CoPilot.",
-          note: "Important: the application uses a license system. Keep your activation key after purchase.",
-          footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
+          feature1: "Secure payment",
+          feature2: "Instant license",
+          feature3: "Full access",
+          hint: "After payment, keep your email and license key.<br/>They will be used to activate MSFS CoPilot inside the application.",
+          note: "Important: the application uses a NavCrew Pro license system to unlock full features.",
+          footer: "© NavCrew — MSFS CoPilot"
         }
       };
 
-      function applyLanguage(lang){
+      function applyLanguage(lang) {
         const dict = translations[lang] || translations.fr;
         document.documentElement.setAttribute("lang", lang);
 
-        document.querySelectorAll("[data-i18n]").forEach(el=>{
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
-          if(dict[key] !== undefined) el.textContent = dict[key];
+          if (dict[key] !== undefined) el.textContent = dict[key];
         });
 
-        document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+        document.querySelectorAll("[data-i18n-html]").forEach((el) => {
           const key = el.getAttribute("data-i18n-html");
-          if(dict[key] !== undefined) el.innerHTML = dict[key];
+          if (dict[key] !== undefined) el.innerHTML = dict[key];
         });
 
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
-        if(fr && en){
+
+        if (fr && en) {
           fr.classList.toggle("active", lang === "fr");
           en.classList.toggle("active", lang === "en");
         }
 
-        try{ localStorage.setItem("msfs_lang", lang); }catch(e){}
+        try {
+          localStorage.setItem("msfs_lang", lang);
+        } catch (e) {}
       }
 
-      function initLanguage(){
+      function initLanguage() {
         let lang = "fr";
-        try{ lang = localStorage.getItem("msfs_lang") || "fr"; }catch(e){}
-        if(!translations[lang]) lang = "fr";
+        try {
+          lang = localStorage.getItem("msfs_lang") || "fr";
+        } catch (e) {}
+
+        if (!translations[lang]) lang = "fr";
         applyLanguage(lang);
       }
 
-      document.addEventListener("DOMContentLoaded", ()=>{
+      document.addEventListener("DOMContentLoaded", () => {
         initLanguage();
+
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
-        if(fr) fr.addEventListener("click", ()=>applyLanguage("fr"));
-        if(en) en.addEventListener("click", ()=>applyLanguage("en"));
+
+        if (fr) fr.addEventListener("click", () => applyLanguage("fr"));
+        if (en) en.addEventListener("click", () => applyLanguage("en"));
       });
     })();
   </script>
