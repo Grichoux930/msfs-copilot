@@ -8,14 +8,12 @@
 
   <meta name="description" content="MSFS CoPilot par NavCrew : assistant cockpit pour MSFS 2020 & MSFS 2024 via SimConnect. ATC et fréquences réglables en un clic, plan de vol intégré (SimBrief) avec suivi SimConnect, nav log détaillé (vent, cap, temps, carburant), météo opérationnelle (METAR/TAF/NOTAM) et carte en temps réel." />
 
-  <!-- FAVICONS -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="MSFS CoPilot — NavCrew">
   <meta property="og:description" content="Cockpit Assistant connecté à Microsoft Flight Simulator via SimConnect.">
   <meta property="og:image" content="https://navcrew.app/og-image.png?v=3">
@@ -25,13 +23,11 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="NavCrew">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MSFS CoPilot — NavCrew">
   <meta name="twitter:description" content="Cockpit Assistant connecté à Microsoft Flight Simulator via SimConnect.">
   <meta name="twitter:image" content="https://navcrew.app/og-image.png">
 
-  <!-- PWA / Theme -->
   <meta name="theme-color" content="#071a26">
   <link rel="manifest" href="/site.webmanifest">
 
@@ -45,8 +41,10 @@
       --shadow: 0 20px 50px rgba(0,0,0,.55);
       --max:1100px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -77,48 +75,117 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 16px 70px;}
 
     .top{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
       padding:12px 14px;
       border:1px solid var(--stroke);
       border-radius:22px;
       background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow:var(--shadow);
       backdrop-filter: blur(10px);
-      position:sticky; top:12px; z-index:20;
+      position:sticky;
+      top:12px;
+      z-index:20;
     }
 
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
     .logos{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding:6px 10px;
       border:1px solid rgba(255,255,255,.08);
       background:rgba(0,0,0,.16);
       border-radius:999px;
     }
-    .logos .sep{width:1px; height:28px; background:rgba(255,255,255,.10); border-radius:99px;}
+
+    .logos .sep{
+      width:1px;
+      height:28px;
+      background:rgba(255,255,255,.10);
+      border-radius:99px;
+    }
+
     .logoNC{
-      width:44px; height:44px;
+      width:44px;
+      height:44px;
       object-fit:contain;
       border-radius:50%;
       filter: drop-shadow(0 10px 16px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(91,226,255,.12));
       opacity:.99;
     }
-    .logoApp{width:38px; height:38px; object-fit:contain; filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));}
-    .brand .t{display:flex; flex-direction:column; min-width:0;}
-    .brand .name{font-weight:900; letter-spacing:.2px; line-height:1.08}
-    .brand .sub{color:var(--muted); font-size:12.5px; line-height:1.25}
 
-    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
-    .nav a{color:var(--muted); font-size:13px; padding:8px 10px; border-radius:999px; border:1px solid transparent;}
-    .nav a:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+    .logoApp{
+      width:38px;
+      height:38px;
+      object-fit:contain;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.55));
+    }
+
+    .brand .t{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+
+    .brand .name{
+      font-weight:900;
+      letter-spacing:.2px;
+      line-height:1.08;
+    }
+
+    .brand .sub{
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.25;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+
+    .nav a{
+      color:var(--muted);
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: color .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .nav a:hover{
+      color:var(--text);
+      border-color:var(--stroke);
+      background:rgba(0,0,0,.18);
+    }
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:9px 12px; border-radius:12px; border:1px solid var(--stroke);
-      background:rgba(0,0,0,.22); font-weight:800; font-size:13px;
-      user-select:none; cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 12px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.22);
+      font-weight:800;
+      font-size:13px;
+      user-select:none;
+      cursor:pointer;
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
     }
+
     .btn:hover{
       transform: translateY(-1px);
       box-shadow: 0 10px 25px rgba(91,226,255,.25);
@@ -126,31 +193,31 @@
       background: rgba(0,0,0,.28);
     }
 
+    .communityButtons{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
     .communityBtn{
       font-size:15px;
       padding:12px 18px;
       border-radius:14px;
-    }
-
-    .badgeSoon{
-      margin-left:8px;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.2px;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.22);
-      color:rgba(232,240,244,.78);
+      min-width:230px;
     }
 
     .lang{
-      display:flex; align-items:center; gap:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
       padding:6px 8px;
       border:1px solid rgba(255,255,255,.10);
       background:rgba(0,0,0,.18);
       border-radius:999px;
     }
+
     .lang button{
       appearance:none;
       border:1px solid transparent;
@@ -162,7 +229,13 @@
       border-radius:999px;
       cursor:pointer;
     }
-    .lang button:hover{color:var(--text); border-color:var(--stroke); background:rgba(0,0,0,.18);}
+
+    .lang button:hover{
+      color:var(--text);
+      border-color:var(--stroke);
+      background:rgba(0,0,0,.18);
+    }
+
     .lang button.active{
       color:var(--text);
       border-color:rgba(91,226,255,.35);
@@ -176,6 +249,7 @@
       gap:16px;
       align-items:stretch;
     }
+
     .panel{
       border:1px solid var(--stroke);
       border-radius:22px;
@@ -185,9 +259,23 @@
       padding:20px;
     }
 
-    h1{margin:0 0 10px; font-size:42px; letter-spacing:.2px; line-height:1.05}
-    .lead{margin:0; color:var(--muted); font-size:15.5px; line-height:1.7; max-width:70ch;}
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      letter-spacing:.2px;
+      line-height:1.05;
+    }
+
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:15.5px;
+      line-height:1.7;
+      max-width:70ch;
+    }
+
     .lead b{color:rgba(232,240,244,.92)}
+
     .compat{
       margin-top:12px;
       padding:10px 12px;
@@ -198,7 +286,14 @@
       font-size:12.8px;
       line-height:1.45;
     }
-    .cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+
+    .cta{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
     .micro{
       margin-top:12px;
       color:rgba(232,240,244,.55);
@@ -206,21 +301,52 @@
       line-height:1.55;
     }
 
-    .kpi{display:grid; gap:12px;}
+    .kpi{
+      display:grid;
+      gap:12px;
+    }
+
     .kpi .mini{
       border:1px solid var(--stroke);
       border-radius:18px;
       background:rgba(0,0,0,.20);
       padding:14px;
     }
-    .mini .label{color:var(--muted); font-size:12.5px; font-weight:900; letter-spacing:.2px}
-    .mini .value{margin-top:6px; font-size:18px; font-weight:900}
-    .mini .desc{margin-top:6px; color:var(--muted); font-size:13.2px; line-height:1.55}
+
+    .mini .label{
+      color:var(--muted);
+      font-size:12.5px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+
+    .mini .value{
+      margin-top:6px;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .mini .desc{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13.2px;
+      line-height:1.55;
+    }
 
     .section{margin-top:16px;}
     .section h2{margin:0 0 10px; font-size:26px;}
-    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
-    .grid2{display:grid; grid-template-columns:1fr; gap:12px;}
+
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
 
     .card{
       border:1px solid var(--stroke);
@@ -228,8 +354,19 @@
       background:rgba(0,0,0,.20);
       padding:14px;
     }
-    .card h3{margin:0 0 8px; font-size:17px}
-    .card p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.55}
+
+    .card h3{
+      margin:0 0 8px;
+      font-size:17px;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:13.8px;
+      line-height:1.55;
+    }
+
     .card ul{
       margin:10px 0 0;
       padding-left:18px;
@@ -239,6 +376,7 @@
     }
 
     .price{padding:18px;}
+
     .pill{
       display:inline-flex;
       padding:7px 10px;
@@ -249,30 +387,64 @@
       font-size:12.5px;
       font-weight:900;
     }
-    .priceRow{margin-top:12px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
-    .priceValue{font-size:46px; font-weight:900; letter-spacing:.2px;}
-    .priceNote{color:var(--muted); font-weight:800;}
-    .usd{color:rgba(232,240,244,.65); font-size:12.5px; margin-top:2px;}
-    .bullets{margin:12px 0 0; padding-left:18px; color:var(--muted); line-height:1.7;}
+
+    .priceRow{
+      margin-top:12px;
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .priceValue{
+      font-size:46px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+
+    .priceNote{
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .usd{
+      color:rgba(232,240,244,.65);
+      font-size:12.5px;
+      margin-top:2px;
+    }
+
+    .bullets{
+      margin:12px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.7;
+    }
 
     .communityWrap{
       text-align:center;
       padding:28px;
     }
+
     .communityText{
       color:var(--muted);
-      max-width:600px;
+      max-width:700px;
       margin:0 auto 16px;
       line-height:1.6;
       font-size:14.5px;
     }
+
     .communityNote{
       margin-top:14px;
       font-size:12.5px;
       color:rgba(232,240,244,.55);
     }
 
-    footer{margin-top:22px; text-align:center; color:rgba(232,240,244,.55); font-size:12.5px}
+    footer{
+      margin-top:22px;
+      text-align:center;
+      color:rgba(232,240,244,.55);
+      font-size:12.5px;
+    }
 
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr;}
@@ -282,19 +454,27 @@
       .logoNC{width:42px;height:42px;}
       .logoApp{width:36px;height:36px;}
     }
-    @media (max-width: 520px){
-      .top{padding:10px 10px;}
-      .brand .sub{display:none;}
-      .nav a{font-size:12.5px}
-    }
+
     @media (max-width: 760px){
-      .top{flex-direction:column; align-items:stretch; gap:10px; padding:12px 12px;}
+      .top{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:12px 12px;
+      }
+
       .brand{width:100%;}
       .nav{width:100%; justify-content:space-between; gap:8px;}
       .nav a{padding:7px 9px;}
       .btn{padding:8px 10px; border-radius:999px;}
-      .communityBtn{padding:12px 16px;}
-      .badgeSoon{margin-left:6px; padding:3px 7px; font-size:10.5px;}
+      .communityBtn{padding:12px 16px; min-width:unset; width:100%;}
+      .communityButtons{flex-direction:column;}
+    }
+
+    @media (max-width: 520px){
+      .top{padding:10px 10px;}
+      .brand .sub{display:none;}
+      .nav a{font-size:12.5px}
     }
   </style>
 </head>
@@ -320,7 +500,8 @@
         <a href="#fonctions" data-i18n="nav_features">Fonctions</a>
         <a href="./screenshots.html" data-i18n="nav_screens">Captures</a>
         <a href="#licence" data-i18n="nav_license">Licence</a>
-        <a href="https://www.facebook.com/NavCrew" target="_blank" rel="noopener noreferrer" data-i18n="nav_facebook">Facebook</a>
+        <a href="https://www.facebook.com/profile.php?id=61586725481020" target="_blank" rel="noopener noreferrer" data-i18n="nav_facebook">Facebook</a>
+        <a href="https://www.youtube.com/@navcrewapp" target="_blank" rel="noopener noreferrer" data-i18n="nav_youtube">YouTube</a>
 
         <a class="btn" href="./download.html">
           <span data-i18n="nav_download">Télécharger</span>
@@ -490,19 +671,29 @@
         <h2 data-i18n="community_title">Rejoignez la communauté NavCrew</h2>
 
         <p class="communityText" data-i18n="community_text">
-          Suivez le développement de MSFS CoPilot, découvrez les mises à jour, partagez vos vols et échangez avec d’autres pilotes passionnés.
+          Suivez le développement de MSFS CoPilot, découvrez les mises à jour, regardez les vidéos, partagez vos vols et échangez avec d’autres pilotes passionnés.
         </p>
 
-        <a class="btn communityBtn"
-           href="https://www.facebook.com/NavCrew"
-           target="_blank"
-           rel="noopener noreferrer"
-           data-i18n="community_button">
-           🚀 Rejoindre la communauté
-        </a>
+        <div class="communityButtons">
+          <a class="btn communityBtn"
+             href="https://www.facebook.com/profile.php?id=61586725481020"
+             target="_blank"
+             rel="noopener noreferrer"
+             data-i18n="community_facebook">
+             📘 Rejoindre sur Facebook
+          </a>
+
+          <a class="btn communityBtn"
+             href="https://www.youtube.com/@navcrewapp"
+             target="_blank"
+             rel="noopener noreferrer"
+             data-i18n="community_youtube">
+             ▶️ Voir la chaîne YouTube
+          </a>
+        </div>
 
         <p class="communityNote" data-i18n="community_note">
-          Actif sur Facebook — nouvelles fonctionnalités, annonces et support
+          Facebook pour les annonces et la communauté — YouTube pour les démonstrations, vidéos et nouveautés
         </p>
       </div>
     </div>
@@ -523,8 +714,8 @@
           nav_screens: "Captures",
           nav_license: "Licence",
           nav_facebook: "Facebook",
+          nav_youtube: "YouTube",
           nav_download: "Télécharger",
-          soon_badge: "Bientôt",
 
           hero_title: "Assistant cockpit connecté à MSFS",
           hero_lead: "<b>MSFS CoPilot</b> est un assistant de vol connecté en temps réel à Microsoft Flight Simulator (<b>MSFS 2020</b> & <b>MSFS 2024</b>) via <b>SimConnect</b>. L’application centralise les données opérationnelles du vol et les organise dans une interface structurée : <b>ATC</b>, <b>fréquences</b>, <b>plan de vol intégré</b>, <b>nav log détaillé</b>, <b>météo</b>, <b>carte en temps réel</b>, <b>checklists</b> et <b>phraséologie</b>.",
@@ -532,7 +723,6 @@
           compat: "<b>Compatibilité :</b> MSFS 2020 & MSFS 2024 (SimConnect). <span style='opacity:.85;'>Certaines fonctions peuvent varier selon la version du simulateur.</span>",
 
           cta_download: "Télécharger (Windows)",
-          cta_coming: "À venir",
           cta_screens: "Voir les captures",
 
           support_label: "Support",
@@ -605,9 +795,10 @@
           buy_note: "Le paiement s’effectue via Stripe. Un reçu est envoyé par courriel.",
 
           community_title: "Rejoignez la communauté NavCrew",
-          community_text: "Suivez le développement de MSFS CoPilot, découvrez les mises à jour, partagez vos vols et échangez avec d’autres pilotes passionnés.",
-          community_button: "🚀 Rejoindre la communauté",
-          community_note: "Actif sur Facebook — nouvelles fonctionnalités, annonces et support",
+          community_text: "Suivez le développement de MSFS CoPilot, découvrez les mises à jour, regardez les vidéos, partagez vos vols et échangez avec d’autres pilotes passionnés.",
+          community_facebook: "📘 Rejoindre sur Facebook",
+          community_youtube: "▶️ Voir la chaîne YouTube",
+          community_note: "Facebook pour les annonces et la communauté — YouTube pour les démonstrations, vidéos et nouveautés",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
         },
@@ -622,8 +813,8 @@
           nav_screens: "Screenshots",
           nav_license: "License",
           nav_facebook: "Facebook",
+          nav_youtube: "YouTube",
           nav_download: "Download",
-          soon_badge: "Soon",
 
           hero_title: "Cockpit assistant connected to MSFS",
           hero_lead: "<b>MSFS CoPilot</b> is a real-time flight assistant connected to Microsoft Flight Simulator (<b>MSFS 2020</b> & <b>MSFS 2024</b>) via <b>SimConnect</b>. The app centralizes operational flight data and presents it in a structured interface: <b>ATC</b>, <b>frequencies</b>, <b>integrated flight plan</b>, <b>detailed nav log</b>, <b>weather</b>, <b>live map</b>, <b>checklists</b> and <b>phraseology</b>.",
@@ -631,7 +822,6 @@
           compat: "<b>Compatibility:</b> MSFS 2020 & MSFS 2024 (SimConnect). <span style='opacity:.85;'>Some features may vary depending on the sim version.</span>",
 
           cta_download: "Download (Windows)",
-          cta_coming: "Coming soon",
           cta_screens: "View screenshots",
 
           support_label: "Support",
@@ -704,9 +894,10 @@
           buy_note: "Payments are processed by Stripe. An email receipt is provided.",
 
           community_title: "Join the NavCrew community",
-          community_text: "Follow MSFS CoPilot development, discover updates, share your flights and connect with other passionate pilots.",
-          community_button: "🚀 Join the community",
-          community_note: "Active on Facebook — new features, announcements and support",
+          community_text: "Follow MSFS CoPilot development, discover updates, watch videos, share your flights and connect with other passionate pilots.",
+          community_facebook: "📘 Join on Facebook",
+          community_youtube: "▶️ Visit the YouTube channel",
+          community_note: "Facebook for announcements and community — YouTube for demos, videos and new features",
 
           footer: "© NavCrew — MSFS CoPilot — GitHub Pages"
         }
@@ -718,6 +909,7 @@
         document.documentElement.setAttribute("lang", lang);
 
         if(dict._title) document.title = dict._title;
+
         const meta = document.querySelector('meta[name="description"]');
         if(meta && dict._desc) meta.setAttribute("content", dict._desc);
 
@@ -738,7 +930,9 @@
           en.classList.toggle("active", lang === "en");
         }
 
-        try{ localStorage.setItem("msfs_lang", lang); }catch(e){}
+        try{
+          localStorage.setItem("msfs_lang", lang);
+        }catch(e){}
       }
 
       function initLanguage(){
@@ -775,6 +969,7 @@
 
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
+
         if(fr) fr.addEventListener("click", ()=>applyLanguage("fr"));
         if(en) en.addEventListener("click", ()=>applyLanguage("en"));
       });
