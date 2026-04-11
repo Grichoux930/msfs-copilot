@@ -7,6 +7,15 @@
   <meta name="description" content="Téléchargement MSFS CoPilot — NavCrew" />
   <meta name="robots" content="noindex" />
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPZQX5K71R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GPZQX5K71R');
+  </script>
+
   <style>
     :root{
       --bg0:#070b12;
@@ -318,7 +327,17 @@
 
       <div class="nav">
         <a class="btn" href="./index.html" data-i18n="nav_home">Accueil</a>
-        <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="nav_buy">Acheter NavCrew Pro</a>
+
+        <a
+          class="btn primary"
+          href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00"
+          target="_blank"
+          rel="noopener"
+          data-i18n="nav_buy"
+          onclick="trackBeginCheckout('nav_top_buy')"
+        >
+          Acheter NavCrew Pro
+        </a>
 
         <div class="lang" aria-label="Language">
           <button type="button" id="btn-fr" class="active">FR</button>
@@ -343,11 +362,23 @@
 
       <div class="box">
         <div class="row">
-          <a class="btn primary" href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00" target="_blank" rel="noopener" data-i18n="btn_buy">
-            Acheter NavCrew Pro
+          <a
+            class="btn primary"
+            href="https://buy.stripe.com/bJefZg9vOaWG3oobXsbbG00"
+            target="_blank"
+            rel="noopener"
+            data-i18n="btn_buy"
+            onclick="trackBeginCheckout('main_buy_button')"
+          >
+            🚀 Acheter NavCrew Pro
           </a>
 
-          <a class="btn" href="./screenshots.html" data-i18n="btn_screens">
+          <a
+            class="btn"
+            href="./screenshots.html"
+            data-i18n="btn_screens"
+            onclick="trackScreenshotsClick()"
+          >
             Voir les captures
           </a>
         </div>
@@ -375,6 +406,31 @@
   </div>
 
   <script>
+    function trackCheckoutPageView() {
+      if (typeof gtag !== "function") return;
+      gtag('event', 'view_checkout_page', {
+        event_category: 'ecommerce',
+        event_label: 'NavCrew Checkout Page'
+      });
+    }
+
+    function trackBeginCheckout(buttonLocation) {
+      if (typeof gtag !== "function") return;
+      gtag('event', 'begin_checkout', {
+        event_category: 'ecommerce',
+        event_label: 'NavCrew Purchase',
+        button_location: buttonLocation
+      });
+    }
+
+    function trackScreenshotsClick() {
+      if (typeof gtag !== "function") return;
+      gtag('event', 'view_screenshots_click', {
+        event_category: 'engagement',
+        event_label: 'Screenshots Page'
+      });
+    }
+
     (function () {
       const translations = {
         fr: {
@@ -385,7 +441,7 @@
           title: "Accès NavCrew Pro",
           status: "Paiement sécurisé avec Stripe",
           lead: "Accédez à MSFS CoPilot via un paiement sécurisé Stripe. Après votre achat, votre licence est créée automatiquement pour activer l’application.",
-          btn_buy: "🚀 Télécharger NavCrew Pro",
+          btn_buy: "🚀 Acheter NavCrew Pro",
           btn_screens: "Voir les captures",
           feature1: "Paiement sécurisé",
           feature2: "Licence instantanée",
@@ -402,7 +458,7 @@
           title: "NavCrew Pro Access",
           status: "Secure payment with Stripe",
           lead: "Access MSFS CoPilot through secure Stripe checkout. After your purchase, your license is created automatically to activate the application.",
-          btn_buy: "🚀 Download NavCrew Pro",
+          btn_buy: "🚀 Buy NavCrew Pro",
           btn_screens: "View screenshots",
           feature1: "Secure payment",
           feature2: "Instant license",
@@ -452,6 +508,7 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         initLanguage();
+        trackCheckoutPageView();
 
         const fr = document.getElementById("btn-fr");
         const en = document.getElementById("btn-en");
