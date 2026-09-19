@@ -26,6 +26,49 @@
   <script>
    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GPZQX5K71R');
   </script>
+  <style id="navcrew-pricing-actions-fix">
+   #tarifs .pricing-actions{
+  display:grid !important;
+  grid-template-columns:1fr 1fr;
+  gap:12px !important;
+  width:100%;
+}
+#tarifs .pricing-actions .button{
+  min-height:68px;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  text-align:center;
+  text-decoration:none !important;
+  font-weight:800;
+  line-height:1.2;
+  padding:14px 18px;
+}
+#tarifs .pricing-actions .navcrew-trial-button,
+#tarifs .pricing-actions .navcrew-trial-button span{
+  color:#061426 !important;
+}
+#tarifs .pricing-actions .navcrew-subscribe-button{
+  background:#0d2038 !important;
+  border:1px solid #0d2038 !important;
+  color:#ffffff !important;
+}
+#tarifs .pricing-actions .navcrew-subscribe-button span{
+  color:#ffffff !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#tarifs .pricing-actions .navcrew-subscribe-button:hover{
+  background:#153553 !important;
+  border-color:#153553 !important;
+}
+@media (max-width:720px){
+  #tarifs .pricing-actions{
+    grid-template-columns:1fr;
+  }
+}
+  </style>
  </head>
  <body>
   <a class="skip" href="#main">
@@ -997,7 +1040,7 @@
        </b>
        <span>
         <span data-en="SUBSCRIPTION AVAILABLE">
-         ABONNEMENT ACTIF
+         ABONNEMENT DISPONIBLE
         </span>
        </span>
       </div>
@@ -1048,7 +1091,7 @@
        </li>
       </ul>
       <div class="pricing-actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
-       <a class="button primary" href="https://download.navcrew.app/msfs-copilot/NavCrew-Setup.exe" rel="noopener" target="_blank">
+       <a class="button primary navcrew-trial-button" href="https://download.navcrew.app/msfs-copilot/NavCrew-Setup.exe" rel="noopener" target="_blank">
         <span data-en="Try free for 72 h">
          Essayer gratuitement 72 h
         </span>
@@ -1056,7 +1099,7 @@
          &nearrow;
         </span>
        </a>
-       <a class="button secondary" href="https://buy.stripe.com/8x2aEW23m6Gq8II7HcbbG01" rel="noopener" target="_blank">
+       <a class="button navcrew-subscribe-button" href="https://buy.stripe.com/8x2aEW23m6Gq8II7HcbbG01" rel="noopener" target="_blank">
         <span data-en="Subscribe &mdash; $9.99 USD/month">
          S&rsquo;abonner &mdash; 9,99 $ US/mois
         </span>
