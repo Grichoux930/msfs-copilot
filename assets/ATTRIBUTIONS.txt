@@ -1,0 +1,7 @@
+Aircraft: Cesium Air, CesiumJS Contributors. Unmodified model.
+Source: https://github.com/CesiumGS/cesium/tree/main/Apps/SampleData/models/CesiumAir
+Apache-2.0; full license and notices in Cesium-LICENSE.txt.
+
+Three.js 0.180.0, Copyright Three.js authors. MIT license in Three-LICENSE.txt.
+
+NavCrew emblem: extracted from the existing NavCrew SVG brand asset.
