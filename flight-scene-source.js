@@ -10,16 +10,29 @@ const reset = document.getElementById('flight-reset');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let paused = reduced.matches, inView = false, model, renderer, scene, camera;
 let frame = 0, drag = null, last = 0, angle = -.28, targetAngle = -.28, tilt = 0, targetTilt = 0, phase = 0;
-let failed = false, loaded = false;
+let failed = false, loaded = false, bounds;
 function label() {
   const en = document.documentElement.lang === 'en';
   pause.setAttribute('aria-pressed', String(paused));
   pause.querySelector('span').textContent = paused ? (en ? 'Animate' : 'Animer') : (en ? 'Pause' : 'Pause');
   canvas.setAttribute('aria-label', en ? 'Interactive aircraft. Use left and right arrow keys to rotate.' : 'Avion interactif. Utilisez les flèches gauche et droite pour tourner.');
-  status.textContent = failed ? (en ? 'The 3D view could not load. Reload the page to try again.' : 'La vue 3D n’a pas pu charger. Actualisez la page pour réessayer.') : (en ? 'Preparing your aircraft…' : 'Préparation de votre avion…');
+  status.textContent = failed ? (en ? 'Static preview · 3D unavailable in this browser' : 'Aperçu fixe · 3D indisponible dans ce navigateur') : (en ? 'Preparing your aircraft…' : 'Préparation de votre avion…');
 }
 function stop(){ cancelAnimationFrame(frame); frame = 0; }
-function draw(){ if (renderer && model) renderer.render(scene,camera); }
+function fitCamera(){
+  if(!bounds)return;
+  const direction=new THREE.Vector3(.92,.48,1.1).normalize();
+  const right=new THREE.Vector3().crossVectors(camera.up,direction).normalize();
+  const up=new THREE.Vector3().crossVectors(direction,right);
+  const tanV=Math.tan(THREE.MathUtils.degToRad(camera.fov)/2),tanH=tanV*camera.aspect;
+  let distance=0;
+  for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z]){
+    const p=new THREE.Vector3(x,y,z).applyEuler(model.rotation);
+    distance=Math.max(distance,p.dot(direction)+Math.max(Math.abs(p.dot(right))/tanH,Math.abs(p.dot(up))/tanV)/.86);
+  }
+  camera.position.copy(direction).multiplyScalar(distance);camera.lookAt(0,0,0);camera.updateProjectionMatrix();
+}
+function draw(){ if (renderer && model) {fitCamera();renderer.render(scene,camera);} }
 function tick(time){
   frame=0;
   if(!loaded || !inView || document.hidden) return;
@@ -36,11 +49,7 @@ function resize(){
   const {width,height}=canvas.getBoundingClientRect();
   renderer.setSize(width,height,false);
   camera.aspect=width/height;
-  // A fixed bounding sphere keeps all aircraft parts visible at any rotation.
-  const vfov=THREE.MathUtils.degToRad(camera.fov),hfov=2*Math.atan(Math.tan(vfov/2)*camera.aspect);
-  const distance=6.8/Math.sin(Math.min(vfov,hfov)/2);
-  camera.position.set(.92,.48,-1.1).normalize().multiplyScalar(distance);
-  camera.lookAt(0,0,0);camera.updateProjectionMatrix();draw();
+  camera.updateProjectionMatrix();draw();
 }
 async function init(){
   try {
@@ -60,7 +69,7 @@ async function init(){
     const box=new THREE.Box3().setFromObject(aircraft),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
     const scale=10.8/Math.max(size.x,size.y,size.z);
     aircraft.position.copy(center).multiplyScalar(-scale);aircraft.scale.setScalar(scale);
-    model=new THREE.Group();model.add(aircraft);model.rotation.y=angle;scene.add(model);
+    bounds=new THREE.Box3().setFromObject(aircraft);model=new THREE.Group();model.add(aircraft);model.rotation.y=angle;scene.add(model);
     loaded=true;section.classList.add('flight-ready');status.hidden=true;
     pause.disabled=false;reset.disabled=false;resize();start();
   } catch(error) {failed=true;section.classList.add('flight-unavailable');label();console.warn('NavCrew 3D:',error.message);}
@@ -77,5 +86,5 @@ new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;if(inView){i
 document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
 reduced.addEventListener('change',e=>{paused=e.matches;label();if(paused)stop();else start();});
 new MutationObserver(label).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();stop();failed=true;status.hidden=false;label();});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();stop();failed=true;status.hidden=false;section.classList.remove('flight-ready');section.classList.add('flight-unavailable');pause.disabled=true;reset.disabled=true;label();});
 label();

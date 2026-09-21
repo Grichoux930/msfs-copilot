@@ -16,3 +16,5 @@
 .flight-edition{font:9px monospace;letter-spacing:1.1px;color:#6f8b9f}
 @media(max-width:700px){.flight-scene{padding-top:24px;margin-bottom:35px}.flight-heading{padding:0 10px}.flight-heading h2{font-size:27px;letter-spacing:-.9px;max-width:340px;margin:12px auto 9px}.flight-kicker{font-size:8px;letter-spacing:2px}.flight-heading p{font-size:12px}.flight-viewport{height:265px;margin-top:0}.flight-viewport:before{width:92%;left:4%;height:65%;top:3%;opacity:.08}.flight-footer{padding:0 0 20px;gap:12px;flex-direction:column}.flight-instruction{font-size:10px}.flight-controls button{font-size:11px;padding:8px 15px}.flight-edition{display:none}}
 @media(prefers-reduced-motion:reduce){.flight-viewport canvas{transition:none}}
+
+.flight-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1;pointer-events:none}.flight-ready .flight-poster{opacity:0}.flight-unavailable #flight-status{top:auto;bottom:0;margin:0;font-size:10px;color:#8ca5b7}.flight-unavailable .flight-instruction,.flight-unavailable .flight-controls{display:none}
