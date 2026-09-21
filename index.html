@@ -27,7 +27,26 @@
    .benefit-intro { background-color: #edf0f2; color: #152137; }
    .price-card { background-color: #f3f7fa; color: #142239; }
   </style>
-  <script defer src="flight-scene.js?v=5"></script>
+  <script id="navcrew-aircraft-cache-bust">
+(function(){
+  const nativeFetch = window.fetch;
+  if (!nativeFetch) return;
+  window.fetch = function(resource, init){
+    try {
+      const raw = typeof resource === 'string' ? resource : (resource && resource.url);
+      if (raw && /(?:^|\/)assets\/aircraft\.glb(?:[?#]|$)/.test(raw)) {
+        const url = new URL(raw, location.href);
+        url.searchParams.set('v', '20260921b');
+        resource = typeof resource === 'string'
+          ? url.toString()
+          : new Request(url.toString(), resource);
+      }
+    } catch (_) {}
+    return nativeFetch.call(this, resource, init);
+  };
+})();
+</script>
+  <script defer src="flight-scene.js?v=6"></script>
   <script defer="" src="site.js">
   </script>
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GPZQX5K71R">
