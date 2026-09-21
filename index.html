@@ -2,6 +2,7 @@
 <html lang="fr">
  <head>
   <meta charset="utf-8"/>
+  <meta name="color-scheme" content="only light"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
    NavCrew AI &mdash; Votre copilote IA pour MSFS
@@ -20,6 +21,12 @@
   <link href="presentation.css" rel="stylesheet"/>
   <link href="art-direction.css" rel="stylesheet"/>
   <link href="flight-scene.css" rel="stylesheet"/>
+  <style>
+   /* Preserve the intentional dark/light palette, including on Android. */
+   :root { color-scheme: only light; }
+   .benefit-intro { background-color: #edf0f2; color: #152137; }
+   .price-card { background-color: #f3f7fa; color: #142239; }
+  </style>
   <script defer src="flight-scene.js"></script>
   <script defer="" src="site.js">
   </script>
