@@ -10,7 +10,7 @@ const reset = document.getElementById('flight-reset');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let paused = reduced.matches, inView = false, model, renderer, scene, camera;
 let frame = 0, drag = null, last = 0, angle = -.28, targetAngle = -.28, tilt = 0, targetTilt = 0, phase = 0;
-let failed = false, loaded = false, bounds;
+let failed = false, loaded = false, fitPoints = [];
 function label() {
   const en = document.documentElement.lang === 'en';
   pause.setAttribute('aria-pressed', String(paused));
@@ -20,14 +20,14 @@ function label() {
 }
 function stop(){ cancelAnimationFrame(frame); frame = 0; }
 function fitCamera(){
-  if(!bounds)return;
+  if(!fitPoints.length)return;
   const direction=new THREE.Vector3(.92,.48,1.1).normalize();
   const right=new THREE.Vector3().crossVectors(camera.up,direction).normalize();
   const up=new THREE.Vector3().crossVectors(direction,right);
   const tanV=Math.tan(THREE.MathUtils.degToRad(camera.fov)/2),tanH=tanV*camera.aspect;
   let distance=0;
-  for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z]){
-    const p=new THREE.Vector3(x,y,z).applyEuler(model.rotation);
+  for(const point of fitPoints){
+    const p=point.clone().applyEuler(model.rotation);
     distance=Math.max(distance,p.dot(direction)+Math.max(Math.abs(p.dot(right))/tanH,Math.abs(p.dot(up))/tanV)/.86);
   }
   camera.position.copy(direction).multiplyScalar(distance);camera.lookAt(0,0,0);camera.updateProjectionMatrix();
@@ -69,7 +69,9 @@ async function init(){
     const box=new THREE.Box3().setFromObject(aircraft),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
     const scale=10.8/Math.max(size.x,size.y,size.z);
     aircraft.position.copy(center).multiplyScalar(-scale);aircraft.scale.setScalar(scale);
-    bounds=new THREE.Box3().setFromObject(aircraft);model=new THREE.Group();model.add(aircraft);model.rotation.y=angle;scene.add(model);
+    aircraft.updateMatrixWorld(true);
+    aircraft.traverse(obj=>{if(obj.isMesh){const positions=obj.geometry.attributes.position;for(let i=0;i<positions.count;i++)fitPoints.push(new THREE.Vector3().fromBufferAttribute(positions,i).applyMatrix4(obj.matrixWorld));}});
+    model=new THREE.Group();model.add(aircraft);model.rotation.y=angle;scene.add(model);
     loaded=true;section.classList.add('flight-ready');status.hidden=true;
     pause.disabled=false;reset.disabled=false;resize();start();
   } catch(error) {failed=true;section.classList.add('flight-unavailable');label();console.warn('NavCrew 3D:',error.message);}
