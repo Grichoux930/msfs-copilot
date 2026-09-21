@@ -63,7 +63,7 @@ async function init(){
     scene.add(new THREE.HemisphereLight(0xc8e8ff,0x162332,2.2));
     const key=new THREE.DirectionalLight(0xfff4e8,3.2);key.position.set(3,7,-5);scene.add(key);
     const rim=new THREE.DirectionalLight(0x79cfff,2.2);rim.position.set(-5,2,4);scene.add(rim);
-    const gltf=await new GLTFLoader().loadAsync('assets/aircraft.glb');
+    const gltf=await new GLTFLoader().loadAsync('assets/aircraft.glb?v=20260921b');
     const aircraft=gltf.scene;
     aircraft.traverse(obj=>{if(obj.isMesh){const m=obj.material;m.roughness=.36;m.metalness=.18;}});
     const box=new THREE.Box3().setFromObject(aircraft),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
