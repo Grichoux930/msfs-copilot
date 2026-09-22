@@ -97,7 +97,66 @@
   }
 }
   </style>
- </head>
+ 
+  <style id="navcrew-final-cta-aircraft">
+   /* Final CTA — subtle NavCrew aircraft background */
+   .final-cta{
+     position:relative;
+     isolation:isolate;
+     overflow:hidden;
+     background:#080e18;
+   }
+
+   .final-cta::before{
+     content:"";
+     position:absolute;
+     inset:0;
+     z-index:0;
+     pointer-events:none;
+     background-image:url("navcrew-final-cta-aircraft.png");
+     background-repeat:no-repeat;
+     background-size:cover;
+     background-position:68% 54%;
+     opacity:.16;
+     filter:saturate(.85) contrast(1.05);
+     transform:scale(1.02);
+   }
+
+   .final-cta::after{
+     content:"";
+     position:absolute;
+     inset:0;
+     z-index:1;
+     pointer-events:none;
+     background:
+       linear-gradient(90deg,
+         rgba(8,14,24,.96) 0%,
+         rgba(8,14,24,.88) 34%,
+         rgba(8,14,24,.62) 70%,
+         rgba(8,14,24,.76) 100%),
+       linear-gradient(180deg,
+         rgba(8,14,24,.12) 0%,
+         rgba(8,14,24,.38) 100%);
+   }
+
+   .final-cta > *{
+     position:relative;
+     z-index:2;
+   }
+
+   @media (max-width:720px){
+     .final-cta::before{
+       background-position:62% 50%;
+       opacity:.11;
+       transform:scale(1.08);
+     }
+
+     .final-cta::after{
+       background:rgba(8,14,24,.78);
+     }
+   }
+  </style>
+</head>
  <body>
   <a class="skip" href="#main">
    <span data-en="Skip to content">
