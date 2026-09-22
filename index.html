@@ -97,64 +97,82 @@
   }
 }
   </style>
- 
+
   <style id="navcrew-final-cta-aircraft">
-   /* Final CTA — subtle NavCrew aircraft background */
-   .final-cta{
-     position:relative;
-     isolation:isolate;
-     overflow:hidden;
-     background:#080e18;
-   }
+    /* Final CTA — NavCrew aircraft visible but still behind the copy */
+    .final-cta{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      background:#080e18;
+    }
 
-   .final-cta::before{
-     content:"";
-     position:absolute;
-     inset:0;
-     z-index:0;
-     pointer-events:none;
-     background-image:url("navcrew-final-cta-aircraft.png");
-     background-repeat:no-repeat;
-     background-size:cover;
-     background-position:68% 54%;
-     opacity:.16;
-     filter:saturate(.85) contrast(1.05);
-     transform:scale(1.02);
-   }
+    .final-cta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
 
-   .final-cta::after{
-     content:"";
-     position:absolute;
-     inset:0;
-     z-index:1;
-     pointer-events:none;
-     background:
-       linear-gradient(90deg,
-         rgba(8,14,24,.96) 0%,
-         rgba(8,14,24,.88) 34%,
-         rgba(8,14,24,.62) 70%,
-         rgba(8,14,24,.76) 100%),
-       linear-gradient(180deg,
-         rgba(8,14,24,.12) 0%,
-         rgba(8,14,24,.38) 100%);
-   }
+      background-image:url("navcrew-final-cta-aircraft.png");
+      background-repeat:no-repeat;
+      background-size:72% auto;
+      background-position:100% 54%;
 
-   .final-cta > *{
-     position:relative;
-     z-index:2;
-   }
+      opacity:.58;
+      filter:saturate(.85) brightness(.78) contrast(1.04);
 
-   @media (max-width:720px){
-     .final-cta::before{
-       background-position:62% 50%;
-       opacity:.11;
-       transform:scale(1.08);
-     }
+      -webkit-mask-image:linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0,0,0,.20) 28%,
+        #000 52%,
+        #000 100%
+      );
+      mask-image:linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0,0,0,.20) 28%,
+        #000 52%,
+        #000 100%
+      );
+    }
 
-     .final-cta::after{
-       background:rgba(8,14,24,.78);
-     }
-   }
+    .final-cta::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        linear-gradient(90deg,
+          rgba(8,14,24,.92) 0%,
+          rgba(8,14,24,.72) 34%,
+          rgba(8,14,24,.28) 70%,
+          rgba(8,14,24,.34) 100%),
+        linear-gradient(180deg,
+          rgba(8,14,24,.08) 0%,
+          rgba(8,14,24,.26) 100%);
+    }
+
+    .final-cta > *{
+      position:relative;
+      z-index:2;
+    }
+
+    @media (max-width:720px){
+      .final-cta::before{
+        background-size:auto 100%;
+        background-position:72% 50%;
+        opacity:.34;
+        -webkit-mask-image:none;
+        mask-image:none;
+      }
+
+      .final-cta::after{
+        background:rgba(8,14,24,.58);
+      }
+    }
   </style>
 </head>
  <body>
