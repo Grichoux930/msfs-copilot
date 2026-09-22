@@ -99,12 +99,13 @@
   </style>
 
   <style id="navcrew-final-cta-aircraft">
-    /* Final CTA — NavCrew aircraft visible but still behind the copy */
+    /* Final CTA — much more visible aircraft on desktop and mobile */
     .final-cta{
       position:relative;
       isolation:isolate;
       overflow:hidden;
-      background:#080e18;
+      background:
+        linear-gradient(90deg,#06101d 0%, #071423 42%, #071220 100%);
     }
 
     .final-cta::before{
@@ -113,29 +114,12 @@
       inset:0;
       z-index:0;
       pointer-events:none;
-
       background-image:url("navcrew-final-cta-aircraft.png");
       background-repeat:no-repeat;
-      background-size:72% auto;
-      background-position:100% 54%;
-
-      opacity:.58;
-      filter:saturate(.85) brightness(.78) contrast(1.04);
-
-      -webkit-mask-image:linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0,0,0,.20) 28%,
-        #000 52%,
-        #000 100%
-      );
-      mask-image:linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0,0,0,.20) 28%,
-        #000 52%,
-        #000 100%
-      );
+      background-size:auto 125%;
+      background-position:right center;
+      opacity:.88;
+      filter:brightness(.82) saturate(.92) contrast(1.05);
     }
 
     .final-cta::after{
@@ -146,13 +130,14 @@
       pointer-events:none;
       background:
         linear-gradient(90deg,
-          rgba(8,14,24,.92) 0%,
-          rgba(8,14,24,.72) 34%,
-          rgba(8,14,24,.28) 70%,
-          rgba(8,14,24,.34) 100%),
+          rgba(6,12,20,.94) 0%,
+          rgba(6,12,20,.86) 26%,
+          rgba(6,12,20,.58) 48%,
+          rgba(6,12,20,.28) 68%,
+          rgba(6,12,20,.18) 100%),
         linear-gradient(180deg,
-          rgba(8,14,24,.08) 0%,
-          rgba(8,14,24,.26) 100%);
+          rgba(6,12,20,.10) 0%,
+          rgba(6,12,20,.22) 100%);
     }
 
     .final-cta > *{
@@ -160,17 +145,41 @@
       z-index:2;
     }
 
+    @media (max-width:980px){
+      .final-cta::before{
+        background-size:auto 112%;
+        background-position:68% center;
+        opacity:.72;
+      }
+      .final-cta::after{
+        background:
+          linear-gradient(90deg,
+            rgba(6,12,20,.90) 0%,
+            rgba(6,12,20,.70) 48%,
+            rgba(6,12,20,.34) 100%),
+          linear-gradient(180deg,
+            rgba(6,12,20,.10) 0%,
+            rgba(6,12,20,.20) 100%);
+      }
+    }
+
     @media (max-width:720px){
       .final-cta::before{
-        background-size:auto 100%;
-        background-position:72% 50%;
-        opacity:.34;
-        -webkit-mask-image:none;
-        mask-image:none;
+        background-size:190% auto;
+        background-position:74% center;
+        opacity:.64;
+        filter:brightness(.84) saturate(.95) contrast(1.04);
       }
 
       .final-cta::after{
-        background:rgba(8,14,24,.58);
+        background:
+          linear-gradient(90deg,
+            rgba(6,12,20,.72) 0%,
+            rgba(6,12,20,.44) 55%,
+            rgba(6,12,20,.22) 100%),
+          linear-gradient(180deg,
+            rgba(6,12,20,.08) 0%,
+            rgba(6,12,20,.18) 100%);
       }
     }
   </style>
