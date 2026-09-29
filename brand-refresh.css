@@ -1,5 +1,5 @@
 /* NavCrew visual refresh. All site content and the interactive aircraft remain intact. */
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap");
+@font-face{font-family:"Barlow Condensed";src:url("assets/BarlowCondensed-Bold.ttf") format("truetype");font-style:normal;font-weight:700;font-display:swap;}
 :root{--bg:#f5f7f5;--panel:#fff;--line:#cbd5d5;--text:#102c38;--muted:#526772;--accent:#e8b563;--gold:#e8b563;--display:'Manrope',Arial,sans-serif}
 html{scroll-padding-top:88px}body{background:#f5f7f5;color:#102c38}p{color:#526772}::selection{background:#e8b563;color:#102c38}a:focus-visible,button:focus-visible,summary:focus-visible{outline-color:#9b6323}
 header{min-height:76px;padding-top:12px;padding-bottom:12px;background:#0c2530f5;border-bottom:1px solid #ffffff32;backdrop-filter:blur(18px)}header .brand{color:white;letter-spacing:-.6px}header .brand small{letter-spacing:1.4px;color:#d2e0df}header .brand-ai{color:#e8b563;border:0;font-size:12px}header nav{color:#e5eeee;font-size:14px}header nav a:hover{color:#e8b563}.languages button{color:#d3e1df;font-size:13px}.languages button[aria-pressed=true]{color:white;border-color:#e8b563}.nav-actions .button{background:#f6f8f6;color:#102c38;border:0;border-radius:2px;font-size:12px;box-shadow:none}
